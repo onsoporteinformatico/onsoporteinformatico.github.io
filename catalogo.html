@@ -26,7 +26,7 @@
         .producto { overflow: hidden; border: 1px solid #292929; border-radius: 13px; background: #121212; transition: border-color .2s, transform .2s; }
         .producto:hover { border-color: #39d353; transform: translateY(-2px); }
         .producto-imagen { position: relative; display: grid; place-items: center; height: 172px; overflow: hidden; background: radial-gradient(ellipse at 50% 66%, #293d25, #171d17 66%, #121212); }
-        .producto-imagen img { width: 100%; height: 100%; object-fit: cover; }
+        .producto-imagen img { width: 100%; height: 100%; object-fit: contain; background: #e7e8e5; }
         .producto-imagen:after { content: ""; position: absolute; bottom: 17px; width: 55%; height: 9px; border-radius: 50%; background: #000; filter: blur(7px); }
         .producto-imagen svg { z-index: 1; width: 104px; height: 104px; filter: drop-shadow(0 8px 6px #0009); }
         .producto-etiqueta { position: absolute; z-index: 2; top: 8px; left: 8px; padding: 4px 7px; border: 1px solid #3e5a35; border-radius: 99px; background: #101610; color: #b8ee88; font-size: 8px; font-weight: 700; letter-spacing: .5px; }
@@ -68,7 +68,7 @@
         </nav>
 
         <section class="productos" id="productos" aria-label="Productos de impresión 3D"></section>
-        <p class="nota">Productos y precios ilustrativos para esta muestra. Consultá colores, medidas y disponibilidad.</p>
+        <p class="nota">Consultá colores, medidas y disponibilidad.</p>
 
         <section class="a-medida">
             <strong>¿Tenés una idea propia?</strong>
@@ -82,13 +82,14 @@
     <script>
         // Para actualizar el catálogo, cambiá los datos de cada producto en esta lista.
         const productos = [
-            { nombre: "Caja de balas - 25 balas", categoria: "Cajas de munición", precio: "$ 25.000", descripcion: ".300, .308, .30-06 o Win Mag a pedido.", foto: "assets/productos-1.png", recorte: "3%", etiqueta: "25 BALAS" },
-            { nombre: "Caja de balas - 40 o 50 balas", categoria: "Cajas de munición", precio: "$ 40.000", descripcion: "Capacidad de 40 o 50 balas · calibre a pedido.", foto: "assets/productos-1.png", recorte: "49%", etiqueta: "40 / 50 BALAS" },
-            { nombre: "Caja de balas - 100 balas", categoria: "Cajas de munición", precio: "$ 90.000", descripcion: "Capacidad de 100 balas · calibre a pedido.", foto: "assets/productos-1.png", recorte: "93%", etiqueta: "100 BALAS" },
-            { nombre: "Caja de balas deslizable - 20", categoria: "Cajas de munición", precio: "$ 25.000", descripcion: "20 balas · .300, .308, .30-06 o Win Mag.", foto: "assets/productos-2.png", recorte: "5%", etiqueta: "DESLIZABLE" },
-            { nombre: "Caja apilable camuflada - 20", categoria: "Cajas de munición", precio: "$ 35.000", descripcion: "20 balas · .300, .308, .30-06 o Win Mag.", foto: "assets/productos-2.png", recorte: "72%", etiqueta: "CAMUFLADA" },
-            { nombre: "Llamador de ciervos axis", categoria: "Accesorios de caza", precio: "$ 20.000", descripcion: "Incluye correa para colgar.", foto: "assets/productos-3.png", recorte: "5%", etiqueta: "AXIS" },
-            { nombre: "Caja de balas .223 REM - 50 balas", categoria: "Cajas de munición", precio: "$ 50.000", descripcion: "Capacidad para 50 balas.", foto: "assets/productos-3.png", recorte: "99%", etiqueta: "50 BALAS" }
+            { nombre: "Caja de balas - 25 balas", categoria: "Cajas de munición", precio: "$ 25.000", descripcion: "Cal. .300, .308, .30-06 o Win Mag a pedido.", foto: "assets/caja-25.png", etiqueta: "25 BALAS" },
+            { nombre: "Caja de balas - 40 o 50 balas", categoria: "Cajas de munición", precio: "$ 40.000", descripcion: "Cal. .300, .308, .30-06 o Win Mag a pedido.", foto: "assets/caja-40-50.png", etiqueta: "40 / 50 BALAS" },
+            { nombre: "Caja de balas - 100 balas", categoria: "Cajas de munición", precio: "$ 90.000", descripcion: "Cal. .300, .308, .30-06 o Win Mag a pedido.", foto: "assets/caja-100.png", etiqueta: "100 BALAS" },
+            { nombre: "Caja de balas deslizable - 20", categoria: "Cajas de munición", precio: "$ 25.000", descripcion: "Cal. .300, .308, .30-06 o Win Mag a pedido.", foto: "assets/caja-deslizable.png", etiqueta: "DESLIZABLE" },
+            { nombre: "Caja de munición apilable camuflada", categoria: "Cajas de munición", precio: "$ 35.000", descripcion: "20 balas · calibres .300, .308, .30-06 o Win Mag.", foto: "assets/caja-camuflada.png", etiqueta: "CAMUFLADA" },
+            { nombre: "Llamador de ciervos AXIS", categoria: "Accesorios de caza", precio: "$ 20.000", descripcion: "Incluye correa para colgar.", foto: "assets/llamador-axis.png", etiqueta: "AXIS" },
+            { nombre: "Caja de balas levadiza - Cal. .223", categoria: "Cajas de munición", precio: "$ 50.000", descripcion: "Capacidad para 50 balas.", foto: "assets/caja-cal223.png", etiqueta: "50 BALAS" },
+            { nombre: "Caja de balas - 80 balas", categoria: "Cajas de munición", precio: "$ 75.000", descripcion: "Cal. .300, .308 o .30-06 a pedido.", foto: "assets/caja-80.png", etiqueta: "80 BALAS" }
         ];
 
         const dibujos = {
@@ -108,7 +109,7 @@
             const visibles = productos.filter(p => filtro === "Todos" || p.categoria === filtro);
             grilla.innerHTML = visibles.map(p => {
                 const enlace = `https://wa.me/${telefonoON}?text=${encodeURIComponent(`Hola ON, quisiera consultar por ${p.nombre}.`)}`;
-                return `<article class="producto"><div class="producto-imagen"><span class="producto-etiqueta">${p.etiqueta}</span><img src="${p.foto}" alt="${p.nombre}" style="object-position:center ${p.recorte}"></div><div class="producto-info"><div class="producto-categoria">${p.categoria}</div><h2>${p.nombre}</h2><p class="producto-descripcion">${p.descripcion}</p><div class="producto-pie"><div class="producto-precio">${p.precio}</div><span aria-hidden="true">↗</span></div><a class="consulta" href="${enlace}" target="_blank" rel="noopener">Consultar por WhatsApp</a></div></article>`;
+                return `<article class="producto"><div class="producto-imagen"><span class="producto-etiqueta">${p.etiqueta}</span><img src="${p.foto}" alt="${p.nombre}"></div><div class="producto-info"><div class="producto-categoria">${p.categoria}</div><h2>${p.nombre}</h2><p class="producto-descripcion">${p.descripcion}</p><div class="producto-pie"><div class="producto-precio">${p.precio}</div><span aria-hidden="true">↗</span></div><a class="consulta" href="${enlace}" target="_blank" rel="noopener">Consultar por WhatsApp</a></div></article>`;
             }).join("");
         }
 

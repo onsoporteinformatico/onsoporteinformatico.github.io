@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#080808">
+    <title>Catálogo de Impresión 3D | ON Soporte Informático</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, Helvetica, sans-serif; background: #080808; color: #fff; min-height: 100vh; }
+        .contenedor { width: 100%; max-width: 520px; margin: auto; padding: 25px 20px 30px; }
+        .volver { display: inline-flex; align-items: center; gap: 8px; color: #bdbdbd; text-decoration: none; font-size: 12px; margin-bottom: 21px; }
+        .volver:hover { color: #39d353; }
+        .logo { display: block; width: 100%; max-width: 210px; max-height: 90px; object-fit: contain; margin: 0 auto 20px; }
+        .logo-fallback { display: grid; place-items: center; width: 78px; height: 78px; margin: 0 auto 20px; border: 2px solid #39d353; border-radius: 22px; color: #39d353; font-size: 34px; font-weight: 800; letter-spacing: -3px; }
+        .presentacion { text-align: center; }
+        .etiqueta { color: #39d353; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+        h1 { margin: 8px 0; font-size: 27px; letter-spacing: -.7px; }
+        .intro { color: #999; font-size: 12px; line-height: 1.55; }
+        .linea { width: 54px; height: 3px; margin: 20px auto 18px; background: #39d353; }
+        .filtros { display: flex; gap: 7px; overflow-x: auto; padding: 2px 0 14px; scrollbar-width: none; }
+        .filtros::-webkit-scrollbar { display: none; }
+        .filtro { flex: 0 0 auto; padding: 8px 11px; border: 1px solid #333; border-radius: 99px; background: #121212; color: #b7b7b7; font-size: 11px; font-weight: 600; cursor: pointer; }
+        .filtro:hover, .filtro.activo { border-color: #39d353; background: #101a11; color: #39d353; }
+        .productos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
+        .producto { overflow: hidden; border: 1px solid #292929; border-radius: 13px; background: #121212; transition: border-color .2s, transform .2s; }
+        .producto:hover { border-color: #39d353; transform: translateY(-2px); }
+        .producto-imagen { position: relative; display: grid; place-items: center; height: 132px; overflow: hidden; background: radial-gradient(ellipse at 50% 66%, #293d25, #171d17 66%, #121212); }
+        .producto-imagen:after { content: ""; position: absolute; bottom: 17px; width: 55%; height: 9px; border-radius: 50%; background: #000; filter: blur(7px); }
+        .producto-imagen svg { z-index: 1; width: 104px; height: 104px; filter: drop-shadow(0 8px 6px #0009); }
+        .producto-etiqueta { position: absolute; z-index: 2; top: 8px; left: 8px; padding: 4px 7px; border: 1px solid #3e5a35; border-radius: 99px; background: #101610; color: #b8ee88; font-size: 8px; font-weight: 700; letter-spacing: .5px; }
+        .producto-info { padding: 11px 10px 10px; }
+        .producto-categoria { color: #39d353; font-size: 8px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+        .producto h2 { margin: 4px 0; font-size: 13px; line-height: 1.25; }
+        .producto-descripcion { min-height: 30px; color: #999; font-size: 10px; line-height: 1.45; }
+        .producto-pie { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin: 9px 0 8px; padding-top: 8px; border-top: 1px solid #292929; }
+        .producto-precio { color: #fff; font-size: 14px; font-weight: 700; }
+        .producto-precio small { display: block; color: #777; font-size: 8px; font-weight: 400; }
+        .consulta { display: block; padding: 9px 5px; border: 1px solid #315b35; border-radius: 8px; background: #142017; color: #65e476; text-align: center; text-decoration: none; font-size: 10px; font-weight: 700; }
+        .consulta:hover { background: #39d353; color: #080808; }
+        .nota { margin-top: 13px; color: #777; text-align: center; font-size: 10px; line-height: 1.5; }
+        .a-medida { margin-top: 15px; padding: 15px; border: 1px dashed #3a493a; border-radius: 12px; background: #101410; text-align: center; }
+        .a-medida strong { font-size: 13px; }
+        .a-medida p { margin: 4px 0 11px; color: #929292; font-size: 11px; }
+        .a-medida .consulta { font-size: 11px; }
+        .pie { margin-top: 28px; padding-top: 19px; border-top: 1px solid #292929; text-align: center; color: #666; font-size: 10px; letter-spacing: 1px; }
+        .pie a { display: inline-block; margin-top: 11px; color: #39d353; text-decoration: none; letter-spacing: 0; font-size: 11px; font-weight: 700; }
+        @media (max-width: 380px) { .contenedor { padding: 20px 15px 25px; } .producto-imagen { height: 116px; } .producto-imagen svg { width: 94px; height: 94px; } }
+    </style>
+</head>
+<body>
+    <main class="contenedor">
+        <a class="volver" href="index.html">← Volver a ON Soporte Informático</a>
+        <img src="logo_on_transparente.png" alt="ON Soporte Informático" class="logo" onerror="this.outerHTML='<div class=\'logo-fallback\' aria-label=\'ON Soporte Informático\'>ON</div>'">
+
+        <header class="presentacion">
+            <div class="etiqueta">Tecnología · Diseño · Soluciones</div>
+            <h1>Catálogo de Impresión 3D</h1>
+            <p class="intro">Objetos útiles, accesorios y piezas personalizadas.<br>Elegí una categoría y consultanos por WhatsApp.</p>
+            <div class="linea"></div>
+        </header>
+
+        <nav class="filtros" aria-label="Filtrar productos por categoría">
+            <button class="filtro activo" type="button" data-filtro="Todos">Todos</button>
+            <button class="filtro" type="button" data-filtro="Hogar">⌂ Hogar</button>
+            <button class="filtro" type="button" data-filtro="Gaming">◈ Gaming</button>
+            <button class="filtro" type="button" data-filtro="Llaveros">Llaveros</button>
+            <button class="filtro" type="button" data-filtro="Utilitarios">⚙ Utilitarios</button>
+            <button class="filtro" type="button" data-filtro="Personalizados">✳ A medida</button>
+        </nav>
+
+        <section class="productos" id="productos" aria-label="Productos de impresión 3D"></section>
+        <p class="nota">Productos y precios ilustrativos para esta muestra. Consultá colores, medidas y disponibilidad.</p>
+
+        <section class="a-medida">
+            <strong>¿Tenés una idea propia?</strong>
+            <p>Contanos qué necesitás y vemos cómo darle forma.</p>
+            <a class="consulta" id="consulta-personalizada" href="#">Consultar mi idea por WhatsApp ↗</a>
+        </section>
+
+        <footer class="pie">ON · SOPORTE INFORMÁTICO<a href="index.html">Volver a la página principal ↑</a></footer>
+    </main>
+
+    <script>
+        // Para actualizar el catálogo, cambiá los datos de cada producto en esta lista.
+        const productos = [
+            { nombre: "Soporte para celular", categoria: "Hogar", precio: "$ 8.500", descripcion: "Base cómoda para escritorio y mesa.", dibujo: "celular", etiqueta: "MÁS ELEGIDO" },
+            { nombre: "Organizador modular", categoria: "Hogar", precio: "$ 12.000", descripcion: "Orden para tus cosas de todos los días.", dibujo: "organizador", etiqueta: "PRÁCTICO" },
+            { nombre: "Soporte para auriculares", categoria: "Gaming", precio: "$ 14.500", descripcion: "Un lugar para tus auriculares al terminar.", dibujo: "auriculares", etiqueta: "SETUP" },
+            { nombre: "Llavero con inicial", categoria: "Llaveros", precio: "$ 3.500", descripcion: "Elegí tu letra y el color que más te guste.", dibujo: "llavero", etiqueta: "A TU GUSTO" },
+            { nombre: "Clip sujetacables", categoria: "Utilitarios", precio: "$ 2.800", descripcion: "Mantené tus cables juntos y a mano.", dibujo: "clip", etiqueta: "IDEA ÚTIL" },
+            { nombre: "Maceta geométrica", categoria: "Hogar", precio: "$ 7.900", descripcion: "Un detalle de diseño para plantas pequeñas.", dibujo: "maceta", etiqueta: "DECORACIÓN" },
+            { nombre: "Base para joystick", categoria: "Gaming", precio: "$ 9.800", descripcion: "Exhibí y guardá tu control con estilo.", dibujo: "joystick", etiqueta: "GAMING" },
+            { nombre: "Pieza personalizada", categoria: "Personalizados", precio: "Consultar", descripcion: "Logos, nombres, repuestos y proyectos.", dibujo: "personalizado", etiqueta: "A MEDIDA" }
+        ];
+
+        const dibujos = {
+            celular: `<svg viewBox="0 0 120 120" fill="none"><path d="M23 89h75l-9-13H33z" fill="#39d353" stroke="#a6ffad" stroke-width="3"/><path d="M39 72l13-43q2-6 8-4l27 8q6 2 4 8L80 82" fill="#75eb74" stroke="#c3ffc1" stroke-width="3"/><path d="M50 36l28 8M47 46l28 8m-31 2 28 8" stroke="#27963b" stroke-width="3"/></svg>`,
+            organizador: `<svg viewBox="0 0 120 120" fill="none"><path d="M24 47h72v47H24z" fill="#54d968" stroke="#b4ffad" stroke-width="3"/><path d="M32 55h56v31H32z" stroke="#258d3b" stroke-width="3"/><path d="M39 47V31h42v16m-35-15v15m13-15v15m13-15v15" stroke="#c2ffb7" stroke-width="4"/></svg>`,
+            auriculares: `<svg viewBox="0 0 120 120" fill="none"><path d="M35 68V54a25 25 0 0 1 50 0v14" stroke="#8cf08c" stroke-width="9" stroke-linecap="round"/><rect x="29" y="61" width="15" height="28" rx="7" fill="#39d353" stroke="#c2ffb7" stroke-width="3"/><rect x="76" y="61" width="15" height="28" rx="7" fill="#39d353" stroke="#c2ffb7" stroke-width="3"/><path d="M39 91h43v11H39z" fill="#268c39" stroke="#80e784" stroke-width="3"/></svg>`,
+            llavero: `<svg viewBox="0 0 120 120" fill="none"><circle cx="56" cy="52" r="29" fill="#51d466" stroke="#baffad" stroke-width="3"/><circle cx="56" cy="52" r="18" stroke="#278d3a" stroke-width="3"/><path d="M48 64V40h9q11 0 11 8t-11 8h-9m10 0 12 9" stroke="#efffed" stroke-width="5" stroke-linecap="round"/><path d="m80 76 17 17" stroke="#ddd" stroke-width="6" stroke-linecap="round"/><circle cx="101" cy="97" r="9" stroke="#ddd" stroke-width="4"/></svg>`,
+            clip: `<svg viewBox="0 0 120 120" fill="none"><rect x="34" y="22" width="52" height="78" rx="10" fill="#4bd261" stroke="#baffad" stroke-width="3"/><path d="M44 34h32v54H44z" fill="#203424" stroke="#9af09a" stroke-width="3"/><path d="M51 45h18m-18 12h18m-18 12h18" stroke="#64db75" stroke-width="4" stroke-linecap="round"/></svg>`,
+            maceta: `<svg viewBox="0 0 120 120" fill="none"><path d="M39 58h42l-6 42H45z" fill="#52d466" stroke="#baffad" stroke-width="3"/><path d="M35 53h50v10H35z" fill="#85ec83" stroke="#c2ffb7" stroke-width="3"/><path d="M60 53V26m0 21Q39 49 39 32q15-4 21 12zm1-5q2-18 21-19 2 15-19 24" fill="#338f42" stroke="#baffad" stroke-width="3" stroke-linejoin="round"/></svg>`,
+            joystick: `<svg viewBox="0 0 120 120" fill="none"><path d="M34 43q5-11 17-11h22q12 0 17 11l11 31q3 10-6 13-7 3-12-5l-8-10H49l-8 10q-5 8-12 5-9-3-6-13z" fill="#50d366" stroke="#baffad" stroke-width="3"/><path d="M43 51v20m-10-10h20" stroke="#efffed" stroke-width="5" stroke-linecap="round"/><circle cx="78" cy="50" r="3" fill="#efffed"/><circle cx="86" cy="61" r="3" fill="#efffed"/><circle cx="76" cy="70" r="3" fill="#efffed"/></svg>`,
+            personalizado: `<svg viewBox="0 0 120 120" fill="none"><path d="m60 20 7 19 19-7-7 19 19 7-19 7 7 19-19-7-7 19-7-19-19 7 7-19-19-7 19-7-7-19 19 7z" fill="#42ca58" stroke="#b5ffad" stroke-width="3" stroke-linejoin="round"/><circle cx="60" cy="64" r="14" stroke="#efffed" stroke-width="3"/><path d="M60 56v16m-8-8h16" stroke="#efffed" stroke-width="3" stroke-linecap="round"/></svg>`
+        };
+
+        const telefonoON = "5493364626333";
+        const grilla = document.getElementById("productos");
+        function renderizar(filtro = "Todos") {
+            const visibles = productos.filter(p => filtro === "Todos" || p.categoria === filtro);
+            grilla.innerHTML = visibles.map(p => {
+                const enlace = `https://wa.me/${telefonoON}?text=${encodeURIComponent(`Hola ON, quisiera consultar por ${p.nombre}.`)}`;
+                return `<article class="producto"><div class="producto-imagen"><span class="producto-etiqueta">${p.etiqueta}</span>${dibujos[p.dibujo]}</div><div class="producto-info"><div class="producto-categoria">${p.categoria}</div><h2>${p.nombre}</h2><p class="producto-descripcion">${p.descripcion}</p><div class="producto-pie"><div class="producto-precio">${p.precio}<small>Precio de muestra</small></div><span aria-hidden="true">↗</span></div><a class="consulta" href="${enlace}" target="_blank" rel="noopener">Consultar por WhatsApp</a></div></article>`;
+            }).join("");
+        }
+
+        document.querySelectorAll(".filtro").forEach(boton => boton.addEventListener("click", () => {
+            document.querySelector(".filtro.activo")?.classList.remove("activo");
+            boton.classList.add("activo");
+            renderizar(boton.dataset.filtro);
+        }));
+        document.getElementById("consulta-personalizada").href = `https://wa.me/${telefonoON}?text=${encodeURIComponent("Hola ON, quisiera consultar por un diseño personalizado.")}`;
+        document.getElementById("consulta-personalizada").target = "_blank";
+        document.getElementById("consulta-personalizada").rel = "noopener";
+        renderizar();
+    </script>
+</body>
+</html>

@@ -45,6 +45,34 @@
             margin: 0 auto 28px;
         }
 
+        .logo-fallback {
+            display: grid;
+            place-items: center;
+            width: 112px;
+            height: 112px;
+            margin: 0 auto 28px;
+            border: 2px solid #39d353;
+            border-radius: 28px;
+            color: #39d353;
+            font-size: 46px;
+            font-weight: 800;
+            letter-spacing: -4px;
+        }
+
+        .logo-pie-fallback {
+            display: grid;
+            place-items: center;
+            width: 58px;
+            height: 58px;
+            max-width: none;
+            border: 1px solid #39d353;
+            border-radius: 15px;
+            color: #39d353;
+            font-size: 22px;
+            font-weight: 800;
+            letter-spacing: -2px;
+        }
+
 
         /* =========================
            PRESENTACIÓN
@@ -311,6 +339,7 @@
 
                 font-size: 14px;
             }
+
         }
 
     </style>
@@ -332,6 +361,7 @@
         src="logo_on_transparente.png"
         alt="ON Soporte Informático"
         class="logo"
+        onerror="this.outerHTML='<div class=\'logo-fallback\' aria-label=\'ON Soporte Informático\'>ON</div>'"
     >
 
 
@@ -415,6 +445,8 @@
                 prototipos, accesorios y soluciones
                 a medida.
             </p>
+
+            <a style="display:inline-block;margin-top:12px;color:#39d353;font-size:12px;font-weight:700;text-decoration:none" href="catalogo.html">Ver catálogo de productos ↓</a>
 
         </div>
 
@@ -528,6 +560,7 @@
         src="logo_on_transparente.png"
         alt="ON Soporte Informático"
         class="logo-pie"
+        onerror="this.outerHTML='<div class=\'logo-pie-fallback\' aria-label=\'ON Soporte Informático\'>ON</div>'"
     >
 
 

@@ -65,6 +65,7 @@
             <button class="filtro activo" type="button" data-filtro="Todos">Todos</button>
             <button class="filtro" type="button" data-filtro="Cajas de munición">▰ Cajas de munición</button>
             <button class="filtro" type="button" data-filtro="Accesorios de caza">⌁ Accesorios de caza</button>
+            <button class="filtro" type="button" data-filtro="Adornos para acuarios">🐠 Adornos para acuarios</button>
         </nav>
 
         <section class="productos" id="productos" aria-label="Productos de impresión 3D"></section>
@@ -92,6 +93,34 @@
             { nombre: "Caja de balas - 80 balas", categoria: "Cajas de munición", precio: "$ 75.000", descripcion: "Cal. .300, .308 o .30-06 a pedido.", foto: "assets/caja-80.png", etiqueta: "80 BALAS" }
         ];
 
+        // Agregá o editá adornos para acuarios aquí. No incluir enlaces externos.
+        const productosAcuario = [
+            {"nombre": "Cueva Túnel de Acuario de Tronco Natural", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-01.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Stone Caves Hideout - Terrarium & Aquarium Decoration", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-02.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Escondite en el árbol", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-03.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Cueva de Roca", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-04.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Cueva del acuario", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-05.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Acuario Terrario Árbol de pie Cueva Escondite", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-06.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Puente de arco de piedra, paisajismo de acuario, escondite", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-07.png", "etiqueta": "ACUARIO"},
+            {"nombre": "El asombroso escondite del pececito (sumergible)", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-08.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Antigua Cueva Acuario – Refugio de Roca Lisa", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-09.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Túnel de esquina subterráneo para acuario/pecera", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-10.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Barco Hundido", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-11.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Barco Hundido 2", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-12.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Decoración del Castillo de Stonekeep", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-13.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Fortaleza de piedra abandonada, refugio para reptiles y zona de escalada.", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-14.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Decoración de acuario con paisajismo de estilo chino y puente antiguo para peces tropicales", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-15.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Portal de templo antiguo – Ruinas de acuario y mesa", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-16.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Refugio con forma de tocón de bosque - Decoración para terrarios y acuarios", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-17.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Paisaje de pecera con puente de piedra", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-18.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Pequeños peces se esconden en un acuario con forma de castillo", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-19.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Coral Stylophora Pistillata #2 - Decoración de Acuario", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-20.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Corallium Rubrum Coral Branch #3 - Aquarium Decor", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-21.png", "etiqueta": "ACUARIO"},
+            {"nombre": "Cursed Wooden Hollow Skull Hide - Terrarium Decor", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-22.png", "etiqueta": "ACUARIO"},
+        ];
+
+        const catalogoProductos = [...productos, ...productosAcuario];
+
         const dibujos = {
             celular: `<svg viewBox="0 0 120 120" fill="none"><path d="M23 89h75l-9-13H33z" fill="#39d353" stroke="#a6ffad" stroke-width="3"/><path d="M39 72l13-43q2-6 8-4l27 8q6 2 4 8L80 82" fill="#75eb74" stroke="#c3ffc1" stroke-width="3"/><path d="M50 36l28 8M47 46l28 8m-31 2 28 8" stroke="#27963b" stroke-width="3"/></svg>`,
             organizador: `<svg viewBox="0 0 120 120" fill="none"><path d="M24 47h72v47H24z" fill="#54d968" stroke="#b4ffad" stroke-width="3"/><path d="M32 55h56v31H32z" stroke="#258d3b" stroke-width="3"/><path d="M39 47V31h42v16m-35-15v15m13-15v15m13-15v15" stroke="#c2ffb7" stroke-width="4"/></svg>`,
@@ -103,13 +132,22 @@
             personalizado: `<svg viewBox="0 0 120 120" fill="none"><path d="m60 20 7 19 19-7-7 19 19 7-19 7 7 19-19-7-7 19-7-19-19 7 7-19-19-7 19-7-7-19 19 7z" fill="#42ca58" stroke="#b5ffad" stroke-width="3" stroke-linejoin="round"/><circle cx="60" cy="64" r="14" stroke="#efffed" stroke-width="3"/><path d="M60 56v16m-8-8h16" stroke="#efffed" stroke-width="3" stroke-linecap="round"/></svg>`
         };
 
+        function escapeHTML(value) {
+            return String(value).replace(/[&<>"']/g, char => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"
+            }[char]));
+        }
+
         const telefonoON = "5493364626333";
         const grilla = document.getElementById("productos");
         function renderizar(filtro = "Todos") {
-            const visibles = productos.filter(p => filtro === "Todos" || p.categoria === filtro);
+            const visibles = catalogoProductos.filter(p => filtro === "Todos" || p.categoria === filtro);
             grilla.innerHTML = visibles.map(p => {
                 const enlace = `https://wa.me/${telefonoON}?text=${encodeURIComponent(`Hola ON, quisiera consultar por ${p.nombre}.`)}`;
-                return `<article class="producto"><div class="producto-imagen"><span class="producto-etiqueta">${p.etiqueta}</span><img src="${p.foto}" alt="${p.nombre}"></div><div class="producto-info"><div class="producto-categoria">${p.categoria}</div><h2>${p.nombre}</h2><p class="producto-descripcion">${p.descripcion}</p><div class="producto-pie"><div class="producto-precio">${p.precio}</div><span aria-hidden="true">↗</span></div><a class="consulta" href="${enlace}" target="_blank" rel="noopener">Consultar por WhatsApp</a></div></article>`;
+                const nombreSeguro = escapeHTML(p.nombre);
+                const descripcion = p.descripcion ? `<p class="producto-descripcion">${escapeHTML(p.descripcion)}</p>` : "";
+                const piePrecio = p.precio ? `<div class="producto-pie"><div class="producto-precio">${escapeHTML(p.precio)}</div><span aria-hidden="true">↗</span></div>` : "";
+                return `<article class="producto"><div class="producto-imagen"><span class="producto-etiqueta">${escapeHTML(p.etiqueta || "ACUARIO")}</span><img src="${p.foto}" alt="${nombreSeguro}"></div><div class="producto-info"><div class="producto-categoria">${escapeHTML(p.categoria)}</div><h2>${nombreSeguro}</h2>${descripcion}${piePrecio}<a class="consulta" href="${enlace}" target="_blank" rel="noopener">Consultar por WhatsApp</a></div></article>`;
             }).join("");
         }
 

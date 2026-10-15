@@ -355,6 +355,40 @@
 
         }
 
+
+        .boton-catalogo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: 14px;
+            padding: 14px 16px;
+            border: 1px solid #72f47d;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #43df5a, #27bd43);
+            box-shadow: 0 5px 18px #39d35338;
+            color: #071008;
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: .65px;
+            line-height: 1.35;
+            text-align: center;
+            text-decoration: none;
+            transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+        }
+
+        .boton-catalogo:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px #39d3535c;
+            filter: brightness(1.08);
+        }
+
+        .boton-catalogo:focus-visible {
+            outline: 3px solid #fff;
+            outline-offset: 3px;
+        }
+
     </style>
 
 </head>
@@ -459,7 +493,7 @@
                 a medida.
             </p>
 
-            <a style="display:inline-block;margin-top:12px;color:#39d353;font-size:12px;font-weight:700;text-decoration:none" href="catalogo.html">Ver catálogo de productos ↓</a>
+            <a class="boton-catalogo" href="catalogo.html"><span aria-hidden="true">🛍️</span> VER CATÁLOGO DE IMPRESIÓN 3D <span aria-hidden="true">→</span></a>
 
         </div>
 
@@ -602,3 +636,4 @@
 
 </html>
 ```
+

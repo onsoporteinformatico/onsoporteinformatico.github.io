@@ -5,8 +5,15 @@
 <meta name="theme-color" content="#a92723"><title>Cancha — Torneos</title>
 <style>
 .toolbar{display:flex;align-items:center;gap:7px}.toolbar select{max-width:180px}.toolbar .secondary,.toolbar .primary{font-size:11px;padding:9px 11px}.top{gap:12px}.dialog{border:0;border-radius:16px;padding:24px;width:min(540px,calc(100% - 24px));box-shadow:0 24px 80px #160a0a40;color:var(--ink)}.dialog::backdrop{background:#16111180;backdrop-filter:blur(2px)}.dialog h2{margin:0 0 4px}.dialog p{color:var(--muted);font-size:12px;margin:0 0 18px}.dialog-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:5px;font-size:12px;font-weight:750}.field input,.field select{width:100%;border:1px solid var(--line);border-radius:8px;padding:10px;background:white}.field.wide{grid-column:1/-1}.dialog-actions{display:flex;justify-content:space-between;align-items:center;margin-top:18px}.checkrow{display:flex;align-items:center;gap:8px;font-size:12px}.github-note{background:#faf4f3;border-radius:10px;padding:12px;font-size:11px;color:var(--muted);margin-top:14px}.mobile-tools{display:none}@media(max-width:800px){.top{height:auto;min-height:65px;padding:8px 0;align-items:flex-start}.toolbar{flex-wrap:wrap;justify-content:flex-end}.toolbar select{max-width:135px}.toolbar .secondary,.toolbar .primary{font-size:10px;padding:8px}.brand-logo{width:38px;height:38px}}@media(max-width:540px){.shell{padding-left:12px;padding-right:12px}.top{flex-direction:column;align-items:stretch}.toolbar{justify-content:flex-start}.toolbar select{flex:1;max-width:none}.toolbar .hide-small{display:none}.dialog-grid{grid-template-columns:1fr}.field.wide{grid-column:auto}}
-</style></head>
-<body><div class="shell">
+</style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script></head>
+<body>
+<section id="cloudGate" style="max-width:560px;margin:8vh auto;padding:24px;background:white;border-radius:16px;box-shadow:0 12px 40px #16111118;font:15px system-ui;color:#242424">
+<div style="display:flex;align-items:center;gap:12px;margin-bottom:18px"><img src="logo-cancha-limpio.png" alt="" style="width:54px;height:54px;object-fit:contain"><div><h1 style="margin:0;font-size:24px">Cancha · Torneos</h1><p style="margin:4px 0;color:#686868">Gestión compartida de torneos</p></div></div>
+<form id="loginForm" style="display:grid;gap:12px"><label style="display:grid;gap:5px">Correo<input id="loginEmail" type="email" required autocomplete="username" style="padding:12px;border:1px solid #ddd;border-radius:8px"></label><label style="display:grid;gap:5px">Contraseña<input id="loginPassword" type="password" required autocomplete="current-password" style="padding:12px;border:1px solid #ddd;border-radius:8px"></label><button class="primary" style="padding:12px">Ingresar</button></form>
+<p id="cloudMessage" role="status" style="color:#686868;font-size:13px;margin:14px 0 0">Conectando con el servidor…</p>
+</section>
+<div id="cloudBar" hidden style="max-width:1200px;margin:12px auto;padding:10px 14px;background:#fff;border-radius:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font:14px system-ui"><strong id="cloudUser"></strong><label>Cancha <select id="courtSelect" style="padding:8px;border:1px solid #ddd;border-radius:8px"></select></label><button id="addCourt" class="secondary" hidden>＋ Nueva cancha</button><button id="signOut" class="secondary" style="margin-left:auto">Cerrar sesión</button></div>
+<div class="shell" id="tournamentApp" hidden>
 <header class="top"><div class="brand"><img class="brand-logo" src="logo-cancha-limpio.png" alt="Logo de la cancha organizadora"> cancha</div><div class="toolbar"><select id="tournamentSelect" aria-label="Elegir torneo"></select><button id="addTournament" class="primary">＋ Crear torneo</button><button id="settingsBtn" class="secondary">⚙ Configurar</button><button id="exportBtn" class="secondary hide-small">Exportar</button><label class="secondary hide-small" for="importFile">Importar</label><input id="importFile" type="file" accept="application/json,.json" hidden></div></header>
 <section class="hero"><div><div class="eyebrow" id="seasonLabel">Temporada 2026 · Primera división</div><h1 id="title">Copa de amigos</h1><p id="formatSummary">Todos contra todos · Los 4 mejores van a semifinales</p></div><div class="hero-meta"><div class="meta"><strong id="teamCount">0</strong><span>equipos</span></div><div class="meta"><strong id="playedCount">0</strong><span>partidos jugados</span></div><div class="meta"><strong id="roundCount">0</strong><span>fechas</span></div></div></section>
 <main class="layout"><section>
@@ -47,5 +54,59 @@ $('#exportBtn').addEventListener('click',()=>{let blob=new Blob([JSON.stringify(
 $('#importFile').addEventListener('change',async e=>{let file=e.target.files[0];if(!file)return;try{let incoming=JSON.parse(await file.text());if(!Array.isArray(incoming.tournaments))throw new Error();let imported=incoming.tournaments.map(t=>({...t,id:crypto.randomUUID(),config:{...freshConfig(),...t.config},data:{...freshData(),...t.data}}));db.tournaments.push(...imported);tournament=imported[0]||tournament;state=tournament.data;persist();toast(`Importados ${imported.length} torneo(s)`);}catch{alert('No pude leer ese respaldo JSON. Elegí un archivo exportado desde esta página.')}e.target.value='';});
 function toast(s){let t=$('#toast');t.textContent=s;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
 if(state.teams.length>=2&&!state.matches.length)genFixture();$('#standings').closest('.card').querySelector('.sub').id='qualifyCaption';render();
+</script>
+<script>
+(()=>{
+ const PROJECT_URL='https://saockeiadzgjpqcfvsol.supabase.co';
+ const PUBLISHABLE_KEY='sb_publishable_2aEOo3DB2KqqIDSkPf83NA_93mCyNCI';
+ const client=window.supabase.createClient(PROJECT_URL,PUBLISHABLE_KEY);
+ const gate=document.querySelector('#cloudGate'), app=document.querySelector('#tournamentApp'), bar=document.querySelector('#cloudBar'), message=document.querySelector('#cloudMessage');
+ let profile=null,courts=[],activeCourt=null,channel=null,saving=false,refreshing=false;
+ function showMessage(s){message.textContent=s}
+ function setSignedOut(){gate.hidden=false;app.hidden=true;bar.hidden=true;showMessage('Iniciá sesión con el usuario que creaste en Supabase.')}
+ async function loadTournaments(){
+   if(!activeCourt)return;
+   const {data,error}=await client.from('tournaments').select('id,name,season,round_format,qualifiers,points_win,points_draw,points_loss,app_data').eq('court_id',activeCourt.id).order('created_at');
+   if(error)throw error;
+   db.tournaments=(data||[]).map(row=>({id:row.id,name:row.name,season:row.season||'',config:{doubleRound:row.round_format==='double',qualifiers:row.qualifiers,winPoints:row.points_win,drawPoints:row.points_draw,lossPoints:row.points_loss,...(row.app_data?.config||{})},data:row.app_data?.data||freshData()}));
+   if(!db.tournaments.length){const id=crypto.randomUUID();db.tournaments=[{id,name:'Copa de amigos',season:String(new Date().getFullYear()),config:freshConfig(),data:freshData()}]}
+   db.activeId=db.tournaments[0].id;tournament=db.tournaments[0];state=tournament.data;state.playoffs||={};
+   if(state.teams.length>=2&&!state.matches.length)genFixture();
+   render();
+ }
+ async function useCourt(court){activeCourt=court;document.querySelector('#courtSelect').value=court.id;try{await loadTournaments();if(channel)await client.removeChannel(channel);channel=client.channel('torneos-'+court.id).on('postgres_changes',{event:'*',schema:'public',table:'tournaments',filter:'court_id=eq.'+court.id},async()=>{if(saving||refreshing)return;refreshing=true;try{await loadTournaments()}catch(e){console.error(e)}finally{refreshing=false}}).subscribe();showMessage('Datos sincronizados en línea.');}catch(e){showMessage('No pude cargar la cancha: '+e.message)}}
+ async function startSession(session){
+   if(!session){setSignedOut();return}
+   gate.hidden=true;app.hidden=true;bar.hidden=true;showMessage('Verificando permisos…');
+   const {data,error}=await client.from('profiles').select('user_id,display_name,role,court_id').eq('user_id',session.user.id).single();
+   if(error||!data){setSignedOut();showMessage('No encontré tu perfil. Revisá que el esquema y el usuario estén creados.');return}
+   profile=data;if(!['super_admin','court_admin'].includes(profile.role)){setSignedOut();showMessage('Tu usuario todavía no tiene permisos de administrador.');return}
+   document.querySelector('#cloudUser').textContent=profile.display_name||session.user.email;
+   const addCourt=document.querySelector('#addCourt');addCourt.hidden=profile.role!=='super_admin';
+   if(profile.role==='super_admin'){
+     const result=await client.from('courts').select('id,name').order('name');if(result.error){setSignedOut();showMessage(result.error.message);return}courts=result.data||[];
+   }else{
+     const result=await client.from('courts').select('id,name').eq('id',profile.court_id).single();if(result.error){setSignedOut();showMessage(result.error.message);return}courts=[result.data];
+   }
+   const select=document.querySelector('#courtSelect');select.innerHTML=courts.map(c=>`<option value="${esc(c.id)}">${esc(c.name)}</option>`).join('');bar.hidden=false;
+   if(courts.length){app.hidden=false;await useCourt(courts[0])}else{showMessage('Creá tu primera cancha con el botón “Nueva cancha”.')}
+ }
+ document.querySelector('#loginForm').addEventListener('submit',async e=>{e.preventDefault();showMessage('Ingresando…');const {data,error}=await client.auth.signInWithPassword({email:document.querySelector('#loginEmail').value.trim(),password:document.querySelector('#loginPassword').value});if(error){showMessage('No se pudo ingresar: '+error.message);return}await startSession(data.session)});
+ document.querySelector('#signOut').addEventListener('click',async()=>{if(channel)await client.removeChannel(channel);await client.auth.signOut();setSignedOut()});
+ document.querySelector('#courtSelect').addEventListener('change',e=>useCourt(courts.find(c=>c.id===e.target.value)));
+ document.querySelector('#addCourt').addEventListener('click',async()=>{const name=prompt('Nombre de la cancha');if(!name?.trim())return;const {data,error}=await client.from('courts').insert({name:name.trim()}).select('id,name').single();if(error){alert('No se pudo crear: '+error.message);return}courts.push(data);const select=document.querySelector('#courtSelect');select.add(new Option(data.name,data.id));app.hidden=false;await useCourt(data)});
+ // Cada torneo guarda su configuración y resultados en una sola fila protegida por RLS.
+ const originalPersist=window.persist;
+ window.persist=async function(){
+   tournament.data=state;db.activeId=tournament.id;render();
+   if(!activeCourt)return;
+   saving=true;
+   const payload={id:tournament.id,court_id:activeCourt.id,name:tournament.name,season:tournament.season||null,round_format:tournament.config.doubleRound?'double':'single',qualifiers:+tournament.config.qualifiers,points_win:+tournament.config.winPoints,points_draw:+tournament.config.drawPoints,points_loss:+tournament.config.lossPoints,app_data:{config:tournament.config,data:tournament.data},is_public:true};
+   const {error}=await client.from('tournaments').upsert(payload);
+   saving=false;if(error){showMessage('Error al guardar en línea: '+error.message);return}showMessage('Guardado y sincronizado.');
+ };
+ client.auth.getSession().then(({data,error})=>{if(error){setSignedOut();showMessage(error.message);return}startSession(data.session)});
+ client.auth.onAuthStateChange((_event,session)=>{if(session)startSession(session)});
+})();
 </script></body></html>
 

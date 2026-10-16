@@ -34,8 +34,12 @@ create table if not exists public.tournaments (
   points_loss smallint not null default 0 check (points_loss between 0 and 10),
   is_public boolean not null default true,
   public_code text not null unique default replace(gen_random_uuid()::text, '-', ''),
+  app_data jsonb not null default '{"config":{"doubleRound":false,"qualifiers":4,"winPoints":3,"drawPoints":1,"lossPoints":0},"data":{"teams":[],"matches":[],"playoffs":{}}}'::jsonb,
   created_at timestamptz not null default now()
 );
+
+alter table public.tournaments add column if not exists app_data jsonb not null
+  default '{"config":{"doubleRound":false,"qualifiers":4,"winPoints":3,"drawPoints":1,"lossPoints":0},"data":{"teams":[],"matches":[],"playoffs":{}}}'::jsonb;
 
 create table if not exists public.teams (
   id uuid primary key default gen_random_uuid(),

@@ -162,7 +162,7 @@ if(state.teams.length>=2&&!state.matches.length)genFixture();$('#standings').clo
  const gate=document.querySelector('#cloudGate'), app=document.querySelector('#tournamentApp'), bar=document.querySelector('#cloudBar'), message=document.querySelector('#cloudMessage');
  let profile=null,courts=[],activeCourt=null,channel=null,saving=false,refreshing=false;
  function showMessage(s){message.textContent=s}
- function setSignedOut(){gate.hidden=false;app.hidden=true;bar.hidden=true;showMessage('Iniciá sesión con el usuario que creaste en Supabase.')}
+ function setSignedOut(){gate.hidden=false;app.hidden=true;bar.hidden=true;document.querySelector('#adminPanel').hidden=true;showMessage('Iniciá sesión con el usuario que creaste en Supabase.')}
  async function loadTournaments(){
    if(!activeCourt)return;
    const {data,error}=await client.from('tournaments').select('id,name,season,round_format,qualifiers,points_win,points_draw,points_loss,app_data').eq('court_id',activeCourt.id).order('created_at');
@@ -176,10 +176,10 @@ if(state.teams.length>=2&&!state.matches.length)genFixture();$('#standings').clo
  async function useCourt(court){activeCourt=court;document.querySelector('#courtSelect').value=court.id;document.querySelector('#courtBrand').textContent=court.name;const logo=document.querySelector('#courtLogo');logo.src=court.logo_url||'logo-on.svg';logo.alt='Logo de '+court.name;document.title=court.name+' · Torneos';try{await loadTournaments();if(profile?.role==='super_admin'&&!document.querySelector('#adminPanel').hidden)await refreshPendingAdmins();if(channel)await client.removeChannel(channel);channel=client.channel('torneos-'+court.id).on('postgres_changes',{event:'*',schema:'public',table:'tournaments',filter:'court_id=eq.'+court.id},async()=>{if(saving||refreshing)return;refreshing=true;try{await loadTournaments()}catch(e){console.error(e)}finally{refreshing=false}}).on('postgres_changes',{event:'UPDATE',schema:'public',table:'courts',filter:'id=eq.'+court.id},async()=>{const {data,error}=await client.from('courts').select('id,name,logo_url').eq('id',court.id).single();if(!error&&activeCourt?.id===court.id){activeCourt=data;const current=courts.find(c=>c.id===court.id);if(current)Object.assign(current,data);document.querySelector('#courtLogo').src=data.logo_url||'logo-on.svg'}}).subscribe();showMessage('Datos sincronizados en línea.');}catch(e){showMessage('No pude cargar la cancha: '+e.message)}}
  async function startSession(session){
    if(!session){setSignedOut();return}
-   gate.hidden=true;app.hidden=true;bar.hidden=true;showMessage('Verificando permisos…');
+   gate.hidden=true;app.hidden=true;bar.hidden=true;document.querySelector('#adminPanel').hidden=true;showMessage('Verificando permisos…');
    const {data,error}=await client.from('profiles').select('user_id,display_name,role,court_id').eq('user_id',session.user.id).single();
    if(error||!data){setSignedOut();showMessage('No encontré tu perfil. Revisá que el esquema y el usuario estén creados.');return}
-   profile=data;if(!['super_admin','court_admin'].includes(profile.role)){setSignedOut();showMessage('Tu usuario todavía no tiene permisos de administrador.');return}
+   profile=data;if(!['super_admin','court_admin'].includes(profile.role)){setSignedOut();showMessage('Tu usuario todavía no tiene permisos de administrador.');return}document.querySelector('#adminPanel').hidden=profile.role!=='super_admin';
    document.querySelector('#cloudUser').textContent=profile.display_name||session.user.email;
    const addCourt=document.querySelector('#addCourt'),adminBtn=document.querySelector('#adminPanelBtn');addCourt.hidden=profile.role!=='super_admin';adminBtn.hidden=profile.role!=='super_admin';
    if(profile.role==='super_admin'){

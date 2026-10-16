@@ -117,6 +117,23 @@ tr.qual{background:#f1faf4}
 .confirm-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:16px}
 @media(max-width:820px){.overview-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.overview-list{grid-template-columns:1fr}.overview-head{align-items:flex-start;flex-direction:column}}
+
+.booking-page{max-width:1240px;margin:14px auto 48px;padding:0 22px}
+.booking-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;padding:16px 20px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.booking-head h1{margin:0;font-size:22px}.booking-head p{margin:3px 0 0;color:var(--muted);font-size:13px}
+.booking-grid{display:grid;grid-template-columns:minmax(250px,.8fr) minmax(0,1.5fr);gap:16px;align-items:start}
+.booking-stack{display:grid;gap:16px}
+.booking-form{display:grid;gap:10px}
+.booking-hours{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.booking-day{display:flex;align-items:center;gap:6px;padding:6px 8px;background:#f7faf8;border:1px solid var(--line);border-radius:8px;font-size:12px}
+.booking-day input{accent-color:var(--green)}
+.resource-chip{padding:9px 11px;background:#f3f8f5;border:1px solid var(--line);border-radius:10px;font-size:13px}
+.slot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:9px}
+.slot{display:grid;gap:4px;padding:11px;border:1px solid var(--line);border-radius:11px;background:#f8fbf9;font-size:12px}
+.slot.free{border-color:#b8dfc7;background:#f2faf5}.slot.busy{border-color:#eed5a2;background:#fffaf0}
+.slot strong{font-size:14px}.slot small{color:var(--muted)}.slot .secondary{justify-self:start;min-height:32px;padding:5px 9px;font-size:11px}
+.booking-note{margin-top:8px;color:var(--muted);font-size:12px}
+@media(max-width:760px){.booking-grid{grid-template-columns:1fr}.booking-page{padding:0 13px 32px}.booking-head{align-items:flex-start;flex-direction:column}}
 </style><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script></head>
 <body>
 <section id="cloudGate" style="max-width:560px;margin:8vh auto;padding:24px;background:white;border-radius:16px;box-shadow:0 12px 40px #16111118;font:15px system-ui;color:#242424">
@@ -129,7 +146,7 @@ tr.qual{background:#f1faf4}
 <section id="allTournamentsPanel" hidden class="card"><div class="overview-head"><div><h2>Torneos de todos los complejos</h2><p>Resumen privado visible solo para el superadministrador.</p></div><button id="refreshAllTournaments" class="secondary">Actualizar lista</button></div><div id="overviewCount" class="overview-count"></div><div id="allTournamentsList" class="overview-list"><div class="empty">Cargando torneos…</div></div></section>
 <section id="adminPanel" hidden style="max-width:1200px;margin:0 auto 12px;padding:14px;background:#fff;border-radius:12px;font:14px system-ui"><strong>Asignar administrador a esta cancha</strong><p style="margin:5px 0 10px;color:#686868;font-size:13px">Primero creá su usuario en Supabase → Authentication → Users. Después aparecerá acá como pendiente.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><select id="pendingAdminSelect" style="min-width:240px;padding:9px;border:1px solid #ddd;border-radius:8px"></select><button id="refreshAdmins" class="secondary">Actualizar lista</button><button id="assignAdmin" class="primary">Asignar a esta cancha</button></div><p id="adminMessage" style="margin:8px 0 0;color:#686868;font-size:13px"></p></section>
 <div class="shell" id="tournamentApp" hidden>
-<header class="top"><div class="brand"><img class="brand-logo" id="courtLogo" src="logo-on.svg" alt="Logo de ON Soporte Informático"> <span id="courtBrand">Cancha</span></div><div class="toolbar"><select id="tournamentSelect" aria-label="Elegir torneo"></select><button id="addTournament" class="primary">＋ Crear torneo</button><button id="settingsBtn" class="secondary">⚙ Configurar</button><button id="exportBtn" class="secondary hide-small">Exportar</button><label class="secondary hide-small" for="importFile">Importar</label><input id="importFile" type="file" accept="application/json,.json" hidden></div></header>
+<header class="top"><div class="brand"><img class="brand-logo" id="courtLogo" src="logo-on.svg" alt="Logo de ON Soporte Informático"> <span id="courtBrand">Cancha</span></div><div class="toolbar"><select id="tournamentSelect" aria-label="Elegir torneo"></select><button id="bookingsBtn" class="secondary">📅 Turnos</button><button id="addTournament" class="primary">＋ Crear torneo</button><button id="settingsBtn" class="secondary">⚙ Configurar</button><button id="exportBtn" class="secondary hide-small">Exportar</button><label class="secondary hide-small" for="importFile">Importar</label><input id="importFile" type="file" accept="application/json,.json" hidden></div></header>
 <section class="hero"><div><div class="eyebrow" id="seasonLabel">Temporada 2026 · Primera división</div><h1 id="title">Copa de amigos</h1><p id="formatSummary">Todos contra todos · Los 4 mejores van a semifinales</p></div><div class="hero-meta"><div class="meta"><strong id="teamCount">0</strong><span>equipos</span></div><div class="meta"><strong id="playedCount">0</strong><span>partidos jugados</span></div><div class="meta"><strong id="roundCount">0</strong><span>fechas</span></div></div></section>
 <main class="layout"><section>
 <article class="card"><div class="card-head"><div><h2>Tabla de posiciones</h2><div class="sub">Los primeros 4 clasifican a semifinales</div></div><div class="tabs"><button class="tab active" data-view="league">Liga</button><button class="tab" data-view="semis">Semifinales</button><button class="tab" data-view="final">Final</button></div></div><div id="leagueView"><div class="table-wrap"><table><thead><tr><th>#</th><th>Equipo</th><th>PJ</th><th>G</th><th>E</th><th>P</th><th>DG</th><th>Pts</th></tr></thead><tbody id="standings"></tbody></table></div><div class="qualify-note">🟩 Zona de clasificación · Desempate: puntos, diferencia de gol y goles a favor</div></div><div id="bracketView" hidden></div></article>
@@ -137,7 +154,28 @@ tr.qual{background:#f1faf4}
 </section><aside>
 <article class="card"><div class="card-head"><div><h2>Equipos</h2><div class="sub">Agregá los participantes del torneo</div></div></div><form class="form-row" id="teamForm"><input class="input" id="teamName" placeholder="Nombre del equipo" maxlength="28" required><button class="primary">Agregar</button></form><div class="team-list" id="teamList"></div><p class="warning">Mínimo 4 equipos para generar la fase final. Podés cargar resultados cuando quieras.</p></article>
 <article class="card"><div class="card-head"><div><h2>Goleadores</h2><div class="sub">Estadística de goles cargados</div></div></div><div id="scorers" class="empty">Todavía no hay goleadores. Registrá resultados para ver el resumen de goles.</div><p class="warning">Los goles por jugador se pueden agregar en una próxima versión.</p></article>
-</aside></main><div class="footer">ON Deportes · Gestión de torneos</div></div><div id="toast" class="toast">Guardado</div>
+</aside></main><div class="footer">ON Deportes · Gestión de torneos</div></div>
+<section id="bookingsPanel" class="booking-page" hidden>
+<div class="booking-head"><div><h1>Agenda de turnos</h1><p id="bookingCourtName">Reservas internas de la cancha</p></div><div class="toolbar"><label class="field">Fecha<input id="bookingDate" type="date"></label><button id="backToTournaments" class="secondary">Volver a torneos</button></div></div>
+<div class="booking-grid">
+<div class="booking-stack">
+<article class="card"><div class="card-head"><div><h2>Agregar espacio</h2><div class="sub">Por ejemplo: Fútbol 5 · Cancha 1</div></div></div>
+<form id="resourceForm" class="booking-form">
+<label class="field">Nombre del espacio<input id="resourceName" maxlength="60" required placeholder="Ej.: Fútbol 5 · Cancha 1"></label>
+<div class="dialog-grid"><label class="field">Abre<input id="resourceOpen" type="time" value="09:00" required></label><label class="field">Cierra<input id="resourceClose" type="time" value="23:00" required></label><label class="field wide">Duración del turno<select id="resourceSlot"><option value="30">30 minutos</option><option value="60" selected>1 hora</option><option value="90">1 hora y media</option><option value="120">2 horas</option></select></label></div>
+<div class="field">Días disponibles</div><div class="booking-hours"><label class="booking-day"><input type="checkbox" name="resourceDay" value="1" checked>Lunes</label><label class="booking-day"><input type="checkbox" name="resourceDay" value="2" checked>Martes</label><label class="booking-day"><input type="checkbox" name="resourceDay" value="3" checked>Miércoles</label><label class="booking-day"><input type="checkbox" name="resourceDay" value="4" checked>Jueves</label><label class="booking-day"><input type="checkbox" name="resourceDay" value="5" checked>Viernes</label><label class="booking-day"><input type="checkbox" name="resourceDay" value="6" checked>Sábado</label><label class="booking-day"><input type="checkbox" name="resourceDay" value="0" checked>Domingo</label></div>
+<button class="primary">Guardar espacio</button></form></article>
+<article class="card"><div class="card-head"><div><h2>Espacios de esta cancha</h2><div class="sub">Configuración de horarios habituales</div></div></div><div id="resourceList" class="booking-stack"><div class="empty">Todavía no hay espacios configurados.</div></div></article>
+</div>
+<div class="booking-stack">
+<article class="card"><div class="card-head"><div><h2>Turnos del día</h2><div class="sub">Cargá una reserva manual para bloquear el horario</div></div></div>
+<form id="bookingForm" class="dialog-grid">
+<label class="field">Espacio<select id="bookingResource" required></select></label><label class="field">Horario disponible<select id="bookingTime" required></select></label>
+<label class="field">Nombre del cliente<input id="bookingCustomer" maxlength="80" required placeholder="Nombre y apellido"></label><label class="field">Teléfono<input id="bookingPhone" maxlength="40" placeholder="Opcional"></label>
+<label class="field wide">Nota<input id="bookingNotes" maxlength="240" placeholder="Opcional"></label>
+<button class="primary field wide">Registrar turno</button></form><p class="booking-note">Esta agenda la ven únicamente los administradores autorizados de esta cancha.</p></article>
+<article class="card"><div class="card-head"><div><h2>Disponibilidad y reservas</h2><div class="sub" id="bookingDateLabel"></div></div></div><div id="bookingSlots" class="booking-stack"><div class="empty">Elegí un espacio para ver sus horarios.</div></div></article>
+</div></div></section><div id="toast" class="toast">Guardado</div>
 <dialog class="dialog" id="setupDialog"><form id="setupForm"><h2 id="setupTitle">Crear torneo</h2><p>Elegí el formato y las reglas. Podés cambiarlo después desde Configurar.</p><div class="dialog-grid"><label class="field wide">Nombre del torneo<input id="cfgName" maxlength="48" required placeholder="Ej.: Copa de verano"></label><label class="field">Temporada<input id="cfgSeason" maxlength="24" value="2026" placeholder="2026"></label><label class="field">Variante de fútbol<select id="cfgVariant"><option>Fútbol 5</option><option>Fútbol 7</option><option>Fútbol 11</option></select></label><label class="field">Fase de liga<select id="cfgRounds"><option value="single">Todos contra todos · una rueda</option><option value="double">Todos contra todos · ida y vuelta</option></select></label><label class="field">Fase final<select id="cfgQualifiers"><option value="4">Clasifican 4 · semifinal y final</option><option value="0">Sin fase final</option></select></label><label class="field">Puntos por victoria<input id="cfgWin" type="number" min="0" max="10" value="3"></label><label class="field">Puntos por empate<input id="cfgDraw" type="number" min="0" max="10" value="1"></label><label class="field">Puntos por derrota<input id="cfgLoss" type="number" min="0" max="10" value="0"></label></div><div class="github-note">Podés exportar tus torneos como archivo JSON y subir ese respaldo a GitHub. Para que varios celulares vean los cambios en vivo, hace falta conectar una base de datos online.</div><div class="dialog-actions"><button type="button" id="cancelSetup" class="secondary">Cancelar</button><button type="button" id="deleteTournament" class="danger" hidden>Eliminar torneo</button><button type="submit" class="primary">Guardar torneo</button></div></form></dialog><dialog class="dialog" id="deleteTournamentDialog"><form id="deleteTournamentForm"><h2>Eliminar torneo</h2><p>Vas a borrar este torneo y sus resultados:</p><div id="deleteTargetName" style="margin:-8px 0 14px;font-weight:800"></div><label class="field">Escribí el nombre del torneo para confirmar<input id="confirmDeleteName" autocomplete="off" required></label><p id="deleteTournamentMessage" role="status" style="margin:9px 0 0"></p><div class="confirm-warning">Esta acción es permanente. Los resultados y la tabla de este torneo también se eliminarán.</div><div class="confirm-actions"><button type="button" id="cancelDeleteTournament" class="secondary">Cancelar</button><button type="submit" id="confirmDeleteTournament" class="danger" disabled>Eliminar definitivamente</button></div></form></dialog>
 <script>
 const KEY='cancha-torneo-v1', $=s=>document.querySelector(s), esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -176,10 +214,10 @@ if(state.teams.length>=2&&!state.matches.length)genFixture();$('#standings').clo
  const PUBLISHABLE_KEY='sb_publishable_2aEOo3DB2KqqIDSkPf83NA_93mCyNCI';
  const client=window.supabase.createClient(PROJECT_URL,PUBLISHABLE_KEY);
  const gate=document.querySelector('#cloudGate'), app=document.querySelector('#tournamentApp'), bar=document.querySelector('#cloudBar'), message=document.querySelector('#cloudMessage');
- let profile=null,courts=[],activeCourt=null,channel=null,saving=false,refreshing=false;
+ let profile=null,courts=[],activeCourt=null,channel=null,saving=false,refreshing=false,bookingResources=[],bookingReservations=[];
  async function refreshAllTournaments(){if(profile?.role!=='super_admin')return;const list=document.querySelector('#allTournamentsList'),count=document.querySelector('#overviewCount');list.innerHTML='<div class="empty">Cargando torneos…</div>';const {data,error}=await client.from('tournaments').select('id,name,season,court_id,app_data').order('created_at',{ascending:false});if(error){list.innerHTML='<div class="empty">No pude cargar la lista: '+esc(error.message)+'</div>';count.textContent='';return}const rows=data||[];count.textContent=rows.length+' torneo(s) en '+new Set(rows.map(r=>r.court_id)).size+' complejo(s)';list.innerHTML=rows.map(row=>{const court=courts.find(c=>c.id===row.court_id),cfg=row.app_data?.config||{},payload=row.app_data?.data||{};return '<article class="overview-card"><span class="overview-court">'+esc(court?.name||'Complejo')+'</span><strong>'+esc(row.name)+'</strong><div class="overview-meta"><span>'+esc(row.season||'Sin temporada')+'</span><span>· '+esc(cfg.variant||'Fútbol 11')+'</span><span>· '+((payload.teams||[]).length)+' equipos</span></div><button class="secondary" data-open-tournament="'+esc(row.id)+'" data-court-id="'+esc(row.court_id)+'">Abrir torneo</button></article>'}).join('')||'<div class="empty">Todavía no hay torneos creados.</div>'}
  function showMessage(s){message.textContent=s}
- function setSignedOut(){gate.hidden=false;app.hidden=true;bar.hidden=true;document.querySelector('#adminPanel').hidden=true;document.querySelector('#allTournamentsPanel').hidden=true;showMessage('Iniciá sesión con el usuario que creaste en Supabase.')}
+ function setSignedOut(){gate.hidden=false;app.hidden=true;bar.hidden=true;document.querySelector('#adminPanel').hidden=true;document.querySelector('#allTournamentsPanel').hidden=true;document.querySelector('#bookingsPanel').hidden=true;showMessage('Iniciá sesión con el usuario que creaste en Supabase.')}
  async function loadTournaments(){
    if(!activeCourt)return;
    const {data,error}=await client.from('tournaments').select('id,name,season,round_format,qualifiers,points_win,points_draw,points_loss,app_data').eq('court_id',activeCourt.id).order('created_at');
@@ -190,7 +228,7 @@ if(state.teams.length>=2&&!state.matches.length)genFixture();$('#standings').clo
    if(state.teams.length>=2&&!state.matches.length)genFixture();
    render();
  }
- async function useCourt(court,targetTournamentId=null){activeCourt=court;document.querySelector('#courtSelect').value=court.id;document.querySelector('#courtBrand').textContent=court.name;const logo=document.querySelector('#courtLogo');logo.src=court.logo_url||'logo-on.svg';logo.alt='Logo de '+court.name;document.title=court.name+' · ON Deportes';try{await loadTournaments();if(targetTournamentId){const target=db.tournaments.find(t=>t.id===targetTournamentId);if(target){tournament=target;state=tournament.data;render()}}if(profile?.role==='super_admin'&&!document.querySelector('#adminPanel').hidden)await refreshPendingAdmins();if(channel)await client.removeChannel(channel);channel=client.channel('torneos-'+court.id).on('postgres_changes',{event:'*',schema:'public',table:'tournaments',filter:'court_id=eq.'+court.id},async()=>{if(saving||refreshing)return;refreshing=true;try{await loadTournaments()}catch(e){console.error(e)}finally{refreshing=false}}).on('postgres_changes',{event:'UPDATE',schema:'public',table:'courts',filter:'id=eq.'+court.id},async()=>{const {data,error}=await client.from('courts').select('id,name,logo_url').eq('id',court.id).single();if(!error&&activeCourt?.id===court.id){activeCourt=data;const current=courts.find(c=>c.id===court.id);if(current)Object.assign(current,data);document.querySelector('#courtLogo').src=data.logo_url||'logo-on.svg'}}).subscribe();showMessage('Datos sincronizados en línea.');}catch(e){showMessage('No pude cargar la cancha: '+e.message)}}
+ async function useCourt(court,targetTournamentId=null){activeCourt=court;document.querySelector('#courtSelect').value=court.id;document.querySelector('#courtBrand').textContent=court.name;const logo=document.querySelector('#courtLogo');logo.src=court.logo_url||'logo-on.svg';logo.alt='Logo de '+court.name;document.title=court.name+' · ON Deportes';document.querySelector('#bookingCourtName').textContent=court.name+' · Agenda interna';try{await loadTournaments();await loadBookings();if(targetTournamentId){const target=db.tournaments.find(t=>t.id===targetTournamentId);if(target){tournament=target;state=tournament.data;render()}}if(profile?.role==='super_admin'&&!document.querySelector('#adminPanel').hidden)await refreshPendingAdmins();if(channel)await client.removeChannel(channel);channel=client.channel('torneos-'+court.id).on('postgres_changes',{event:'*',schema:'public',table:'tournaments',filter:'court_id=eq.'+court.id},async()=>{if(saving||refreshing)return;refreshing=true;try{await loadTournaments()}catch(e){console.error(e)}finally{refreshing=false}}).on('postgres_changes',{event:'UPDATE',schema:'public',table:'courts',filter:'id=eq.'+court.id},async()=>{const {data,error}=await client.from('courts').select('id,name,logo_url').eq('id',court.id).single();if(!error&&activeCourt?.id===court.id){activeCourt=data;const current=courts.find(c=>c.id===court.id);if(current)Object.assign(current,data);document.querySelector('#courtLogo').src=data.logo_url||'logo-on.svg'}}).on('postgres_changes',{event:'*',schema:'public',table:'booking_resources',filter:'court_id=eq.'+court.id},()=>{if(activeCourt?.id===court.id)loadBookings()}).on('postgres_changes',{event:'*',schema:'public',table:'court_bookings',filter:'court_id=eq.'+court.id},()=>{if(activeCourt?.id===court.id)loadBookings()}).subscribe();showMessage('Datos sincronizados en línea.');}catch(e){showMessage('No pude cargar la cancha: '+e.message)}}
  async function startSession(session){
    if(!session){setSignedOut();return}
    gate.hidden=true;app.hidden=true;bar.hidden=true;document.querySelector('#adminPanel').hidden=true;document.querySelector('#allTournamentsPanel').hidden=true;showMessage('Verificando permisos…');
@@ -233,6 +271,81 @@ if(state.teams.length>=2&&!state.matches.length)genFixture();$('#standings').clo
    saving=false;if(error){showMessage('Error al guardar en línea: '+error.message);return}tournament.isDraft=false;showMessage('Guardado y sincronizado.');if(profile?.role==='super_admin')await refreshAllTournaments();
  };
  window.refreshAllTournaments=refreshAllTournaments;
+
+ const bookingDate=document.querySelector('#bookingDate'),bookingPanel=document.querySelector('#bookingsPanel');
+ const today=new Date();bookingDate.value=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
+ const weekdayNames=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+ function bookingErr(error){showMessage('No pude cargar la agenda: '+error.message+'. Revisá que hayas aplicado migration-turnos-admin.sql en Supabase.')}
+ function selectedResource(){return bookingResources.find(r=>r.id===document.querySelector('#bookingResource').value)}
+ function timeText(t){return String(t||'').slice(0,5)}
+ function loadBookings(){
+   if(!activeCourt)return;
+   const courtId=activeCourt.id,day=bookingDate.value;
+   return Promise.all([
+     client.from('booking_resources').select('id,court_id,name,opens_at,closes_at,slot_minutes,weekdays').eq('court_id',courtId).order('name'),
+     client.from('court_bookings').select('id,court_id,resource_id,booking_date,starts_at,ends_at,customer_name,customer_phone,notes').eq('court_id',courtId).eq('booking_date',day).order('starts_at')
+   ]).then(([rr,bb])=>{
+     if(rr.error)throw rr.error;if(bb.error)throw bb.error;
+     if(activeCourt?.id!==courtId)return;
+     bookingResources=rr.data||[];bookingReservations=bb.data||[];
+     renderBookingResources();renderBookingOptions();renderBookingSlots();
+   }).catch(bookingErr)
+ }
+ function renderBookingResources(){
+   const box=document.querySelector('#resourceList'),sel=document.querySelector('#bookingResource');
+   box.innerHTML=bookingResources.map(r=>'<div class="resource-chip"><strong>'+esc(r.name)+'</strong><br><span class="sub">'+esc((r.weekdays||[]).map(d=>weekdayNames[d]).join(', '))+' · '+esc(timeText(r.opens_at))+'–'+esc(timeText(r.closes_at))+' · turnos de '+r.slot_minutes+' min</span><button class="secondary" data-remove-resource="'+esc(r.id)+'" style="float:right;min-height:30px;padding:4px 8px">Quitar</button></div>').join('')||'<div class="empty">Todavía no hay espacios configurados.</div>';
+   const prior=sel.value;sel.innerHTML=bookingResources.map(r=>'<option value="'+esc(r.id)+'">'+esc(r.name)+'</option>').join('');
+   if(bookingResources.some(r=>r.id===prior))sel.value=prior;
+   if(!bookingResources.length)sel.innerHTML='<option value="">Primero agregá un espacio</option>';
+ }
+ function slotsFor(r){
+   if(!r||!bookingDate.value)return [];
+   const parts=bookingDate.value.split('-').map(Number),weekday=new Date(parts[0],parts[1]-1,parts[2]).getDay();
+   if(!(r.weekdays||[]).includes(weekday))return [];
+   const toMin=x=>{const a=timeText(x).split(':').map(Number);return a[0]*60+a[1]};
+   const open=toMin(r.opens_at),close=toMin(r.closes_at),step=+r.slot_minutes;
+   const out=[];for(let m=open;m+step<=close;m+=step){const hh=String(Math.floor(m/60)).padStart(2,'0'),mm=String(m%60).padStart(2,'0'),end=m+step,eh=String(Math.floor(end/60)).padStart(2,'0'),em=String(end%60).padStart(2,'0');out.push({start:hh+':'+mm,end:eh+':'+em})}return out
+ }
+ function isReserved(r,s){return bookingReservations.some(b=>b.resource_id===r.id&&timeText(b.starts_at)<s.end&&timeText(b.ends_at)>s.start)}
+ function renderBookingOptions(){
+   const r=selectedResource(),select=document.querySelector('#bookingTime');
+   if(!r){select.innerHTML='<option value="">Sin espacios</option>';return}
+   select.innerHTML=slotsFor(r).filter(s=>!isReserved(r,s)).map(s=>'<option value="'+s.start+'">'+s.start+' – '+s.end+'</option>').join('');
+   if(!select.options.length)select.innerHTML='<option value="">No hay horarios libres</option>'
+ }
+ function renderBookingSlots(){
+   const wrap=document.querySelector('#bookingSlots'),label=document.querySelector('#bookingDateLabel');
+   const d=new Date(bookingDate.value+'T12:00:00');label.textContent=isNaN(d)?'':d.toLocaleDateString('es-AR',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+   if(!bookingResources.length){wrap.innerHTML='<div class="empty">Agregá un espacio y sus horarios habituales para empezar.</div>';return}
+   wrap.innerHTML=bookingResources.map(r=>{
+     const slots=slotsFor(r);
+     if(!slots.length)return '<div><h3 style="margin:0 0 8px;font-size:15px">'+esc(r.name)+'</h3><div class="empty">Este espacio no abre '+weekdayNames[d.getDay()]+'.</div></div>';
+     const html=slots.map(s=>{const b=bookingReservations.find(x=>x.resource_id===r.id&&timeText(x.starts_at)<s.end&&timeText(x.ends_at)>s.start);return b?'<div class="slot busy"><strong>'+s.start+' – '+s.end+' · Reservado</strong><span>'+esc(b.customer_name)+(b.customer_phone?' · '+esc(b.customer_phone):'')+'</span>'+(b.notes?'<small>'+esc(b.notes)+'</small>':'')+'<button class="secondary" data-cancel-booking="'+esc(b.id)+'">Cancelar turno</button></div>':'<div class="slot free"><strong>'+s.start+' – '+s.end+'</strong><small>Disponible</small></div>'}).join('');
+     return '<div><h3 style="margin:0 0 8px;font-size:15px">'+esc(r.name)+'</h3><div class="slot-grid">'+html+'</div></div>'
+   }).join('')
+ }
+ document.querySelector('#bookingsBtn').addEventListener('click',async()=>{document.querySelector('#tournamentApp').hidden=true;bookingPanel.hidden=false;await loadBookings();bookingPanel.scrollIntoView({behavior:'smooth',block:'start'})});
+ document.querySelector('#backToTournaments').addEventListener('click',()=>{bookingPanel.hidden=true;document.querySelector('#tournamentApp').hidden=false;document.querySelector('#tournamentApp').scrollIntoView({behavior:'smooth',block:'start'})});
+ bookingDate.addEventListener('change',()=>loadBookings());
+ document.querySelector('#bookingResource').addEventListener('change',()=>{renderBookingOptions()});
+ document.querySelector('#resourceForm').addEventListener('submit',async e=>{
+   e.preventDefault();if(!activeCourt||!profile)return;
+   const days=[...document.querySelectorAll('input[name="resourceDay"]:checked')].map(x=>+x.value),opens=document.querySelector('#resourceOpen').value,closes=document.querySelector('#resourceClose').value;
+   if(!days.length){toast('Elegí al menos un día');return}if(opens>=closes){toast('La hora de cierre debe ser posterior a la apertura');return}
+   const button=e.submitter;button.disabled=true;const {error}=await client.from('booking_resources').insert({court_id:activeCourt.id,name:document.querySelector('#resourceName').value.trim(),opens_at:opens,closes_at:closes,slot_minutes:+document.querySelector('#resourceSlot').value,weekdays:days,created_by:(await client.auth.getUser()).data.user.id});
+   button.disabled=false;if(error){showMessage('No se pudo guardar el espacio: '+error.message);return}
+   e.target.reset();document.querySelector('#resourceOpen').value='09:00';document.querySelector('#resourceClose').value='23:00';document.querySelector('#resourceSlot').value='60';document.querySelectorAll('input[name="resourceDay"]').forEach(x=>x.checked=true);await loadBookings();toast('Espacio agregado')
+ });
+ document.querySelector('#resourceList').addEventListener('click',async e=>{const id=e.target.closest('[data-remove-resource]')?.dataset.removeResource;if(!id)return;if(!confirm('¿Quitar este espacio? Solo se puede borrar si no tiene reservas asociadas.'))return;const {error}=await client.from('booking_resources').delete().eq('id',id).eq('court_id',activeCourt.id);if(error){showMessage('No se pudo quitar. Si tiene reservas, primero cancelalas. '+error.message);return}await loadBookings();toast('Espacio quitado')});
+ document.querySelector('#bookingForm').addEventListener('submit',async e=>{
+   e.preventDefault();const r=selectedResource(),start=document.querySelector('#bookingTime').value;if(!activeCourt||!r||!start)return;
+   const slot=slotsFor(r).find(s=>s.start===start);if(!slot||isReserved(r,slot)){toast('Ese horario ya no está disponible; actualizando…');await loadBookings();return}
+   const button=e.submitter;button.disabled=true;const {error}=await client.from('court_bookings').insert({court_id:activeCourt.id,resource_id:r.id,booking_date:bookingDate.value,starts_at:slot.start,ends_at:slot.end,customer_name:document.querySelector('#bookingCustomer').value.trim(),customer_phone:document.querySelector('#bookingPhone').value.trim()||null,notes:document.querySelector('#bookingNotes').value.trim()||null,created_by:(await client.auth.getUser()).data.user.id});
+   button.disabled=false;if(error){showMessage(error.code==='23P01'?'Ese horario ya fue reservado. Elegí otro.':'No se pudo registrar el turno: '+error.message);await loadBookings();return}
+   document.querySelector('#bookingCustomer').value='';document.querySelector('#bookingPhone').value='';document.querySelector('#bookingNotes').value='';await loadBookings();toast('Turno registrado')
+ });
+ document.querySelector('#bookingSlots').addEventListener('click',async e=>{const id=e.target.closest('[data-cancel-booking]')?.dataset.cancelBooking;if(!id)return;if(!confirm('¿Cancelar este turno?'))return;const {error}=await client.from('court_bookings').delete().eq('id',id).eq('court_id',activeCourt.id);if(error){showMessage('No se pudo cancelar: '+error.message);return}await loadBookings();toast('Turno cancelado')});
+
  client.auth.getSession().then(({data,error})=>{if(error){setSignedOut();showMessage(error.message);return}startSession(data.session)});
 })();
 </script></body></html>

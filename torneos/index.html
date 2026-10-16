@@ -101,7 +101,6 @@ if(state.teams.length>=2&&!state.matches.length)genFixture();$('#standings').clo
  document.querySelector('#assignAdmin').addEventListener('click',async()=>{const userId=document.querySelector('#pendingAdminSelect').value;if(!userId||!activeCourt)return;const {error}=await client.from('profiles').update({role:'court_admin',court_id:activeCourt.id}).eq('user_id',userId).eq('role','pending');if(error){document.querySelector('#adminMessage').textContent='No se pudo asignar: '+error.message;return}await refreshPendingAdmins();document.querySelector('#adminMessage').textContent='Administrador asignado a '+activeCourt.name+'.'});
  document.querySelector('#addCourt').addEventListener('click',async()=>{const name=prompt('Nombre de la cancha');if(!name?.trim())return;const {data,error}=await client.from('courts').insert({name:name.trim()}).select('id,name').single();if(error){alert('No se pudo crear: '+error.message);return}courts.push(data);const select=document.querySelector('#courtSelect');select.add(new Option(data.name,data.id));app.hidden=false;await useCourt(data)});
  // Cada torneo guarda su configuración y resultados en una sola fila protegida por RLS.
- const originalPersist=window.persist;
  window.persist=async function(){
    tournament.data=state;db.activeId=tournament.id;render();
    if(!activeCourt)return;
@@ -111,7 +110,6 @@ if(state.teams.length>=2&&!state.matches.length)genFixture();$('#standings').clo
    saving=false;if(error){showMessage('Error al guardar en línea: '+error.message);return}showMessage('Guardado y sincronizado.');
  };
  client.auth.getSession().then(({data,error})=>{if(error){setSignedOut();showMessage(error.message);return}startSession(data.session)});
- client.auth.onAuthStateChange((_event,session)=>{if(session)startSession(session)});
 })();
 </script></body></html>
 

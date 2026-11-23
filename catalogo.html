@@ -52,7 +52,7 @@
             width: 100%;
             max-width: 640px;
             margin: auto;
-            padding: 30px 20px 92px;
+            padding: 30px 20px 115px;
         }
 
         .volver {
@@ -280,6 +280,11 @@
             box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
         }
 
+        .producto.seleccionado {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px rgba(57, 211, 83, 0.35);
+        }
+
         .producto-imagen {
             position: relative;
             display: grid;
@@ -381,25 +386,57 @@
             font-weight: 800;
         }
 
+        .acciones-tarjeta {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 6px;
+        }
+
         .consulta {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            width: 100%;
-            padding: 11px 8px;
+            gap: 4px;
+            padding: 10px 8px;
             border: 1px solid #315b35;
             border-radius: 10px;
             background: #142218;
             color: #65e476;
             text-align: center;
             text-decoration: none;
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 700;
             transition: all 0.2s ease;
         }
 
         .consulta:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #051107;
+        }
+
+        .btn-agregar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 10px;
+            border: 1px solid var(--border-card);
+            border-radius: 10px;
+            background: #181e1b;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-agregar:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-agregar.agregado {
             background: var(--accent);
             border-color: var(--accent);
             color: #051107;
@@ -459,9 +496,11 @@
             background: linear-gradient(135deg, #43df5a, #27bd43);
             box-shadow: 0 5px 18px var(--accent-glow);
             color: #051107;
+            font-family: inherit;
             font-size: 13.5px;
             font-weight: 800;
             text-decoration: none;
+            cursor: pointer;
             transition: transform 0.2s ease, filter 0.2s ease;
         }
 
@@ -491,7 +530,7 @@
         }
 
         /* =========================
-           MODAL DE IMAGEN AMPLIADA
+           MODALES (FOTO Y CARRITO)
         ========================= */
         .modal {
             position: fixed;
@@ -522,7 +561,7 @@
 
         .modal-contenido img {
             width: 100%;
-            max-height: 68vh;
+            max-height: 62vh;
             object-fit: contain;
             background: #e7e8e5;
             display: block;
@@ -546,6 +585,25 @@
             margin-bottom: 12px;
         }
 
+        .modal-botones {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .btn-secundario-modal {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #315b35;
+            border-radius: 11px;
+            background: #142218;
+            color: #65e476;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
         .modal-cerrar {
             position: absolute;
             top: 12px;
@@ -561,14 +619,127 @@
             cursor: pointer;
         }
 
+        /* Lista del carrito */
+        .lista-carrito {
+            max-height: 46vh;
+            overflow-y: auto;
+            padding: 16px 18px 4px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .item-carrito {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            background: #151b18;
+            font-size: 13px;
+        }
+
+        .item-carrito-info strong {
+            display: block;
+            color: var(--text-main);
+        }
+
+        .item-carrito-info span {
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .btn-quitar {
+            border: none;
+            background: rgba(255, 82, 82, 0.14);
+            color: #ff7b7b;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
         /* =========================
-           BOTÓN FLOTANTE WHATSAPP
+           BARRA FLOTANTE DE CONSULTA / WSP
         ========================= */
-        .wsp-flotante {
+        .barra-flotante {
             position: fixed;
-            right: 18px;
-            bottom: 18px;
+            left: 50%;
+            bottom: 16px;
+            transform: translateX(-50%);
             z-index: 50;
+            width: calc(100% - 32px);
+            max-width: 600px;
+            display: flex;
+            justify-content: flex-end;
+            pointer-events: none;
+        }
+
+        .barra-carrito {
+            pointer-events: auto;
+            width: 100%;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 11px 14px;
+            border-radius: 16px;
+            background: #142218;
+            border: 1px solid var(--accent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.75);
+        }
+
+        .barra-carrito.visible {
+            display: flex;
+        }
+
+        .barra-carrito-texto {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .barra-carrito-texto small {
+            display: block;
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .barra-carrito-acciones {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-ver-lista {
+            padding: 10px 12px;
+            border: 1px solid #315b35;
+            border-radius: 10px;
+            background: #0e1611;
+            color: #fff;
+            font-family: inherit;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-enviar-lista {
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: #25d366;
+            color: #05140a;
+            text-decoration: none;
+            font-size: 12.5px;
+            font-weight: 800;
+        }
+
+        .wsp-flotante {
+            pointer-events: auto;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -583,13 +754,13 @@
             transition: transform 0.2s ease;
         }
 
-        .wsp-flotante:hover {
-            transform: translateY(-2px) scale(1.02);
+        .wsp-flotante.oculto {
+            display: none;
         }
 
         @media (max-width: 400px) {
             .contenedor {
-                padding: 22px 14px 82px;
+                padding: 22px 14px 105px;
             }
             .productos {
                 gap: 10px;
@@ -599,6 +770,9 @@
             }
             h1 {
                 font-size: 24px;
+            }
+            .acciones-tarjeta {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -616,7 +790,7 @@
         <header class="presentacion">
             <div class="etiqueta">Tecnología · Diseño · Soluciones</div>
             <h1>Catálogo de Impresión 3D</h1>
-            <p class="intro">Objetos útiles, accesorios y piezas personalizadas.<br>Tocá cualquier foto para ampliarla o consultanos por WhatsApp.</p>
+            <p class="intro">Tocá cualquier foto para ampliarla, consultá directo o sumá varios productos a tu lista.</p>
             <div class="linea"></div>
         </header>
 
@@ -674,22 +848,63 @@
             <div class="modal-pie">
                 <div class="modal-titulo" id="modal-titulo"></div>
                 <div class="modal-precio" id="modal-precio"></div>
-                <a class="boton-primario" id="modal-wsp" href="#" target="_blank" rel="noopener noreferrer">
-                    💬 Consultar este producto por WhatsApp
-                </a>
+                <div class="modal-botones">
+                    <a class="boton-primario" id="modal-wsp" href="#" target="_blank" rel="noopener noreferrer">
+                        💬 Consultar este producto por WhatsApp
+                    </a>
+                    <button class="btn-secundario-modal" id="modal-agregar" type="button">
+                        + Agregar a mi lista de consulta
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <a
-        href="https://wa.me/5493364626333?text=Hola%20ON!%20Te%20escribo%20desde%20el%20cat%C3%A1logo%203D%20para%20hacerte%20una%20consulta."
-        target="_blank"
-        rel="noopener noreferrer"
-        class="wsp-flotante"
-        aria-label="Contactar por WhatsApp"
-    >
-        <span>💬</span> WhatsApp
-    </a>
+    <!-- Modal para revisar el carrito de consulta -->
+    <div class="modal" id="modal-carrito" role="dialog" aria-modal="true" aria-labelledby="carrito-titulo">
+        <div class="modal-contenido">
+            <button class="modal-cerrar" id="carrito-cerrar" type="button" aria-label="Cerrar lista">✕</button>
+            <div class="modal-pie" style="padding-bottom: 4px;">
+                <div class="modal-titulo" id="carrito-titulo">Tu lista de consulta</div>
+            </div>
+            <div class="lista-carrito" id="lista-carrito-items"></div>
+            <div class="modal-pie">
+                <div class="modal-botones">
+                    <a class="boton-primario" id="carrito-enviar-wsp" href="#" target="_blank" rel="noopener noreferrer">
+                        💬 Enviar toda la consulta por WhatsApp
+                    </a>
+                    <button class="btn-secundario-modal" id="carrito-vaciar" type="button">
+                        Vaciar lista
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra inferior flotante (alterna entre botón WhatsApp y barra de lista múltiple) -->
+    <div class="barra-flotante">
+        <div class="barra-carrito" id="barra-carrito">
+            <div class="barra-carrito-texto">
+                <span id="carrito-resumen">0 productos elegidos</span>
+                <small>Listos para consultar juntos</small>
+            </div>
+            <div class="barra-carrito-acciones">
+                <button class="btn-ver-lista" id="btn-abrir-carrito" type="button">Ver lista</button>
+                <a class="btn-enviar-lista" id="btn-enviar-directo" href="#" target="_blank" rel="noopener noreferrer">Enviar ↗</a>
+            </div>
+        </div>
+
+        <a
+            href="https://wa.me/5493364626333?text=Hola%20ON!%20Te%20escribo%20desde%20el%20cat%C3%A1logo%203D%20para%20hacerte%20una%20consulta."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="wsp-flotante"
+            id="wsp-flotante"
+            aria-label="Contactar por WhatsApp"
+        >
+            <span>💬</span> WhatsApp
+        </a>
+    </div>
 
     <script>
         const productos = [
@@ -729,11 +944,13 @@
             { nombre: "Cráneo de Madera Hueco - Decoración", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-22.png", etiqueta: "ACUARIO" }
         ];
 
-        const catalogoProductos = [...productos, ...productosAcuario];
+        const catalogoProductos = [...productos, ...productosAcuario].map((item, idx) => ({ ...item, id: idx }));
         const telefonoON = "5493364626333";
 
         let filtroActual = "Todos";
         let textoBusqueda = "";
+        let seleccionados = new Set();
+        let productoModalActual = null;
 
         const grilla = document.getElementById("productos");
         const contador = document.getElementById("contador-productos");
@@ -748,6 +965,41 @@
         function crearLinkWhatsApp(nombreProducto) {
             const mensaje = `Hola ON! Quisiera consultar por: ${nombreProducto}.`;
             return `https://wa.me/${telefonoON}?text=${encodeURIComponent(mensaje)}`;
+        }
+
+        function crearLinkCarritoWhatsApp() {
+            const items = catalogoProductos.filter(p => seleccionados.has(p.id));
+            const listado = items.map(p => `- ${p.nombre} (${p.precio || "Consultar"})`).join("\n");
+            const mensaje = `Hola ON! Quisiera consultar por los siguientes productos del catálogo 3D:\n\n${listado}`;
+            return `https://wa.me/${telefonoON}?text=${encodeURIComponent(mensaje)}`;
+        }
+
+        function actualizarBarraCarrito() {
+            const barra = document.getElementById("barra-carrito");
+            const wspFloat = document.getElementById("wsp-flotante");
+            const resumen = document.getElementById("carrito-resumen");
+            const btnDirecto = document.getElementById("btn-enviar-directo");
+
+            const cantidad = seleccionados.size;
+            if (cantidad > 0) {
+                barra.classList.add("visible");
+                wspFloat.classList.add("oculto");
+                resumen.textContent = `${cantidad} ${cantidad === 1 ? "producto elegido" : "productos elegidos"}`;
+                btnDirecto.href = crearLinkCarritoWhatsApp();
+            } else {
+                barra.classList.remove("visible");
+                wspFloat.classList.remove("oculto");
+            }
+        }
+
+        function toggleSeleccion(id) {
+            if (seleccionados.has(id)) {
+                seleccionados.delete(id);
+            } else {
+                seleccionados.add(id);
+            }
+            actualizarBarraCarrito();
+            renderizar();
         }
 
         function renderizar() {
@@ -773,9 +1025,10 @@
                 const nombreSeguro = escapeHTML(p.nombre);
                 const precioSeguro = escapeHTML(p.precio || "Consultar");
                 const descripcion = p.descripcion ? `<p class="producto-descripcion">${escapeHTML(p.descripcion)}</p>` : "";
+                const estaSeleccionado = seleccionados.has(p.id);
                 return `
-                    <article class="producto">
-                        <div class="producto-imagen" data-foto="${escapeHTML(p.foto)}" data-nombre="${nombreSeguro}" data-precio="${precioSeguro}">
+                    <article class="producto ${estaSeleccionado ? "seleccionado" : ""}">
+                        <div class="producto-imagen" data-id="${p.id}">
                             <span class="producto-etiqueta">${escapeHTML(p.etiqueta || "3D")}</span>
                             <img src="${escapeHTML(p.foto)}" alt="${nombreSeguro}" loading="lazy">
                             <span class="zoom-hint" aria-hidden="true">🔍 Ampliar</span>
@@ -789,7 +1042,12 @@
                                     <div class="producto-precio">${precioSeguro}</div>
                                     <span aria-hidden="true">↗</span>
                                 </div>
-                                <a class="consulta" href="${enlace}" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
+                                <div class="acciones-tarjeta">
+                                    <a class="consulta" href="${enlace}" target="_blank" rel="noopener noreferrer">Consultar</a>
+                                    <button class="btn-agregar ${estaSeleccionado ? "agregado" : ""}" type="button" data-agregar="${p.id}">
+                                        ${estaSeleccionado ? "✓ Listo" : "+ Lista"}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </article>
@@ -803,32 +1061,108 @@
         const modalTitulo = document.getElementById("modal-titulo");
         const modalPrecio = document.getElementById("modal-precio");
         const modalWsp = document.getElementById("modal-wsp");
+        const modalAgregar = document.getElementById("modal-agregar");
+
+        function actualizarBotonModalAgregar() {
+            if (!productoModalActual) return;
+            const enLista = seleccionados.has(productoModalActual.id);
+            modalAgregar.textContent = enLista ? "✓ Quitar de mi lista de consulta" : "+ Agregar a mi lista de consulta";
+        }
 
         grilla.addEventListener("click", (e) => {
+            const btnAgregar = e.target.closest("[data-agregar]");
+            if (btnAgregar) {
+                toggleSeleccion(Number(btnAgregar.dataset.agregar));
+                return;
+            }
+
             const cajaImg = e.target.closest(".producto-imagen");
             if (!cajaImg) return;
-            const foto = cajaImg.dataset.foto;
-            const nombre = cajaImg.dataset.nombre;
-            const precio = cajaImg.dataset.precio;
-            modalImg.src = foto;
-            modalImg.alt = nombre;
-            modalTitulo.textContent = nombre;
-            modalPrecio.textContent = precio;
-            modalWsp.href = crearLinkWhatsApp(nombre);
+            const prod = catalogoProductos.find(p => p.id === Number(cajaImg.dataset.id));
+            if (!prod) return;
+
+            productoModalActual = prod;
+            modalImg.src = prod.foto;
+            modalImg.alt = prod.nombre;
+            modalTitulo.textContent = prod.nombre;
+            modalPrecio.textContent = prod.precio || "Consultar";
+            modalWsp.href = crearLinkWhatsApp(prod.nombre);
+            actualizarBotonModalAgregar();
             modal.classList.add("abierto");
+        });
+
+        modalAgregar.addEventListener("click", () => {
+            if (!productoModalActual) return;
+            toggleSeleccion(productoModalActual.id);
+            actualizarBotonModalAgregar();
         });
 
         function cerrarModal() {
             modal.classList.remove("abierto");
             modalImg.src = "";
+            productoModalActual = null;
         }
 
         document.getElementById("modal-cerrar").addEventListener("click", cerrarModal);
         modal.addEventListener("click", (e) => {
             if (e.target === modal) cerrarModal();
         });
+
+        // Modal del carrito
+        const modalCarrito = document.getElementById("modal-carrito");
+        const listaCarritoItems = document.getElementById("lista-carrito-items");
+        const carritoEnviarWsp = document.getElementById("carrito-enviar-wsp");
+
+        function renderizarCarritoModal() {
+            const items = catalogoProductos.filter(p => seleccionados.has(p.id));
+            if (items.length === 0) {
+                modalCarrito.classList.remove("abierto");
+                return;
+            }
+            listaCarritoItems.innerHTML = items.map(p => `
+                <div class="item-carrito">
+                    <div class="item-carrito-info">
+                        <strong>${escapeHTML(p.nombre)}</strong>
+                        <span>${escapeHTML(p.precio || "Consultar")}</span>
+                    </div>
+                    <button class="btn-quitar" type="button" data-quitar="${p.id}">Quitar</button>
+                </div>
+            `).join("");
+            carritoEnviarWsp.href = crearLinkCarritoWhatsApp();
+        }
+
+        document.getElementById("btn-abrir-carrito").addEventListener("click", () => {
+            renderizarCarritoModal();
+            modalCarrito.classList.add("abierto");
+        });
+
+        listaCarritoItems.addEventListener("click", (e) => {
+            const btnQuitar = e.target.closest("[data-quitar]");
+            if (!btnQuitar) return;
+            toggleSeleccion(Number(btnQuitar.dataset.quitar));
+            renderizarCarritoModal();
+        });
+
+        document.getElementById("carrito-vaciar").addEventListener("click", () => {
+            seleccionados.clear();
+            actualizarBarraCarrito();
+            renderizar();
+            modalCarrito.classList.remove("abierto");
+        });
+
+        document.getElementById("carrito-cerrar").addEventListener("click", () => {
+            modalCarrito.classList.remove("abierto");
+        });
+
+        modalCarrito.addEventListener("click", (e) => {
+            if (e.target === modalCarrito) modalCarrito.classList.remove("abierto");
+        });
+
         document.addEventListener("keydown", (e) => {
-            if (e.key === "Escape" && modal.classList.contains("abierto")) cerrarModal();
+            if (e.key === "Escape") {
+                if (modal.classList.contains("abierto")) cerrarModal();
+                if (modalCarrito.classList.contains("abierto")) modalCarrito.classList.remove("abierto");
+            }
         });
 
         document.querySelectorAll(".filtro-desplazar").forEach(boton => {

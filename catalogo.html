@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#080808">
+    <meta name="theme-color" content="#080a09">
     <title>Catálogo de Impresión 3D | ON Soporte Informático</title>
-    <meta name="description" content="Catálogo de impresión 3D de ON: accesorios, cajas y adornos para acuarios.">
+    <meta name="description" content="Catálogo de impresión 3D de ON: cajas de munición, accesorios de caza, adornos para acuarios y pedidos personalizados.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="ON Soporte Informático">
     <meta property="og:title" content="Catálogo de Impresión 3D | ON Soporte Informático">
@@ -17,94 +17,665 @@
     <meta property="og:image:height" content="630">
     <meta property="og:image:alt" content="Logo de ON Soporte Informático">
     <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Tipografía unificada con index.html -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: Arial, Helvetica, sans-serif; background: #080808; color: #fff; min-height: 100vh; }
-        .contenedor { width: 100%; max-width: 520px; margin: auto; padding: 25px 20px 30px; }
-        .volver { display: inline-flex; align-items: center; gap: 8px; color: #bdbdbd; text-decoration: none; font-size: 12px; margin-bottom: 21px; }
-        .volver:hover { color: #39d353; }
-        .logo { display: block; width: 100%; max-width: 210px; max-height: 90px; object-fit: contain; margin: 0 auto 20px; }
-        .logo-fallback { display: grid; place-items: center; width: 78px; height: 78px; margin: 0 auto 20px; border: 2px solid #39d353; border-radius: 22px; color: #39d353; font-size: 34px; font-weight: 800; letter-spacing: -3px; }
-        .presentacion { text-align: center; }
-        .etiqueta { color: #39d353; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
-        h1 { margin: 8px 0; font-size: 27px; letter-spacing: -.7px; }
-        .intro { color: #999; font-size: 12px; line-height: 1.55; }
-        .linea { width: 54px; height: 3px; margin: 20px auto 18px; background: #39d353; }
-        .filtros-contenedor { display: flex; align-items: center; gap: 6px; margin-bottom: 14px; }
-        .filtros { display: flex; flex: 1; min-width: 0; gap: 7px; overflow-x: auto; padding: 4px 1px 8px; scrollbar-width: thin; scrollbar-color: #39d353 #222; scroll-behavior: smooth; }
-        .filtros::-webkit-scrollbar { height: 6px; }
-        .filtros::-webkit-scrollbar-track { background: #222; border-radius: 99px; }
-        .filtros::-webkit-scrollbar-thumb { background: #39d353; border-radius: 99px; }
-        .filtro-desplazar { flex: 0 0 28px; width: 28px; height: 34px; border: 1px solid #315b35; border-radius: 8px; background: #142017; color: #65e476; font-size: 18px; cursor: pointer; }
-        .filtro-desplazar:hover { background: #39d353; color: #080808; }
-        .filtro-desplazar:focus-visible, .filtro:focus-visible { outline: 2px solid #39d353; outline-offset: 2px; }
-        .filtro { flex: 0 0 auto; padding: 8px 11px; border: 1px solid #333; border-radius: 99px; background: #121212; color: #b7b7b7; font-size: 11px; font-weight: 600; cursor: pointer; }
-        .filtro:hover, .filtro.activo { border-color: #39d353; background: #101a11; color: #39d353; }
-        .productos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 11px; }
-        .producto { overflow: hidden; border: 1px solid #292929; border-radius: 13px; background: #121212; transition: border-color .2s, transform .2s; }
-        .producto:hover { border-color: #39d353; transform: translateY(-2px); }
-        .producto-imagen { position: relative; display: grid; place-items: center; height: 172px; overflow: hidden; background: radial-gradient(ellipse at 50% 66%, #293d25, #171d17 66%, #121212); }
-        .producto-imagen img { width: 100%; height: 100%; object-fit: contain; background: #e7e8e5; }
-        .producto-imagen:after { content: ""; position: absolute; bottom: 17px; width: 55%; height: 9px; border-radius: 50%; background: #000; filter: blur(7px); }
-        .producto-imagen svg { z-index: 1; width: 104px; height: 104px; filter: drop-shadow(0 8px 6px #0009); }
-        .producto-etiqueta { position: absolute; z-index: 2; top: 8px; left: 8px; padding: 4px 7px; border: 1px solid #3e5a35; border-radius: 99px; background: #101610; color: #b8ee88; font-size: 8px; font-weight: 700; letter-spacing: .5px; }
-        .producto-info { padding: 11px 10px 10px; }
-        .producto-categoria { color: #39d353; font-size: 8px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
-        .producto h2 { margin: 4px 0; font-size: 13px; line-height: 1.25; }
-        .producto-descripcion { min-height: 30px; color: #999; font-size: 10px; line-height: 1.45; }
-        .producto-pie { display: flex; justify-content: space-between; align-items: center; gap: 6px; margin: 9px 0 8px; padding-top: 8px; border-top: 1px solid #292929; }
-        .producto-precio { color: #fff; font-size: 14px; font-weight: 700; }
-        .producto-precio small { display: block; color: #777; font-size: 8px; font-weight: 400; }
-        .consulta { display: block; padding: 9px 5px; border: 1px solid #315b35; border-radius: 8px; background: #142017; color: #65e476; text-align: center; text-decoration: none; font-size: 10px; font-weight: 700; }
-        .consulta:hover { background: #39d353; color: #080808; }
-        .nota { margin-top: 13px; color: #777; text-align: center; font-size: 10px; line-height: 1.5; }
-        .a-medida { margin-top: 15px; padding: 15px; border: 1px dashed #3a493a; border-radius: 12px; background: #101410; text-align: center; }
-        .a-medida strong { font-size: 13px; }
-        .a-medida p { margin: 4px 0 11px; color: #929292; font-size: 11px; }
-        .a-medida .consulta { font-size: 11px; }
-        .pie { margin-top: 28px; padding-top: 19px; border-top: 1px solid #292929; text-align: center; color: #666; font-size: 10px; letter-spacing: 1px; }
-        .pie a { display: inline-block; margin-top: 11px; color: #39d353; text-decoration: none; letter-spacing: 0; font-size: 11px; font-weight: 700; }
-        @media (max-width: 380px) { .contenedor { padding: 20px 15px 25px; } .producto-imagen { height: 158px; } }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg-main: #080a09;
+            --bg-card: #111513;
+            --border-card: #222925;
+            --accent: #39d353;
+            --accent-glow: rgba(57, 211, 83, 0.22);
+            --text-main: #f3f5f4;
+            --text-muted: #98a29c;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+            background-color: var(--bg-main);
+            background-image: radial-gradient(circle at 50% 0%, rgba(57, 211, 83, 0.12) 0%, transparent 50%);
+            color: var(--text-main);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .contenedor {
+            width: 100%;
+            max-width: 560px;
+            margin: auto;
+            padding: 26px 18px 84px;
+        }
+
+        .volver {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border: 1px solid var(--border-card);
+            border-radius: 999px;
+            background: rgba(17, 21, 19, 0.8);
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .volver:hover {
+            color: var(--accent);
+            border-color: rgba(57, 211, 83, 0.45);
+        }
+
+        .logo {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            max-height: 84px;
+            object-fit: contain;
+            margin: 0 auto 18px;
+            filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.6));
+        }
+
+        .logo-fallback {
+            display: grid;
+            place-items: center;
+            width: 76px;
+            height: 76px;
+            margin: 0 auto 18px;
+            border: 2px solid var(--accent);
+            border-radius: 22px;
+            background: rgba(57, 211, 83, 0.06);
+            color: var(--accent);
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -2.5px;
+        }
+
+        .presentacion {
+            text-align: center;
+        }
+
+        .etiqueta {
+            color: var(--accent);
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 8px 0;
+            font-size: 25px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .intro {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .linea {
+            width: 54px;
+            height: 3px;
+            border-radius: 2px;
+            margin: 18px auto 20px;
+            background: var(--accent);
+        }
+
+        /* =========================
+           BUSCADOR Y FILTROS
+        ========================= */
+        .buscador-caja {
+            position: relative;
+            margin-bottom: 12px;
+        }
+
+        .buscador-input {
+            width: 100%;
+            padding: 11px 14px 11px 36px;
+            border: 1px solid var(--border-card);
+            border-radius: 12px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 13px;
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .buscador-input::placeholder {
+            color: #6b756f;
+        }
+
+        .buscador-input:focus {
+            border-color: var(--accent);
+        }
+
+        .buscador-icono {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 14px;
+            opacity: 0.65;
+            pointer-events: none;
+        }
+
+        .filtros-contenedor {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+
+        .filtros {
+            display: flex;
+            flex: 1;
+            min-width: 0;
+            gap: 7px;
+            overflow-x: auto;
+            padding: 4px 1px 8px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) #1a201d;
+            scroll-behavior: smooth;
+        }
+
+        .filtros::-webkit-scrollbar {
+            height: 5px;
+        }
+
+        .filtros::-webkit-scrollbar-track {
+            background: #1a201d;
+            border-radius: 99px;
+        }
+
+        .filtros::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 99px;
+        }
+
+        .filtro-desplazar {
+            flex: 0 0 30px;
+            width: 30px;
+            height: 34px;
+            border: 1px solid #2c4a31;
+            border-radius: 9px;
+            background: #131e16;
+            color: #65e476;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .filtro-desplazar:hover {
+            background: var(--accent);
+            color: #061008;
+        }
+
+        .filtro {
+            flex: 0 0 auto;
+            padding: 8px 13px;
+            border: 1px solid var(--border-card);
+            border-radius: 999px;
+            background: var(--bg-card);
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 11.5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filtro:hover,
+        .filtro.activo {
+            border-color: var(--accent);
+            background: rgba(57, 211, 83, 0.12);
+            color: var(--accent);
+        }
+
+        .estado-resultados {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 0 2px;
+            color: #77827b;
+            font-size: 11px;
+        }
+
+        /* =========================
+           GRILLA DE PRODUCTOS
+        ========================= */
+        .productos {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .producto {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid var(--border-card);
+            border-radius: 15px;
+            background: var(--bg-card);
+            transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .producto:hover {
+            border-color: rgba(57, 211, 83, 0.55);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+        }
+
+        .producto-imagen {
+            position: relative;
+            display: grid;
+            place-items: center;
+            height: 174px;
+            overflow: hidden;
+            background: #e7e8e5;
+            cursor: zoom-in;
+        }
+
+        .producto-imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.25s ease;
+        }
+
+        .producto:hover .producto-imagen img {
+            transform: scale(1.04);
+        }
+
+        .producto-etiqueta {
+            position: absolute;
+            z-index: 2;
+            top: 8px;
+            left: 8px;
+            padding: 4px 8px;
+            border: 1px solid rgba(57, 211, 83, 0.4);
+            border-radius: 999px;
+            background: rgba(11, 16, 12, 0.9);
+            color: #8df59d;
+            font-size: 8.5px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+        }
+
+        .zoom-hint {
+            position: absolute;
+            right: 8px;
+            bottom: 8px;
+            padding: 3px 6px;
+            border-radius: 6px;
+            background: rgba(11, 16, 12, 0.75);
+            color: #fff;
+            font-size: 10px;
+            opacity: 0.8;
+        }
+
+        .producto-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 12px 11px 11px;
+        }
+
+        .producto-categoria {
+            color: var(--accent);
+            font-size: 8.5px;
+            font-weight: 700;
+            letter-spacing: 0.9px;
+            text-transform: uppercase;
+        }
+
+        .producto h2 {
+            margin: 5px 0 6px;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--text-main);
+        }
+
+        .producto-descripcion {
+            color: var(--text-muted);
+            font-size: 11px;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .producto-inferior {
+            margin-top: auto;
+        }
+
+        .producto-pie {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
+            margin: 6px 0 9px;
+            padding-top: 8px;
+            border-top: 1px solid var(--border-card);
+        }
+
+        .producto-precio {
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .consulta {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            width: 100%;
+            padding: 9px 6px;
+            border: 1px solid #315b35;
+            border-radius: 9px;
+            background: #142218;
+            color: #65e476;
+            text-align: center;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .consulta:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #051107;
+        }
+
+        .sin-resultados {
+            grid-column: 1 / -1;
+            padding: 32px 16px;
+            text-align: center;
+            border: 1px dashed var(--border-card);
+            border-radius: 14px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        /* =========================
+           BLOQUE A MEDIDA Y PIE
+        ========================= */
+        .nota {
+            margin-top: 16px;
+            color: #77827b;
+            text-align: center;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .a-medida {
+            margin-top: 16px;
+            padding: 18px 16px;
+            border: 1px dashed rgba(57, 211, 83, 0.4);
+            border-radius: 15px;
+            background: linear-gradient(180deg, #121914 0%, #0e1210 100%);
+            text-align: center;
+        }
+
+        .a-medida strong {
+            display: block;
+            font-size: 14px;
+            color: var(--text-main);
+        }
+
+        .a-medida p {
+            margin: 5px 0 13px;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .boton-primario {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #72f47d;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #43df5a, #27bd43);
+            box-shadow: 0 5px 18px var(--accent-glow);
+            color: #051107;
+            font-size: 12.5px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: transform 0.2s ease, filter 0.2s ease;
+        }
+
+        .boton-primario:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.06);
+        }
+
+        .pie {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-card);
+            text-align: center;
+            color: #6b756f;
+            font-size: 10.5px;
+            letter-spacing: 1.5px;
+        }
+
+        .pie a {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: 0;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* =========================
+           MODAL DE IMAGEN AMPLIADA
+        ========================= */
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            place-items: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.86);
+            backdrop-filter: blur(4px);
+        }
+
+        .modal.abierto {
+            display: grid;
+        }
+
+        .modal-contenido {
+            position: relative;
+            width: 100%;
+            max-width: 440px;
+            border: 1px solid #2e3832;
+            border-radius: 16px;
+            background: var(--bg-card);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .modal-contenido img {
+            width: 100%;
+            max-height: 62vh;
+            object-fit: contain;
+            background: #e7e8e5;
+        }
+
+        .modal-pie {
+            padding: 14px 16px;
+        }
+
+        .modal-titulo {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .modal-cerrar {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        /* =========================
+           BOTÓN FLOTANTE WHATSAPP
+        ========================= */
+        .wsp-flotante {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-radius: 999px;
+            background: #25d366;
+            color: #05140a;
+            font-size: 13px;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+            transition: transform 0.2s ease;
+        }
+
+        .wsp-flotante:hover {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        @media (max-width: 380px) {
+            .contenedor {
+                padding: 20px 14px 76px;
+            }
+            .producto-imagen {
+                height: 154px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+        }
     </style>
 </head>
 <body>
     <main class="contenedor">
         <a class="volver" href="index.html">← Volver a ON Soporte Informático</a>
-        <img src="logo_on_transparente.png" alt="ON Soporte Informático" class="logo" onerror="this.outerHTML='<div class=\'logo-fallback\' aria-label=\'ON Soporte Informático\'>ON</div>'">
+        <img
+            src="logo_on_transparente.png"
+            alt="ON Soporte Informático"
+            class="logo"
+            onerror="this.outerHTML='<div class=\'logo-fallback\' aria-label=\'ON Soporte Informático\'>ON</div>'"
+        >
 
         <header class="presentacion">
             <div class="etiqueta">Tecnología · Diseño · Soluciones</div>
             <h1>Catálogo de Impresión 3D</h1>
-            <p class="intro">Objetos útiles, accesorios y piezas personalizadas.<br>Elegí una categoría y consultanos por WhatsApp.</p>
+            <p class="intro">Objetos útiles, accesorios y piezas personalizadas.<br>Tocá cualquier foto para ampliarla o consultanos por WhatsApp.</p>
             <div class="linea"></div>
         </header>
+
+        <div class="buscador-caja">
+            <span class="buscador-icono" aria-hidden="true">🔍</span>
+            <input
+                type="search"
+                id="buscador"
+                class="buscador-input"
+                placeholder="Buscar por calibre, barco, cueva, figura..."
+                aria-label="Buscar productos en el catálogo"
+            >
+        </div>
 
         <div class="filtros-contenedor">
             <button class="filtro-desplazar" type="button" data-desplazar="-1" aria-label="Desplazar categorías hacia la izquierda">‹</button>
             <nav class="filtros" id="filtros" aria-label="Filtrar productos por categoría">
-            <button class="filtro activo" type="button" data-filtro="Todos">Todos</button>
-            <button class="filtro" type="button" data-filtro="Cajas de munición">▰ Cajas de munición</button>
-            <button class="filtro" type="button" data-filtro="Accesorios de caza">⌁ Accesorios de caza</button>
-            <button class="filtro" type="button" data-filtro="Adornos para acuarios">🐠 Adornos para acuarios</button>
-            <button class="filtro" type="button" data-filtro="PEDIDOS PERSONALIZADOS">PEDIDOS PERSONALIZADOS</button>
-        </nav>
+                <button class="filtro activo" type="button" data-filtro="Todos">Todos</button>
+                <button class="filtro" type="button" data-filtro="Cajas de munición">▰ Cajas de munición</button>
+                <button class="filtro" type="button" data-filtro="Accesorios de caza">⌁ Accesorios de caza</button>
+                <button class="filtro" type="button" data-filtro="Adornos para acuarios">🐠 Adornos para acuarios</button>
+                <button class="filtro" type="button" data-filtro="PEDIDOS PERSONALIZADOS">✨ Pedidos personalizados</button>
+            </nav>
             <button class="filtro-desplazar" type="button" data-desplazar="1" aria-label="Desplazar categorías hacia la derecha">›</button>
         </div>
 
+        <div class="estado-resultados">
+            <span id="contador-productos">Cargando productos...</span>
+            <span>Precios sujetos a color/medida</span>
+        </div>
+
         <section class="productos" id="productos" aria-label="Productos de impresión 3D"></section>
-        <p class="nota">Consultá colores, medidas y disponibilidad.</p>
+
+        <p class="nota">Consultá colores disponibles, medidas personalizadas y tiempos de entrega.</p>
 
         <section class="a-medida">
-            <strong>¿Tenés una idea propia?</strong>
-            <p>Contanos qué necesitás y vemos cómo darle forma.</p>
-            <a class="consulta" id="consulta-personalizada" href="#">Consultar mi idea por WhatsApp ↗</a>
+            <strong>¿Tenés una idea propia o necesitás un repuesto?</strong>
+            <p>Contanos qué buscás y lo diseñamos e imprimimos a medida.</p>
+            <a class="boton-primario" id="consulta-personalizada" href="#">
+                💬 Consultar mi idea por WhatsApp ↗
+            </a>
         </section>
 
-        <footer class="pie">ON · SOPORTE INFORMÁTICO<a href="index.html">Volver a la página principal ↑</a></footer>
+        <footer class="pie">
+            <div>ON · SOPORTE INFORMÁTICO</div>
+            <a href="index.html">Volver a la página principal ↑</a>
+        </footer>
     </main>
 
+    <!-- Modal para ver foto ampliada -->
+    <div class="modal" id="modal-foto" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+        <div class="modal-contenido">
+            <button class="modal-cerrar" id="modal-cerrar" type="button" aria-label="Cerrar vista ampliada">✕</button>
+            <img id="modal-img" src="" alt="">
+            <div class="modal-pie">
+                <div class="modal-titulo" id="modal-titulo"></div>
+                <a class="boton-primario" id="modal-wsp" href="#" target="_blank" rel="noopener noreferrer">
+                    💬 Consultar este producto por WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Acceso directo flotante -->
+    <a
+        href="https://wa.me/5493364626333?text=Hola%20ON!%20Te%20escribo%20desde%20el%20cat%C3%A1logo%203D%20para%20hacerte%20una%20consulta."
+        target="_blank"
+        rel="noopener noreferrer"
+        class="wsp-flotante"
+        aria-label="Contactar por WhatsApp"
+    >
+        <span>💬</span> WhatsApp
+    </a>
+
     <script>
-        // Para actualizar el catálogo, cambiá los datos de cada producto en esta lista.
         const productos = [
             { nombre: "Caja de balas - 25 balas", categoria: "Cajas de munición", precio: "$ 25.000", descripcion: "Cal. .300, .308, .30-06 o Win Mag a pedido.", foto: "assets/caja-25.png", etiqueta: "25 BALAS" },
             { nombre: "Caja de balas - 40 o 50 balas", categoria: "Cajas de munición", precio: "$ 40.000", descripcion: "Cal. .300, .308, .30-06 o Win Mag a pedido.", foto: "assets/caja-40-50.png", etiqueta: "40 / 50 BALAS" },
@@ -117,44 +688,40 @@
             { nombre: "Figura personalizada", categoria: "PEDIDOS PERSONALIZADOS", precio: "Consultar", descripcion: "Figuras hechas a partir de tu foto. Consultá tamaños y opciones.", foto: "assets/figura-personalizada.png", etiqueta: "A PEDIDO" }
         ];
 
-        // Agregá o editá adornos para acuarios aquí. No incluir enlaces externos.
         const productosAcuario = [
-            {"nombre": "Cueva Túnel de Acuario de Tronco Natural", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-01.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Stone Caves Hideout - Terrarium & Aquarium Decoration", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-02.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Escondite en el árbol", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-03.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Cueva de Roca", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-04.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Cueva del acuario", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-05.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Acuario Terrario Árbol de pie Cueva Escondite", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-06.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Puente de arco de piedra, paisajismo de acuario, escondite", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-07.png", "etiqueta": "ACUARIO"},
-            {"nombre": "El asombroso escondite del pececito (sumergible)", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-08.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Antigua Cueva Acuario – Refugio de Roca Lisa", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-09.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Túnel de esquina subterráneo para acuario/pecera", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-10.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Barco Hundido", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-11.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Barco Hundido 2", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-12.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Decoración del Castillo de Stonekeep", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-13.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Fortaleza de piedra abandonada, refugio para reptiles y zona de escalada.", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-14.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Decoración de acuario con paisajismo de estilo chino y puente antiguo para peces tropicales", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-15.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Portal de templo antiguo – Ruinas de acuario y mesa", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-16.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Refugio con forma de tocón de bosque - Decoración para terrarios y acuarios", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-17.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Paisaje de pecera con puente de piedra", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-18.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Pequeños peces se esconden en un acuario con forma de castillo", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-19.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Coral Stylophora Pistillata #2 - Decoración de Acuario", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-20.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Corallium Rubrum Coral Branch #3 - Aquarium Decor", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-21.png", "etiqueta": "ACUARIO"},
-            {"nombre": "Cursed Wooden Hollow Skull Hide - Terrarium Decor", "categoria": "Adornos para acuarios", "foto": "assets/acuario/adorno-acuario-22.png", "etiqueta": "ACUARIO"},
+            { nombre: "Cueva Túnel de Tronco Natural", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-01.png", etiqueta: "ACUARIO" },
+            { nombre: "Cueva de Piedras - Escondite para Acuario y Terrario", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-02.png", etiqueta: "ACUARIO" },
+            { nombre: "Escondite en el Árbol", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-03.png", etiqueta: "ACUARIO" },
+            { nombre: "Cueva de Roca", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-04.png", etiqueta: "ACUARIO" },
+            { nombre: "Cueva Clásica de Acuario", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-05.png", etiqueta: "ACUARIO" },
+            { nombre: "Árbol de Pie con Cueva Escondite", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-06.png", etiqueta: "ACUARIO" },
+            { nombre: "Puente de Arco de Piedra", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-07.png", etiqueta: "ACUARIO" },
+            { nombre: "Escondite Sumergible para Peces", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-08.png", etiqueta: "ACUARIO" },
+            { nombre: "Antigua Cueva – Refugio de Roca Lisa", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-09.png", etiqueta: "ACUARIO" },
+            { nombre: "Túnel de Esquina Subterráneo para Pecera", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-10.png", etiqueta: "ACUARIO" },
+            { nombre: "Barco Hundido", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-11.png", etiqueta: "ACUARIO" },
+            { nombre: "Barco Hundido Modelo 2", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-12.png", etiqueta: "ACUARIO" },
+            { nombre: "Castillo de Stonekeep", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-13.png", etiqueta: "ACUARIO" },
+            { nombre: "Fortaleza de Piedra Abandonada", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-14.png", etiqueta: "ACUARIO" },
+            { nombre: "Paisajismo Estilo Chino con Puente Antiguo", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-15.png", etiqueta: "ACUARIO" },
+            { nombre: "Portal de Templo Antiguo – Ruinas", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-16.png", etiqueta: "ACUARIO" },
+            { nombre: "Refugio Tocón de Bosque", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-17.png", etiqueta: "ACUARIO" },
+            { nombre: "Paisaje de Pecera con Puente de Piedra", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-18.png", etiqueta: "ACUARIO" },
+            { nombre: "Castillo Escondite para Peces Chicos", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-19.png", etiqueta: "ACUARIO" },
+            { nombre: "Coral Stylophora Pistillata #2", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-20.png", etiqueta: "ACUARIO" },
+            { nombre: "Coral Rama Corallium Rubrum #3", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-21.png", etiqueta: "ACUARIO" },
+            { nombre: "Cráneo de Madera Hueco - Decoración", categoria: "Adornos para acuarios", precio: "Consultar", foto: "assets/acuario/adorno-acuario-22.png", etiqueta: "ACUARIO" }
         ];
 
         const catalogoProductos = [...productos, ...productosAcuario];
+        const telefonoON = "5493364626333";
 
-        const dibujos = {
-            celular: `<svg viewBox="0 0 120 120" fill="none"><path d="M23 89h75l-9-13H33z" fill="#39d353" stroke="#a6ffad" stroke-width="3"/><path d="M39 72l13-43q2-6 8-4l27 8q6 2 4 8L80 82" fill="#75eb74" stroke="#c3ffc1" stroke-width="3"/><path d="M50 36l28 8M47 46l28 8m-31 2 28 8" stroke="#27963b" stroke-width="3"/></svg>`,
-            organizador: `<svg viewBox="0 0 120 120" fill="none"><path d="M24 47h72v47H24z" fill="#54d968" stroke="#b4ffad" stroke-width="3"/><path d="M32 55h56v31H32z" stroke="#258d3b" stroke-width="3"/><path d="M39 47V31h42v16m-35-15v15m13-15v15m13-15v15" stroke="#c2ffb7" stroke-width="4"/></svg>`,
-            auriculares: `<svg viewBox="0 0 120 120" fill="none"><path d="M35 68V54a25 25 0 0 1 50 0v14" stroke="#8cf08c" stroke-width="9" stroke-linecap="round"/><rect x="29" y="61" width="15" height="28" rx="7" fill="#39d353" stroke="#c2ffb7" stroke-width="3"/><rect x="76" y="61" width="15" height="28" rx="7" fill="#39d353" stroke="#c2ffb7" stroke-width="3"/><path d="M39 91h43v11H39z" fill="#268c39" stroke="#80e784" stroke-width="3"/></svg>`,
-            llavero: `<svg viewBox="0 0 120 120" fill="none"><circle cx="56" cy="52" r="29" fill="#51d466" stroke="#baffad" stroke-width="3"/><circle cx="56" cy="52" r="18" stroke="#278d3a" stroke-width="3"/><path d="M48 64V40h9q11 0 11 8t-11 8h-9m10 0 12 9" stroke="#efffed" stroke-width="5" stroke-linecap="round"/><path d="m80 76 17 17" stroke="#ddd" stroke-width="6" stroke-linecap="round"/><circle cx="101" cy="97" r="9" stroke="#ddd" stroke-width="4"/></svg>`,
-            clip: `<svg viewBox="0 0 120 120" fill="none"><rect x="34" y="22" width="52" height="78" rx="10" fill="#4bd261" stroke="#baffad" stroke-width="3"/><path d="M44 34h32v54H44z" fill="#203424" stroke="#9af09a" stroke-width="3"/><path d="M51 45h18m-18 12h18m-18 12h18" stroke="#64db75" stroke-width="4" stroke-linecap="round"/></svg>`,
-            maceta: `<svg viewBox="0 0 120 120" fill="none"><path d="M39 58h42l-6 42H45z" fill="#52d466" stroke="#baffad" stroke-width="3"/><path d="M35 53h50v10H35z" fill="#85ec83" stroke="#c2ffb7" stroke-width="3"/><path d="M60 53V26m0 21Q39 49 39 32q15-4 21 12zm1-5q2-18 21-19 2 15-19 24" fill="#338f42" stroke="#baffad" stroke-width="3" stroke-linejoin="round"/></svg>`,
-            joystick: `<svg viewBox="0 0 120 120" fill="none"><path d="M34 43q5-11 17-11h22q12 0 17 11l11 31q3 10-6 13-7 3-12-5l-8-10H49l-8 10q-5 8-12 5-9-3-6-13z" fill="#50d366" stroke="#baffad" stroke-width="3"/><path d="M43 51v20m-10-10h20" stroke="#efffed" stroke-width="5" stroke-linecap="round"/><circle cx="78" cy="50" r="3" fill="#efffed"/><circle cx="86" cy="61" r="3" fill="#efffed"/><circle cx="76" cy="70" r="3" fill="#efffed"/></svg>`,
-            personalizado: `<svg viewBox="0 0 120 120" fill="none"><path d="m60 20 7 19 19-7-7 19 19 7-19 7 7 19-19-7-7 19-7-19-19 7 7-19-19-7 19-7-7-19 19 7z" fill="#42ca58" stroke="#b5ffad" stroke-width="3" stroke-linejoin="round"/><circle cx="60" cy="64" r="14" stroke="#efffed" stroke-width="3"/><path d="M60 56v16m-8-8h16" stroke="#efffed" stroke-width="3" stroke-linecap="round"/></svg>`
-        };
+        let filtroActual = "Todos";
+        let textoBusqueda = "";
+
+        const grilla = document.getElementById("productos");
+        const contador = document.getElementById("contador-productos");
+        const buscador = document.getElementById("buscador");
 
         function escapeHTML(value) {
             return String(value).replace(/[&<>"']/g, char => ({
@@ -162,34 +729,115 @@
             }[char]));
         }
 
-        const telefonoON = "5493364626333";
-        const grilla = document.getElementById("productos");
-        function renderizar(filtro = "Todos") {
-            const visibles = catalogoProductos.filter(p => filtro === "Todos" || p.categoria === filtro);
+        function crearLinkWhatsApp(nombreProducto) {
+            const mensaje = `Hola ON! Quisiera consultar por: ${nombreProducto}.`;
+            return `https://wa.me/${telefonoON}?text=${encodeURIComponent(mensaje)}`;
+        }
+
+        function renderizar() {
+            const termino = textoBusqueda.trim().toLowerCase();
+            const visibles = catalogoProductos.filter(p => {
+                const coincideCategoria = filtroActual === "Todos" || p.categoria === filtroActual;
+                const coincideTexto = !termino ||
+                    p.nombre.toLowerCase().includes(termino) ||
+                    (p.descripcion && p.descripcion.toLowerCase().includes(termino)) ||
+                    p.categoria.toLowerCase().includes(termino);
+                return coincideCategoria && coincideTexto;
+            });
+
+            contador.textContent = `${visibles.length} ${visibles.length === 1 ? "producto" : "productos"}`;
+
+            if (visibles.length === 0) {
+                grilla.innerHTML = `<div class="sin-resultados">No encontramos productos con "${escapeHTML(textoBusqueda)}".<br>Probá con otra palabra o consultanos para hacerlo a medida.</div>`;
+                return;
+            }
+
             grilla.innerHTML = visibles.map(p => {
-                const enlace = `https://wa.me/${telefonoON}?text=${encodeURIComponent(`Hola ON, quisiera consultar por ${p.nombre}.`)}`;
+                const enlace = crearLinkWhatsApp(p.nombre);
                 const nombreSeguro = escapeHTML(p.nombre);
                 const descripcion = p.descripcion ? `<p class="producto-descripcion">${escapeHTML(p.descripcion)}</p>` : "";
-                const piePrecio = p.precio ? `<div class="producto-pie"><div class="producto-precio">${escapeHTML(p.precio)}</div><span aria-hidden="true">↗</span></div>` : "";
-                return `<article class="producto"><div class="producto-imagen"><span class="producto-etiqueta">${escapeHTML(p.etiqueta || "ACUARIO")}</span><img src="${p.foto}" alt="${nombreSeguro}"></div><div class="producto-info"><div class="producto-categoria">${escapeHTML(p.categoria)}</div><h2>${nombreSeguro}</h2>${descripcion}${piePrecio}<a class="consulta" href="${enlace}" target="_blank" rel="noopener">Consultar por WhatsApp</a></div></article>`;
+                return `
+                    <article class="producto">
+                        <div class="producto-imagen" data-foto="${escapeHTML(p.foto)}" data-nombre="${nombreSeguro}">
+                            <span class="producto-etiqueta">${escapeHTML(p.etiqueta || "3D")}</span>
+                            <img src="${escapeHTML(p.foto)}" alt="${nombreSeguro}" loading="lazy">
+                            <span class="zoom-hint" aria-hidden="true">🔍</span>
+                        </div>
+                        <div class="producto-info">
+                            <div class="producto-categoria">${escapeHTML(p.categoria)}</div>
+                            <h2>${nombreSeguro}</h2>
+                            ${descripcion}
+                            <div class="producto-inferior">
+                                <div class="producto-pie">
+                                    <div class="producto-precio">${escapeHTML(p.precio || "Consultar")}</div>
+                                    <span aria-hidden="true">↗</span>
+                                </div>
+                                <a class="consulta" href="${enlace}" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
+                            </div>
+                        </div>
+                    </article>
+                `;
             }).join("");
         }
 
-        document.querySelectorAll(".filtro-desplazar").forEach(boton => boton.addEventListener("click", () => {
-            document.getElementById("filtros").scrollBy({ left: Number(boton.dataset.desplazar) * 190, behavior: "smooth" });
-        }));
-        document.querySelectorAll(".filtro").forEach(boton => boton.addEventListener("click", () => {
-            document.querySelector(".filtro.activo")?.classList.remove("activo");
-            boton.classList.add("activo");
-            renderizar(boton.dataset.filtro);
-        }));
-        document.getElementById("consulta-personalizada").href = `https://wa.me/${telefonoON}?text=${encodeURIComponent("Hola ON, quisiera consultar por un diseño personalizado.")}`;
-        document.getElementById("consulta-personalizada").target = "_blank";
-        document.getElementById("consulta-personalizada").rel = "noopener";
+        // Modal de vista ampliada
+        const modal = document.getElementById("modal-foto");
+        const modalImg = document.getElementById("modal-img");
+        const modalTitulo = document.getElementById("modal-titulo");
+        const modalWsp = document.getElementById("modal-wsp");
+
+        grilla.addEventListener("click", (e) => {
+            const cajaImg = e.target.closest(".producto-imagen");
+            if (!cajaImg) return;
+            const foto = cajaImg.dataset.foto;
+            const nombre = cajaImg.dataset.nombre;
+            modalImg.src = foto;
+            modalImg.alt = nombre;
+            modalTitulo.textContent = nombre;
+            modalWsp.href = crearLinkWhatsApp(nombre);
+            modal.classList.add("abierto");
+        });
+
+        function cerrarModal() {
+            modal.classList.remove("abierto");
+            modalImg.src = "";
+        }
+
+        document.getElementById("modal-cerrar").addEventListener("click", cerrarModal);
+        modal.addEventListener("click", (e) => {
+            if (e.target === modal) cerrarModal();
+        });
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && modal.classList.contains("abierto")) cerrarModal();
+        });
+
+        // Eventos de filtros y buscador
+        document.querySelectorAll(".filtro-desplazar").forEach(boton => {
+            boton.addEventListener("click", () => {
+                document.getElementById("filtros").scrollBy({ left: Number(boton.dataset.desplazar) * 190, behavior: "smooth" });
+            });
+        });
+
+        document.querySelectorAll(".filtro").forEach(boton => {
+            boton.addEventListener("click", () => {
+                document.querySelector(".filtro.activo")?.classList.remove("activo");
+                boton.classList.add("activo");
+                filtroActual = boton.dataset.filtro;
+                renderizar();
+            });
+        });
+
+        buscador.addEventListener("input", (e) => {
+            textoBusqueda = e.target.value;
+            renderizar();
+        });
+
+        const btnPersonalizada = document.getElementById("consulta-personalizada");
+        btnPersonalizada.href = `https://wa.me/${telefonoON}?text=${encodeURIComponent("Hola ON! Quisiera consultar por un diseño 3D personalizado.")}`;
+        btnPersonalizada.target = "_blank";
+        btnPersonalizada.rel = "noopener noreferrer";
+
         renderizar();
     </script>
 </body>
 </html>
-
-
-

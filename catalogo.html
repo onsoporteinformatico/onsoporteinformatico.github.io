@@ -18,7 +18,6 @@
     <meta property="og:image:alt" content="Logo de ON Soporte Informático">
     <meta name="twitter:card" content="summary_large_image">
 
-    <!-- Tipografía unificada con index.html -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -51,24 +50,24 @@
 
         .contenedor {
             width: 100%;
-            max-width: 560px;
+            max-width: 640px;
             margin: auto;
-            padding: 26px 18px 84px;
+            padding: 30px 20px 92px;
         }
 
         .volver {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px 12px;
+            padding: 9px 14px;
             border: 1px solid var(--border-card);
             border-radius: 999px;
-            background: rgba(17, 21, 19, 0.8);
+            background: rgba(17, 21, 19, 0.85);
             color: var(--text-muted);
             text-decoration: none;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 600;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
             transition: all 0.2s ease;
         }
 
@@ -80,24 +79,24 @@
         .logo {
             display: block;
             width: 100%;
-            max-width: 200px;
-            max-height: 84px;
+            max-width: 230px;
+            max-height: 96px;
             object-fit: contain;
-            margin: 0 auto 18px;
+            margin: 0 auto 20px;
             filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.6));
         }
 
         .logo-fallback {
             display: grid;
             place-items: center;
-            width: 76px;
-            height: 76px;
-            margin: 0 auto 18px;
+            width: 84px;
+            height: 84px;
+            margin: 0 auto 20px;
             border: 2px solid var(--accent);
-            border-radius: 22px;
+            border-radius: 24px;
             background: rgba(57, 211, 83, 0.06);
             color: var(--accent);
-            font-size: 32px;
+            font-size: 36px;
             font-weight: 800;
             letter-spacing: -2.5px;
         }
@@ -108,7 +107,7 @@
 
         .etiqueta {
             color: var(--accent);
-            font-size: 10.5px;
+            font-size: 11px;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -116,22 +115,22 @@
 
         h1 {
             margin: 8px 0;
-            font-size: 25px;
+            font-size: 28px;
             font-weight: 800;
             letter-spacing: -0.5px;
         }
 
         .intro {
             color: var(--text-muted);
-            font-size: 13px;
-            line-height: 1.5;
+            font-size: 14px;
+            line-height: 1.55;
         }
 
         .linea {
-            width: 54px;
+            width: 60px;
             height: 3px;
             border-radius: 2px;
-            margin: 18px auto 20px;
+            margin: 20px auto 22px;
             background: var(--accent);
         }
 
@@ -140,18 +139,18 @@
         ========================= */
         .buscador-caja {
             position: relative;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
         }
 
         .buscador-input {
             width: 100%;
-            padding: 11px 14px 11px 36px;
+            padding: 13px 16px 13px 40px;
             border: 1px solid var(--border-card);
-            border-radius: 12px;
+            border-radius: 13px;
             background: var(--bg-card);
             color: var(--text-main);
             font-family: inherit;
-            font-size: 13px;
+            font-size: 14px;
             outline: none;
             transition: border-color 0.2s ease;
         }
@@ -166,10 +165,10 @@
 
         .buscador-icono {
             position: absolute;
-            left: 12px;
+            left: 14px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 14px;
+            font-size: 15px;
             opacity: 0.65;
             pointer-events: none;
         }
@@ -177,15 +176,15 @@
         .filtros-contenedor {
             display: flex;
             align-items: center;
-            gap: 6px;
-            margin-bottom: 10px;
+            gap: 8px;
+            margin-bottom: 12px;
         }
 
         .filtros {
             display: flex;
             flex: 1;
             min-width: 0;
-            gap: 7px;
+            gap: 8px;
             overflow-x: auto;
             padding: 4px 1px 8px;
             scrollbar-width: thin;
@@ -208,14 +207,14 @@
         }
 
         .filtro-desplazar {
-            flex: 0 0 30px;
-            width: 30px;
-            height: 34px;
+            flex: 0 0 34px;
+            width: 34px;
+            height: 38px;
             border: 1px solid #2c4a31;
-            border-radius: 9px;
+            border-radius: 10px;
             background: #131e16;
             color: #65e476;
-            font-size: 18px;
+            font-size: 20px;
             cursor: pointer;
             transition: all 0.15s ease;
         }
@@ -227,13 +226,13 @@
 
         .filtro {
             flex: 0 0 auto;
-            padding: 8px 13px;
+            padding: 9px 14px;
             border: 1px solid var(--border-card);
             border-radius: 999px;
             background: var(--bg-card);
             color: var(--text-muted);
             font-family: inherit;
-            font-size: 11.5px;
+            font-size: 12.5px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -250,10 +249,10 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             padding: 0 2px;
-            color: #77827b;
-            font-size: 11px;
+            color: #828e87;
+            font-size: 12px;
         }
 
         /* =========================
@@ -262,7 +261,7 @@
         .productos {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 12px;
+            gap: 14px;
         }
 
         .producto {
@@ -270,7 +269,7 @@
             flex-direction: column;
             overflow: hidden;
             border: 1px solid var(--border-card);
-            border-radius: 15px;
+            border-radius: 16px;
             background: var(--bg-card);
             transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
         }
@@ -285,7 +284,7 @@
             position: relative;
             display: grid;
             place-items: center;
-            height: 174px;
+            height: 205px;
             overflow: hidden;
             background: #e7e8e5;
             cursor: zoom-in;
@@ -305,58 +304,61 @@
         .producto-etiqueta {
             position: absolute;
             z-index: 2;
-            top: 8px;
-            left: 8px;
-            padding: 4px 8px;
+            top: 9px;
+            left: 9px;
+            padding: 4px 9px;
             border: 1px solid rgba(57, 211, 83, 0.4);
             border-radius: 999px;
-            background: rgba(11, 16, 12, 0.9);
+            background: rgba(11, 16, 12, 0.92);
             color: #8df59d;
-            font-size: 8.5px;
+            font-size: 9.5px;
             font-weight: 800;
             letter-spacing: 0.5px;
         }
 
         .zoom-hint {
             position: absolute;
-            right: 8px;
-            bottom: 8px;
-            padding: 3px 6px;
-            border-radius: 6px;
-            background: rgba(11, 16, 12, 0.75);
+            right: 9px;
+            bottom: 9px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            border-radius: 7px;
+            background: rgba(11, 16, 12, 0.82);
             color: #fff;
-            font-size: 10px;
-            opacity: 0.8;
+            font-size: 10.5px;
+            font-weight: 600;
         }
 
         .producto-info {
             display: flex;
             flex-direction: column;
             flex: 1;
-            padding: 12px 11px 11px;
+            padding: 14px 13px 13px;
         }
 
         .producto-categoria {
             color: var(--accent);
-            font-size: 8.5px;
+            font-size: 9.5px;
             font-weight: 700;
             letter-spacing: 0.9px;
             text-transform: uppercase;
         }
 
         .producto h2 {
-            margin: 5px 0 6px;
-            font-size: 13px;
+            margin: 5px 0 7px;
+            font-size: 14.5px;
             font-weight: 700;
-            line-height: 1.3;
+            line-height: 1.32;
             color: var(--text-main);
         }
 
         .producto-descripcion {
             color: var(--text-muted);
-            font-size: 11px;
-            line-height: 1.4;
-            margin-bottom: 8px;
+            font-size: 12px;
+            line-height: 1.45;
+            margin-bottom: 10px;
         }
 
         .producto-inferior {
@@ -368,14 +370,14 @@
             justify-content: space-between;
             align-items: center;
             gap: 6px;
-            margin: 6px 0 9px;
-            padding-top: 8px;
+            margin: 8px 0 10px;
+            padding-top: 9px;
             border-top: 1px solid var(--border-card);
         }
 
         .producto-precio {
             color: #ffffff;
-            font-size: 14px;
+            font-size: 15.5px;
             font-weight: 800;
         }
 
@@ -383,16 +385,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
+            gap: 6px;
             width: 100%;
-            padding: 9px 6px;
+            padding: 11px 8px;
             border: 1px solid #315b35;
-            border-radius: 9px;
+            border-radius: 10px;
             background: #142218;
             color: #65e476;
             text-align: center;
             text-decoration: none;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
             transition: all 0.2s ease;
         }
@@ -405,44 +407,44 @@
 
         .sin-resultados {
             grid-column: 1 / -1;
-            padding: 32px 16px;
+            padding: 36px 16px;
             text-align: center;
             border: 1px dashed var(--border-card);
             border-radius: 14px;
             color: var(--text-muted);
-            font-size: 13px;
+            font-size: 14px;
         }
 
         /* =========================
            BLOQUE A MEDIDA Y PIE
         ========================= */
         .nota {
-            margin-top: 16px;
-            color: #77827b;
+            margin-top: 18px;
+            color: #828e87;
             text-align: center;
-            font-size: 11px;
+            font-size: 12px;
             line-height: 1.5;
         }
 
         .a-medida {
-            margin-top: 16px;
-            padding: 18px 16px;
+            margin-top: 18px;
+            padding: 20px 18px;
             border: 1px dashed rgba(57, 211, 83, 0.4);
-            border-radius: 15px;
+            border-radius: 16px;
             background: linear-gradient(180deg, #121914 0%, #0e1210 100%);
             text-align: center;
         }
 
         .a-medida strong {
             display: block;
-            font-size: 14px;
+            font-size: 15.5px;
             color: var(--text-main);
         }
 
         .a-medida p {
-            margin: 5px 0 13px;
+            margin: 6px 0 14px;
             color: var(--text-muted);
-            font-size: 12px;
+            font-size: 13px;
         }
 
         .boton-primario {
@@ -451,13 +453,13 @@
             justify-content: center;
             gap: 8px;
             width: 100%;
-            padding: 12px 16px;
+            padding: 14px 18px;
             border: 1px solid #72f47d;
-            border-radius: 11px;
+            border-radius: 12px;
             background: linear-gradient(135deg, #43df5a, #27bd43);
             box-shadow: 0 5px 18px var(--accent-glow);
             color: #051107;
-            font-size: 12.5px;
+            font-size: 13.5px;
             font-weight: 800;
             text-decoration: none;
             transition: transform 0.2s ease, filter 0.2s ease;
@@ -469,12 +471,12 @@
         }
 
         .pie {
-            margin-top: 30px;
-            padding-top: 20px;
+            margin-top: 32px;
+            padding-top: 22px;
             border-top: 1px solid var(--border-card);
             text-align: center;
             color: #6b756f;
-            font-size: 10.5px;
+            font-size: 11px;
             letter-spacing: 1.5px;
         }
 
@@ -484,7 +486,7 @@
             color: var(--accent);
             text-decoration: none;
             letter-spacing: 0;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
         }
 
@@ -497,9 +499,9 @@
             z-index: 100;
             display: none;
             place-items: center;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.86);
-            backdrop-filter: blur(4px);
+            padding: 16px;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(5px);
         }
 
         .modal.abierto {
@@ -509,42 +511,53 @@
         .modal-contenido {
             position: relative;
             width: 100%;
-            max-width: 440px;
-            border: 1px solid #2e3832;
-            border-radius: 16px;
+            max-width: 540px;
+            border: 1px solid #324038;
+            border-radius: 18px;
             background: var(--bg-card);
             overflow: hidden;
             text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75);
         }
 
         .modal-contenido img {
             width: 100%;
-            max-height: 62vh;
+            max-height: 68vh;
             object-fit: contain;
             background: #e7e8e5;
+            display: block;
         }
 
         .modal-pie {
-            padding: 14px 16px;
+            padding: 16px 18px;
         }
 
         .modal-titulo {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+
+        .modal-precio {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 12px;
         }
 
         .modal-cerrar {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 32px;
-            height: 32px;
-            border: none;
+            top: 12px;
+            right: 12px;
+            width: 36px;
+            height: 36px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(10, 14, 12, 0.85);
             color: #fff;
             font-size: 18px;
+            font-weight: 700;
             cursor: pointer;
         }
 
@@ -559,11 +572,11 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            padding: 12px 16px;
+            padding: 13px 18px;
             border-radius: 999px;
             background: #25d366;
             color: #05140a;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 800;
             text-decoration: none;
             box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
@@ -574,15 +587,18 @@
             transform: translateY(-2px) scale(1.02);
         }
 
-        @media (max-width: 380px) {
+        @media (max-width: 400px) {
             .contenedor {
-                padding: 20px 14px 76px;
+                padding: 22px 14px 82px;
+            }
+            .productos {
+                gap: 10px;
             }
             .producto-imagen {
-                height: 154px;
+                height: 175px;
             }
             h1 {
-                font-size: 22px;
+                font-size: 24px;
             }
         }
     </style>
@@ -629,7 +645,7 @@
 
         <div class="estado-resultados">
             <span id="contador-productos">Cargando productos...</span>
-            <span>Precios sujetos a color/medida</span>
+            <span>Tocá la foto para ampliar</span>
         </div>
 
         <section class="productos" id="productos" aria-label="Productos de impresión 3D"></section>
@@ -657,6 +673,7 @@
             <img id="modal-img" src="" alt="">
             <div class="modal-pie">
                 <div class="modal-titulo" id="modal-titulo"></div>
+                <div class="modal-precio" id="modal-precio"></div>
                 <a class="boton-primario" id="modal-wsp" href="#" target="_blank" rel="noopener noreferrer">
                     💬 Consultar este producto por WhatsApp
                 </a>
@@ -664,7 +681,6 @@
         </div>
     </div>
 
-    <!-- Acceso directo flotante -->
     <a
         href="https://wa.me/5493364626333?text=Hola%20ON!%20Te%20escribo%20desde%20el%20cat%C3%A1logo%203D%20para%20hacerte%20una%20consulta."
         target="_blank"
@@ -755,13 +771,14 @@
             grilla.innerHTML = visibles.map(p => {
                 const enlace = crearLinkWhatsApp(p.nombre);
                 const nombreSeguro = escapeHTML(p.nombre);
+                const precioSeguro = escapeHTML(p.precio || "Consultar");
                 const descripcion = p.descripcion ? `<p class="producto-descripcion">${escapeHTML(p.descripcion)}</p>` : "";
                 return `
                     <article class="producto">
-                        <div class="producto-imagen" data-foto="${escapeHTML(p.foto)}" data-nombre="${nombreSeguro}">
+                        <div class="producto-imagen" data-foto="${escapeHTML(p.foto)}" data-nombre="${nombreSeguro}" data-precio="${precioSeguro}">
                             <span class="producto-etiqueta">${escapeHTML(p.etiqueta || "3D")}</span>
                             <img src="${escapeHTML(p.foto)}" alt="${nombreSeguro}" loading="lazy">
-                            <span class="zoom-hint" aria-hidden="true">🔍</span>
+                            <span class="zoom-hint" aria-hidden="true">🔍 Ampliar</span>
                         </div>
                         <div class="producto-info">
                             <div class="producto-categoria">${escapeHTML(p.categoria)}</div>
@@ -769,7 +786,7 @@
                             ${descripcion}
                             <div class="producto-inferior">
                                 <div class="producto-pie">
-                                    <div class="producto-precio">${escapeHTML(p.precio || "Consultar")}</div>
+                                    <div class="producto-precio">${precioSeguro}</div>
                                     <span aria-hidden="true">↗</span>
                                 </div>
                                 <a class="consulta" href="${enlace}" target="_blank" rel="noopener noreferrer">Consultar por WhatsApp</a>
@@ -784,6 +801,7 @@
         const modal = document.getElementById("modal-foto");
         const modalImg = document.getElementById("modal-img");
         const modalTitulo = document.getElementById("modal-titulo");
+        const modalPrecio = document.getElementById("modal-precio");
         const modalWsp = document.getElementById("modal-wsp");
 
         grilla.addEventListener("click", (e) => {
@@ -791,9 +809,11 @@
             if (!cajaImg) return;
             const foto = cajaImg.dataset.foto;
             const nombre = cajaImg.dataset.nombre;
+            const precio = cajaImg.dataset.precio;
             modalImg.src = foto;
             modalImg.alt = nombre;
             modalTitulo.textContent = nombre;
+            modalPrecio.textContent = precio;
             modalWsp.href = crearLinkWhatsApp(nombre);
             modal.classList.add("abierto");
         });
@@ -811,7 +831,6 @@
             if (e.key === "Escape" && modal.classList.contains("abierto")) cerrarModal();
         });
 
-        // Eventos de filtros y buscador
         document.querySelectorAll(".filtro-desplazar").forEach(boton => {
             boton.addEventListener("click", () => {
                 document.getElementById("filtros").scrollBy({ left: Number(boton.dataset.desplazar) * 190, behavior: "smooth" });

@@ -2,14 +2,11 @@
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ON Soporte Informático | Tecnología y Soluciones</title>
 
-    <title>ON Soporte Informático</title>
-
-    <meta name="description" content="Soporte técnico, servicios informáticos, impresión 3D y Soluciones para Empresas.">
+    <meta name="description" content="Soporte técnico, reparación de PC y notebooks, redes, impresión 3D y soluciones informáticas para empresas.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="ON Soporte Informático">
     <meta property="og:title" content="ON Soporte Informático">
@@ -22,618 +19,512 @@
     <meta property="og:image:alt" content="Logo de ON Soporte Informático">
     <meta name="twitter:card" content="summary_large_image">
 
-    <style>
+    <!-- Tipografía moderna -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
+        :root {
+            --bg-main: #080a09;
+            --bg-card: #111513;
+            --border-card: #222925;
+            --accent: #39d353;
+            --accent-glow: rgba(57, 211, 83, 0.22);
+            --text-main: #f3f5f4;
+            --text-muted: #98a29c;
+        }
+
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #080808;
-            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+            background-color: var(--bg-main);
+            background-image: radial-gradient(circle at 50% 0%, rgba(57, 211, 83, 0.12) 0%, transparent 55%);
+            color: var(--text-main);
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
 
         .contenedor {
             width: 100%;
-            max-width: 520px;
+            max-width: 540px;
             margin: auto;
-            padding: 35px 20px 25px;
+            padding: 40px 20px 80px;
         }
 
-
         /* =========================
-           LOGO
+           LOGO & HEADER
         ========================= */
-
         .logo {
             display: block;
-
             width: 100%;
-            max-width: 330px;
-
-            margin: 0 auto 28px;
+            max-width: 290px;
+            margin: 0 auto 24px;
+            filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.6));
         }
 
         .logo-fallback {
             display: grid;
             place-items: center;
-            width: 112px;
-            height: 112px;
-            margin: 0 auto 28px;
-            border: 2px solid #39d353;
-            border-radius: 28px;
-            color: #39d353;
-            font-size: 46px;
+            width: 104px;
+            height: 104px;
+            margin: 0 auto 24px;
+            border: 2px solid var(--accent);
+            border-radius: 26px;
+            background: rgba(57, 211, 83, 0.06);
+            color: var(--accent);
+            font-size: 42px;
             font-weight: 800;
-            letter-spacing: -4px;
+            letter-spacing: -3px;
         }
 
-        .logo-pie-fallback {
-            display: grid;
-            place-items: center;
-            width: 58px;
-            height: 58px;
-            max-width: none;
-            border: 1px solid #39d353;
-            border-radius: 15px;
-            color: #39d353;
-            font-size: 22px;
-            font-weight: 800;
-            letter-spacing: -2px;
+        .badge-estado {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 auto 14px;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: rgba(57, 211, 83, 0.1);
+            border: 1px solid rgba(57, 211, 83, 0.28);
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
         }
 
+        .punto-activo {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+        }
 
-        /* =========================
-           PRESENTACIÓN
-        ========================= */
+        .header-centro {
+            text-align: center;
+        }
 
         .titulo {
-            text-align: center;
-
-            font-size: 17px;
-
-            font-weight: 600;
-
-            letter-spacing: 3px;
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
         }
 
         .subtitulo {
-            text-align: center;
-
-            color: #8a8a8a;
-
+            color: var(--text-muted);
             font-size: 13px;
-
-            letter-spacing: 1.5px;
-
-            margin-top: 10px;
+            letter-spacing: 1.4px;
+            margin-top: 8px;
         }
 
         .linea {
-            width: 60px;
-
+            width: 56px;
             height: 3px;
-
-            background: #39d353;
-
-            margin: 25px auto 32px;
+            border-radius: 2px;
+            background: var(--accent);
+            margin: 22px auto 30px;
         }
-
 
         /* =========================
            BLOQUES DE SERVICIO
         ========================= */
-
         .servicios {
             display: flex;
-
             flex-direction: column;
-
-            gap: 13px;
+            gap: 14px;
         }
 
         .servicio {
-
-            padding: 20px;
-
-            background: #121212;
-
-            border: 1px solid #292929;
-
-            border-radius: 14px;
-
-            transition: all 0.25s ease;
+            padding: 22px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
         }
 
         .servicio:hover {
-
-            border-color: #39d353;
-
+            border-color: rgba(57, 211, 83, 0.55);
             transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+        }
+
+        .servicio-destacado {
+            border-color: rgba(57, 211, 83, 0.35);
+            background: linear-gradient(180deg, #131b16 0%, #101412 100%);
         }
 
         .servicio h2 {
-
-            font-size: 17px;
-
-            color: #39d353;
-
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent);
             margin-bottom: 8px;
         }
 
         .servicio p {
-
-            color: #a5a5a5;
-
-            font-size: 13px;
-
-            line-height: 1.5;
+            color: var(--text-muted);
+            font-size: 13.5px;
+            line-height: 1.55;
         }
-
 
         /* =========================
            BOTONES
         ========================= */
-
         .botones {
-
             display: flex;
-
             flex-direction: column;
-
-            gap: 13px;
-
-            margin-top: 30px;
+            gap: 12px;
+            margin-top: 28px;
         }
 
         .boton {
-
             display: flex;
-
             align-items: center;
-
             justify-content: center;
-
-            min-height: 56px;
-
-            padding: 15px;
-
-            background: #121212;
-
-            border: 1px solid #333333;
-
-            border-radius: 13px;
-
-            color: #ffffff;
-
+            gap: 10px;
+            min-height: 54px;
+            padding: 14px 18px;
+            background: var(--bg-card);
+            border: 1px solid #2d3631;
+            border-radius: 14px;
+            color: var(--text-main);
             text-decoration: none;
-
-            font-size: 15px;
-
+            font-size: 14.5px;
             font-weight: 600;
-
-            transition: all 0.25s ease;
+            transition: all 0.22s ease;
         }
 
         .boton:hover {
-
-            background: #39d353;
-
-            color: #000000;
-
-            border-color: #39d353;
-
+            background: #19211d;
+            border-color: var(--accent);
+            color: #ffffff;
             transform: translateY(-2px);
         }
 
-        .icono {
-
-            margin-right: 10px;
-
-            font-size: 18px;
-        }
-
-
-        /* =========================
-           EXPERIENCIA
-        ========================= */
-
-        .experiencia {
-
-            margin-top: 35px;
-
-            padding: 22px 20px;
-
-            text-align: center;
-
-            border-top: 1px solid #292929;
-
-            border-bottom: 1px solid #292929;
-        }
-
-        .experiencia h2 {
-
-            font-size: 16px;
-
-            color: #ffffff;
-
-            margin-bottom: 8px;
-
-            letter-spacing: 1px;
-        }
-
-        .experiencia p {
-
-            color: #888888;
-
-            font-size: 13px;
-
-            line-height: 1.5;
-        }
-
-
-        /* =========================
-           PIE
-        ========================= */
-
-        .separador {
-
-            width: 100%;
-
-            height: 1px;
-
-            background: #222222;
-
-            margin: 38px 0 25px;
-        }
-
-        .pie-texto {
-
-            text-align: center;
-
-            color: #666666;
-
-            font-size: 10px;
-
-            letter-spacing: 1.5px;
-
-            margin-bottom: 17px;
-        }
-
-        .logo-pie {
-
-            display: block;
-
-            width: 85px;
-
-            max-width: 30%;
-
-            margin: auto;
-        }
-
-        .copyright {
-
-            text-align: center;
-
-            color: #444444;
-
-            font-size: 10px;
-
-            margin-top: 12px;
-        }
-
-
-        /* =========================
-           CELULAR
-        ========================= */
-
-        @media (max-width: 380px) {
-
-            .contenedor {
-
-                padding: 25px 16px 20px;
-            }
-
-            .titulo {
-
-                font-size: 15px;
-            }
-
-            .servicio h2 {
-
-                font-size: 16px;
-            }
-
-            .boton {
-
-                font-size: 14px;
-            }
-
-        }
-
-
+        .boton-primario,
         .boton-catalogo {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             width: 100%;
-            margin-top: 14px;
-            padding: 14px 16px;
+            min-height: 54px;
+            padding: 14px 18px;
             border: 1px solid #72f47d;
-            border-radius: 11px;
+            border-radius: 14px;
             background: linear-gradient(135deg, #43df5a, #27bd43);
-            box-shadow: 0 5px 18px #39d35338;
-            color: #071008;
-            font-size: 13px;
+            box-shadow: 0 6px 20px var(--accent-glow);
+            color: #051107;
+            font-size: 14px;
             font-weight: 800;
-            letter-spacing: .65px;
-            line-height: 1.35;
+            letter-spacing: 0.4px;
             text-align: center;
             text-decoration: none;
-            transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
         }
 
+        .boton-catalogo {
+            margin-top: 15px;
+            min-height: 48px;
+            font-size: 13px;
+            border-radius: 12px;
+        }
+
+        .boton-primario:hover,
         .boton-catalogo:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px #39d3535c;
-            filter: brightness(1.08);
+            box-shadow: 0 10px 26px rgba(57, 211, 83, 0.38);
+            filter: brightness(1.06);
         }
 
-        .boton-catalogo:focus-visible {
-            outline: 3px solid #fff;
-            outline-offset: 3px;
+        .boton-secundario-acento {
+            margin-top: 15px;
+            min-height: 46px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            border-color: rgba(57, 211, 83, 0.45);
+            background: rgba(57, 211, 83, 0.06);
         }
 
+        .boton-secundario-acento:hover {
+            background: var(--accent);
+            color: #051107;
+        }
+
+        .icono {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        /* =========================
+           EXPERIENCIA
+        ========================= */
+        .experiencia {
+            margin-top: 34px;
+            padding: 24px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border-card);
+            border-bottom: 1px solid var(--border-card);
+        }
+
+        .experiencia h2 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            letter-spacing: 1.5px;
+        }
+
+        .experiencia p {
+            color: var(--text-muted);
+            font-size: 13.5px;
+            line-height: 1.55;
+        }
+
+        /* =========================
+           PIE
+        ========================= */
+        .pie {
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        .pie-texto {
+            color: #6b756f;
+            font-size: 10.5px;
+            font-weight: 600;
+            letter-spacing: 1.8px;
+            margin-bottom: 16px;
+        }
+
+        .logo-pie {
+            display: block;
+            width: 76px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        .logo-pie-fallback {
+            display: grid;
+            place-items: center;
+            width: 54px;
+            height: 54px;
+            margin: 0 auto;
+            border: 1px solid var(--accent);
+            border-radius: 14px;
+            color: var(--accent);
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+        }
+
+        .copyright {
+            color: #525a55;
+            font-size: 11px;
+            margin-top: 14px;
+        }
+
+        /* =========================
+           BOTÓN FLOTANTE WHATSAPP
+        ========================= */
+        .wsp-flotante {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-radius: 999px;
+            background: #25d366;
+            color: #05140a;
+            font-size: 13px;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .wsp-flotante:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
+        }
+
+        @media (max-width: 380px) {
+            .contenedor {
+                padding: 28px 16px 76px;
+            }
+            .titulo {
+                font-size: 16px;
+            }
+            .servicio {
+                padding: 18px;
+            }
+        }
     </style>
-
 </head>
-
 
 <body>
 
-
 <div class="contenedor">
 
-
-    <!-- =========================
-         LOGO
-    ========================= -->
-
-    <img
-        src="logo_on_transparente.png"
-        alt="ON Soporte Informático"
-        class="logo"
-        onerror="this.outerHTML='<div class=\'logo-fallback\' aria-label=\'ON Soporte Informático\'>ON</div>'"
-    >
-
-
-    <!-- =========================
-         PRESENTACIÓN
-    ========================= -->
-
-    <div class="titulo">
-
-        SOLUCIONES INFORMÁTICAS
-
-    </div>
-
-
-    <div class="subtitulo">
-
-        TECNOLOGÍA · SOPORTE · SOLUCIONES
-
-    </div>
-
-
-    <div class="linea"></div>
-
-
-    
-    <!-- =========================
-         SERVICIOS
-    ========================= -->
-
-    <div class="servicios">
-
-
-        <div class="servicio">
-
-            <h2>💻 Reparación de PC y Notebooks</h2>
-
-            <p>
-                Diagnóstico, reparación y mantenimiento
-                de equipos informáticos. Soluciones de
-                hardware y software.
-            </p>
-
-        </div>
-
-
-
-        <div class="servicio">
-
-            <h2>🔧 Servicio Técnico</h2>
-
-            <p>
-                Mantenimiento, optimización y puesta a punto
-                de computadoras para particulares,
-                comercios y empresas.
-            </p>
-
-        </div>
-
-
-
-        <div class="servicio">
-
-            <h2>🌐 Redes y Conectividad</h2>
-
-            <p>
-                Instalación y configuración de redes,
-                Wi-Fi, routers, VPN y soluciones
-                de conectividad.
-            </p>
-
-        </div>
-
-
-
-        <div class="servicio">
-
-            <h2>🖨️ Impresión 3D</h2>
-
-            <p>
-                Diseño e impresión de piezas personalizadas,
-                prototipos, accesorios y soluciones
-                a medida.
-            </p>
-
-            <a class="boton-catalogo" href="catalogo.html"><span aria-hidden="true">🛍️</span> VER CATÁLOGO DE IMPRESIÓN 3D <span aria-hidden="true">→</span></a>
-
-        </div>
-
-
-
-        <div class="servicio">
-
-            <h2>🏢 Soluciones para Empresas</h2>
-
-            <p>
-                Soporte informático, mantenimiento,
-                conectividad y soluciones tecnológicas
-                para comercios y empresas.
-            </p>
-
-            <a
-                href="https://get.teamviewer.com/nhu2n8u"
-                class="boton"
-                target="_blank"
-                rel="noopener noreferrer"
-                style="margin-top:14px;color:#39d353;border-color:#39d353;font-size:13px"
-            >
-                <span class="icono">🖥️</span>
-                SOPORTE REMOTO
-            </a>
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- =========================
-         BOTONES
-    ========================= -->
-
-    <div class="botones">
-
-
-        <a
-            href="https://wa.me/5493364626333"
-            class="boton"
+    <!-- LOGO Y ENCABEZADO -->
+    <header class="header-centro">
+        <img
+            src="logo_on_transparente.png"
+            alt="ON Soporte Informático"
+            class="logo"
+            onerror="this.outerHTML='<div class=\'logo-fallback\' aria-label=\'ON Soporte Informático\'>ON</div>'"
         >
 
-            <span class="icono">📱</span>
+        <div class="badge-estado">
+            <span class="punto-activo"></span>
+            Soporte Activo · Presupuestos sin cargo
+        </div>
 
-            Contactar por WhatsApp
+        <h1 class="titulo">Soluciones Informáticas</h1>
+        <p class="subtitulo">TECNOLOGÍA · SOPORTE · IMPRESIÓN 3D</p>
+        <div class="linea"></div>
+    </header>
 
+    <!-- SERVICIOS -->
+    <main class="servicios">
+
+        <article class="servicio">
+            <h2><span aria-hidden="true">💻</span> Reparación de PC y Notebooks</h2>
+            <p>
+                Diagnóstico, reparación y mantenimiento de equipos informáticos.
+                Soluciones de hardware, cambio de componentes y software.
+            </p>
+        </article>
+
+        <article class="servicio">
+            <h2><span aria-hidden="true">🔧</span> Servicio Técnico</h2>
+            <p>
+                Mantenimiento preventivo, optimización y puesta a punto
+                de computadoras para particulares, comercios y empresas.
+            </p>
+        </article>
+
+        <article class="servicio">
+            <h2><span aria-hidden="true">🌐</span> Redes y Conectividad</h2>
+            <p>
+                Instalación y configuración de redes, Wi-Fi, routers,
+                VPN y soluciones de conectividad estable.
+            </p>
+        </article>
+
+        <article class="servicio servicio-destacado">
+            <h2><span aria-hidden="true">🖨️</span> Impresión 3D y Tags NFC</h2>
+            <p>
+                Diseño e impresión de piezas personalizadas, llaveros,
+                identificadores NFC, prototipos y soluciones a medida.
+            </p>
+            <a class="boton-catalogo" href="catalogo.html">
+                <span aria-hidden="true">🛍️</span> VER CATÁLOGO DE IMPRESIÓN 3D <span aria-hidden="true">→</span>
+            </a>
+        </article>
+
+        <article class="servicio">
+            <h2><span aria-hidden="true">🏢</span> Soluciones para Empresas</h2>
+            <p>
+                Soporte informático integral, mantenimiento, conectividad
+                y asistencia rápida para comercios y oficinas.
+            </p>
+            <a
+                href="https://get.teamviewer.com/nhu2n8u"
+                class="boton boton-secundario-acento"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <span class="icono" aria-hidden="true">🖥️</span>
+                DESCARGAR SOPORTE REMOTO
+            </a>
+        </article>
+
+    </main>
+
+    <!-- BOTONES DE CONTACTO -->
+    <section class="botones" aria-label="Contacto y redes">
+
+        <a
+            href="https://wa.me/5493364626333?text=Hola%20ON!%20Te%20escribo%20desde%20la%20web%20para%20hacerte%20una%20consulta."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="boton-primario"
+        >
+            <span class="icono" aria-hidden="true">💬</span>
+            Consultar por WhatsApp
         </a>
-
-
 
         <a
             href="https://www.instagram.com/onsoporteinformatico/"
             target="_blank"
+            rel="noopener noreferrer"
             class="boton"
         >
-
-            <span class="icono">📸</span>
-
-            Instagram
-
+            <span class="icono" aria-hidden="true">📸</span>
+            Seguinos en Instagram
         </a>
 
-
-
+        <!-- Descomentá este bloque cuando tengas el enlace de Google Maps
         <a
-            href="#"
+            href="TU_LINK_DE_GOOGLE_MAPS"
+            target="_blank"
+            rel="noopener noreferrer"
             class="boton"
         >
-
-            <span class="icono">📍</span>
-
+            <span class="icono" aria-hidden="true">📍</span>
             Cómo llegar
-
         </a>
+        -->
 
+    </section>
 
-    </div>
-
-
-
-    <!-- =========================
-         EXPERIENCIA
-    ========================= -->
-
-    <div class="experiencia">
-
-        <h2>
-
-            EXPERIENCIA Y CONFIANZA
-
-        </h2>
-
+    <!-- EXPERIENCIA -->
+    <section class="experiencia">
+        <h2>EXPERIENCIA Y CONFIANZA</h2>
         <p>
-
-            Soluciones informáticas pensadas para que
-            la tecnología simplemente funcione.
-
+            Soluciones informáticas pensadas para que la tecnología simplemente funcione.
         </p>
+    </section>
 
-    </div>
-
-
-
-    <!-- =========================
-         PIE
-    ========================= -->
-
-    <div class="separador"></div>
-
-
-    <div class="pie-texto">
-
-        GRACIAS POR ELEGIR ON
-
-    </div>
-
-
-    <img
-        src="logo_on_transparente.png"
-        alt="ON Soporte Informático"
-        class="logo-pie"
-        onerror="this.outerHTML='<div class=\'logo-pie-fallback\' aria-label=\'ON Soporte Informático\'>ON</div>'"
-    >
-
-
-    <div class="copyright">
-
-        © 2026 ON Soporte Informático
-
-    </div>
-
+    <!-- PIE -->
+    <footer class="pie">
+        <div class="pie-texto">GRACIAS POR ELEGIR ON</div>
+        <img
+            src="logo_on_transparente.png"
+            alt="ON Soporte Informático"
+            class="logo-pie"
+            onerror="this.outerHTML='<div class=\'logo-pie-fallback\' aria-label=\'ON Soporte Informático\'>ON</div>'"
+        >
+        <div class="copyright">© 2026 ON Soporte Informático</div>
+    </footer>
 
 </div>
 
+<!-- Acceso directo flotante -->
+<a
+    href="https://wa.me/5493364626333?text=Hola%20ON!%20Te%20escribo%20desde%20la%20web%20para%20hacerte%20una%20consulta."
+    target="_blank"
+    rel="noopener noreferrer"
+    class="wsp-flotante"
+    aria-label="Contactar por WhatsApp"
+>
+    <span>💬</span> WhatsApp
+</a>
 
 </body>
-
 </html>
-```
-

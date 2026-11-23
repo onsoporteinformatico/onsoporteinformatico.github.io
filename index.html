@@ -517,4 +517,236 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .wsp-
+        .wsp-flotante:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
+        }
+
+        @media (max-width: 400px) {
+            .contenedor {
+                padding: 30px 16px 86px;
+            }
+            .titulo {
+                font-size: 18px;
+            }
+            .servicio {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="contenedor">
+
+    <header class="header-centro">
+        <img
+            src="logo_on_transparente.png"
+            alt="ON Soporte Informático"
+            class="logo"
+            onerror="this.outerHTML='<div class=\'logo-fallback\' aria-label=\'ON Soporte Informático\'>ON</div>'"
+        >
+
+        <div class="badge-estado" id="estado-local">
+            <span class="punto-activo"></span>
+            <span id="estado-texto">Soporte Activo · Presupuestos sin cargo</span>
+        </div>
+
+        <h1 class="titulo">Soluciones Informáticas</h1>
+        <p class="subtitulo">TECNOLOGÍA · SOPORTE · IMPRESIÓN 3D</p>
+        <div class="linea"></div>
+    </header>
+
+    <main class="servicios">
+
+        <article class="servicio">
+            <h2><span aria-hidden="true">💻</span> Reparación de PC y Notebooks</h2>
+            <p>
+                Diagnóstico, reparación y mantenimiento de equipos informáticos.
+                Soluciones de hardware, cambio de componentes y software.
+            </p>
+        </article>
+
+        <article class="servicio">
+            <h2><span aria-hidden="true">🔧</span> Servicio Técnico</h2>
+            <p>
+                Mantenimiento preventivo, optimización y puesta a punto
+                de computadoras para particulares, comercios y empresas.
+            </p>
+        </article>
+
+        <article class="servicio">
+            <h2><span aria-hidden="true">🌐</span> Redes y Conectividad</h2>
+            <p>
+                Instalación y configuración de redes, Wi-Fi, routers,
+                VPN y soluciones de conectividad estable.
+            </p>
+        </article>
+
+        <article class="servicio servicio-destacado">
+            <h2><span aria-hidden="true">🖨️</span> Impresión 3D y Tags NFC</h2>
+            <p>
+                Diseño e impresión de piezas personalizadas, llaveros,
+                identificadores NFC, prototipos y soluciones a medida.
+            </p>
+            <a class="boton-catalogo" href="catalogo.html">
+                <span aria-hidden="true">🛍️</span> VER CATÁLOGO DE IMPRESIÓN 3D <span aria-hidden="true">→</span>
+            </a>
+        </article>
+
+        <article class="servicio">
+            <h2><span aria-hidden="true">🏢</span> Soluciones para Empresas</h2>
+            <p>
+                Soporte informático integral, mantenimiento, conectividad
+                y asistencia rápida para comercios y oficinas.
+            </p>
+            <a
+                href="https://get.teamviewer.com/nhu2n8u"
+                class="boton boton-secundario-acento"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                <span class="icono" aria-hidden="true">🖥️</span>
+                DESCARGAR SOPORTE REMOTO
+            </a>
+        </article>
+
+    </main>
+
+    <!-- BOTONES DE CONTACTO Y UBICACIÓN -->
+    <section class="botones" aria-label="Contacto y ubicación">
+
+        <a
+            href="https://wa.me/5493364626333?text=Hola%20ON!%20Te%20escribo%20desde%20la%20web%20para%20hacerte%20una%20consulta."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="boton-primario"
+        >
+            <span class="icono" aria-hidden="true">💬</span>
+            Consultar por WhatsApp
+        </a>
+
+        <a
+            href="https://www.google.com/maps/search/?api=1&query=Quint%C3%ADn+Cordova+277+La+Emilia+Buenos+Aires"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="boton"
+        >
+            <span class="icono" aria-hidden="true">📍</span>
+            Cómo llegar (Google Maps)
+        </a>
+
+        <a
+            href="https://www.instagram.com/onsoporteinformatico/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="boton"
+        >
+            <span class="icono" aria-hidden="true">📸</span>
+            Seguinos en Instagram
+        </a>
+
+    </section>
+
+    <!-- UBICACIÓN Y HORARIOS -->
+    <section class="info-local" aria-label="Ubicación y horarios de atención">
+        <h2>Ubicación y Horarios</h2>
+        <div class="info-lista">
+            <div class="info-item">
+                <span aria-hidden="true">📍</span>
+                <div><strong>Taller:</strong> Quintín Cordova 277, La Emilia (CP 2901).</div>
+            </div>
+            <div class="info-item">
+                <span aria-hidden="true">🚐</span>
+                <div><strong>Cobertura:</strong> Atención en taller y a domicilio en La Emilia y San Nicolás de los Arroyos.</div>
+            </div>
+            <div class="info-item">
+                <span aria-hidden="true">🕒</span>
+                <div><strong>Horarios:</strong> Lunes a viernes de 8:00 a 20:00 hs · Sábados de 8:00 a 12:00 hs.</div>
+            </div>
+            <div class="info-item">
+                <span aria-hidden="true">📞</span>
+                <div><strong>Teléfono / WhatsApp:</strong> 0336 462-6333</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="faq" aria-label="Preguntas frecuentes">
+        <div class="faq-titulo">Preguntas frecuentes</div>
+
+        <details>
+            <summary>¿Cómo solicito un presupuesto?</summary>
+            <p>Escribinos por WhatsApp contándonos qué equipo tenés o qué falla presenta. Evaluamos el caso y te pasamos el presupuesto sin compromiso.</p>
+        </details>
+
+        <details>
+            <summary>¿Hacen impresiones 3D personalizadas a pedido?</summary>
+            <p>Sí. Podés elegir modelos de nuestro catálogo o enviarnos tu idea, medida o archivo para diseñarlo e imprimirlo a medida en el color que necesites.</p>
+        </details>
+
+        <details>
+            <summary>¿Atienden a domicilio y empresas?</summary>
+            <p>Sí, realizamos visitas técnicas en La Emilia y San Nicolás de los Arroyos, además de asistencia remota inmediata por TeamViewer para resolver problemas de software al instante.</p>
+        </details>
+    </section>
+
+    <!-- EXPERIENCIA -->
+    <section class="experiencia">
+        <h2>EXPERIENCIA Y CONFIANZA</h2>
+        <p>
+            Soluciones informáticas pensadas para que la tecnología simplemente funcione.
+        </p>
+    </section>
+
+    <!-- PIE -->
+    <footer class="pie">
+        <div class="pie-texto">GRACIAS POR ELEGIR ON</div>
+        <img
+            src="logo_on_transparente.png"
+            alt="ON Soporte Informático"
+            class="logo-pie"
+            onerror="this.outerHTML='<div class=\'logo-pie-fallback\' aria-label=\'ON Soporte Informático\'>ON</div>'"
+        >
+        <div class="copyright">© 2026 ON Soporte Informático · La Emilia, Buenos Aires</div>
+    </footer>
+
+</div>
+
+<a
+    href="https://wa.me/5493364626333?text=Hola%20ON!%20Te%20escribo%20desde%20la%20web%20para%20hacerte%20una%20consulta."
+    target="_blank"
+    rel="noopener noreferrer"
+    class="wsp-flotante"
+    aria-label="Contactar por WhatsApp"
+>
+    <span>💬</span> WhatsApp
+</a>
+
+<script>
+    // Actualiza el indicador de horario en vivo según hora de Argentina
+    (function actualizarEstadoHorario() {
+        const badge = document.getElementById("estado-local");
+        const texto = document.getElementById("estado-texto");
+        if (!badge || !texto) return;
+
+        const ahora = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Argentina/Buenos_Aires" }));
+        const dia = ahora.getDay();
+        const horaDecimal = ahora.getHours() + ahora.getMinutes() / 60;
+
+        const abiertoLunVie = dia >= 1 && dia <= 5 && horaDecimal >= 8 && horaDecimal < 20;
+        const abiertoSab = dia === 6 && horaDecimal >= 8 && horaDecimal < 12;
+
+        if (abiertoLunVie || abiertoSab) {
+            badge.classList.remove("cerrado");
+            texto.textContent = "Abierto ahora · Presupuestos sin cargo";
+        } else {
+            badge.classList.add("cerrado");
+            texto.textContent = "Dejanos tu WhatsApp · Respondemos a primera hora";
+        }
+    })();
+</script>
+
+</body>
+</html>

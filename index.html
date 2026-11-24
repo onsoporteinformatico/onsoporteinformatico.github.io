@@ -71,6 +71,10 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         :root {
             --bg-main: #080a09;
             --bg-card: #111513;
@@ -94,7 +98,7 @@
             width: 100%;
             max-width: 640px;
             margin: auto;
-            padding: 44px 22px 96px;
+            padding: 38px 20px 96px;
         }
 
         /* =========================
@@ -103,22 +107,22 @@
         .logo {
             display: block;
             width: 100%;
-            max-width: 320px;
-            margin: 0 auto 26px;
+            max-width: 290px;
+            margin: 0 auto 22px;
             filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.6));
         }
 
         .logo-fallback {
             display: grid;
             place-items: center;
-            width: 112px;
-            height: 112px;
-            margin: 0 auto 26px;
+            width: 104px;
+            height: 104px;
+            margin: 0 auto 22px;
             border: 2px solid var(--accent);
-            border-radius: 28px;
+            border-radius: 26px;
             background: rgba(57, 211, 83, 0.06);
             color: var(--accent);
-            font-size: 46px;
+            font-size: 44px;
             font-weight: 800;
             letter-spacing: -3px;
         }
@@ -127,15 +131,15 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin: 0 auto 16px;
-            padding: 7px 16px;
+            margin: 0 auto 14px;
+            padding: 6px 15px;
             border-radius: 999px;
             background: rgba(57, 211, 83, 0.1);
             border: 1px solid rgba(57, 211, 83, 0.28);
             color: var(--accent);
             font-size: 12px;
             font-weight: 700;
-            letter-spacing: 0.6px;
+            letter-spacing: 0.5px;
         }
 
         .badge-estado.cerrado {
@@ -165,36 +169,123 @@
         .titulo {
             font-size: 21px;
             font-weight: 800;
-            letter-spacing: 2.2px;
+            letter-spacing: 2px;
             text-transform: uppercase;
         }
 
         .subtitulo {
             color: var(--text-muted);
-            font-size: 14px;
-            letter-spacing: 1.5px;
-            margin-top: 8px;
+            font-size: 13.5px;
+            letter-spacing: 1.4px;
+            margin-top: 7px;
         }
 
         .linea {
-            width: 60px;
+            width: 56px;
             height: 3px;
             border-radius: 2px;
             background: var(--accent);
-            margin: 24px auto 32px;
+            margin: 20px auto 22px;
         }
 
         /* =========================
-           BLOQUES DE SERVICIO
+           ACCESOS RÁPIDOS (NAVEGACIÓN)
         ========================= */
-        .servicios {
+        .accesos-rapidos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .acceso-pill {
+            padding: 8px 13px;
+            border-radius: 999px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .acceso-pill:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(57, 211, 83, 0.08);
+        }
+
+        /* =========================
+           GRILLA DE SERVICIOS TÉCNICOS
+        ========================= */
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .servicio-compacto {
+            padding: 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .servicio-compacto:hover {
+            border-color: rgba(57, 211, 83, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .servicio-compacto h2 {
+            font-size: 15.5px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 7px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            line-height: 1.3;
+        }
+
+        .servicio-compacto p {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .link-remoto {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            color: var(--accent);
+            font-size: 12.5px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .link-remoto:hover {
+            text-decoration: underline;
+        }
+
+        /* =========================
+           BLOQUES DESTACADOS (STARLINK / 3D)
+        ========================= */
+        .destacados {
             display: flex;
             flex-direction: column;
             gap: 16px;
         }
 
         .servicio {
-            padding: 24px;
+            padding: 22px;
             background: var(--bg-card);
             border: 1px solid var(--border-card);
             border-radius: 18px;
@@ -215,7 +306,6 @@
         .servicio-starlink {
             border-color: rgba(57, 211, 83, 0.48);
             background: linear-gradient(145deg, #131d18 0%, #0e1311 60%, #141c24 100%);
-            position: relative;
         }
 
         .tag-starlink {
@@ -232,25 +322,6 @@
             text-transform: uppercase;
         }
 
-        .codigo-ref {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 5px 10px;
-            border-radius: 7px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px dashed rgba(255, 255, 255, 0.22);
-            color: #d8e2dc;
-            font-family: monospace;
-            font-size: 12px;
-        }
-
-        .acciones-starlink {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 16px;
-        }
-
         .servicio h2 {
             display: flex;
             align-items: center;
@@ -258,17 +329,63 @@
             font-size: 18px;
             font-weight: 700;
             color: var(--accent);
-            margin-bottom: 9px;
+            margin-bottom: 8px;
         }
 
         .servicio p {
             color: var(--text-muted);
-            font-size: 14.5px;
-            line-height: 1.6;
+            font-size: 14px;
+            line-height: 1.55;
         }
 
         .servicio p strong {
             color: var(--text-main);
+        }
+
+        /* Caja de código de referido con botón copiar */
+        .fila-codigo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 12px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .codigo-texto {
+            color: #d8e2dc;
+            font-family: monospace;
+            font-size: 12.5px;
+            overflow-x: auto;
+        }
+
+        .btn-copiar {
+            flex-shrink: 0;
+            padding: 6px 11px;
+            border-radius: 7px;
+            border: 1px solid rgba(57, 211, 83, 0.4);
+            background: rgba(57, 211, 83, 0.1);
+            color: var(--accent);
+            font-family: inherit;
+            font-size: 11.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+
+        .btn-copiar:hover {
+            background: var(--accent);
+            color: #051107;
+        }
+
+        .acciones-starlink {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 14px;
         }
 
         /* =========================
@@ -277,8 +394,8 @@
         .botones {
             display: flex;
             flex-direction: column;
-            gap: 14px;
-            margin-top: 30px;
+            gap: 12px;
+            margin-top: 26px;
         }
 
         .boton {
@@ -286,14 +403,14 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            min-height: 58px;
-            padding: 15px 20px;
+            min-height: 54px;
+            padding: 14px 18px;
             background: var(--bg-card);
             border: 1px solid #2d3631;
-            border-radius: 15px;
+            border-radius: 14px;
             color: var(--text-main);
             text-decoration: none;
-            font-size: 15.5px;
+            font-size: 15px;
             font-weight: 600;
             transition: all 0.22s ease;
         }
@@ -305,17 +422,16 @@
             transform: translateY(-2px);
         }
 
-        .boton-primario,
-        .boton-catalogo {
+        .boton-primario {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             width: 100%;
-            min-height: 58px;
+            min-height: 56px;
             padding: 15px 20px;
             border: 1px solid #72f47d;
-            border-radius: 15px;
+            border-radius: 14px;
             background: linear-gradient(135deg, #43df5a, #27bd43);
             box-shadow: 0 6px 20px var(--accent-glow);
             color: #051107;
@@ -327,37 +443,38 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
         }
 
-        .boton-catalogo {
-            margin-top: 16px;
-            min-height: 52px;
-            font-size: 14px;
-            border-radius: 13px;
-        }
-
-        .boton-primario:hover,
-        .boton-catalogo:hover {
+        .boton-primario:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 26px rgba(57, 211, 83, 0.38);
             filter: brightness(1.06);
         }
 
         .boton-secundario-acento {
-            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            width: 100%;
             min-height: 50px;
+            padding: 13px 18px;
+            border-radius: 13px;
             font-size: 14px;
             font-weight: 700;
+            text-decoration: none;
             color: var(--accent);
-            border-color: rgba(57, 211, 83, 0.45);
-            background: rgba(57, 211, 83, 0.06);
+            border: 1px solid rgba(57, 211, 83, 0.48);
+            background: rgba(57, 211, 83, 0.07);
+            transition: all 0.2s ease;
         }
 
         .boton-secundario-acento:hover {
             background: var(--accent);
             color: #051107;
+            transform: translateY(-2px);
         }
 
         .icono {
-            font-size: 19px;
+            font-size: 18px;
             line-height: 1;
         }
 
@@ -365,7 +482,7 @@
            UBICACIÓN Y HORARIOS
         ========================= */
         .info-local {
-            margin-top: 28px;
+            margin-top: 26px;
             padding: 22px;
             background: var(--bg-card);
             border: 1px solid var(--border-card);
@@ -373,7 +490,7 @@
         }
 
         .info-local h2 {
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 700;
             letter-spacing: 1.2px;
             text-transform: uppercase;
@@ -401,6 +518,16 @@
             font-weight: 600;
         }
 
+        .enlace-inline {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .enlace-inline:hover {
+            text-decoration: underline;
+        }
+
         /* =========================
            PREGUNTAS FRECUENTES
         ========================= */
@@ -412,7 +539,7 @@
         }
 
         .faq-titulo {
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 700;
             letter-spacing: 1.4px;
             text-transform: uppercase;
@@ -425,7 +552,7 @@
             background: var(--bg-card);
             border: 1px solid var(--border-card);
             border-radius: 14px;
-            padding: 16px 18px;
+            padding: 15px 18px;
             transition: border-color 0.2s ease;
         }
 
@@ -436,7 +563,7 @@
         .faq summary {
             list-style: none;
             cursor: pointer;
-            font-size: 14.5px;
+            font-size: 14px;
             font-weight: 700;
             color: var(--text-main);
             display: flex;
@@ -471,35 +598,32 @@
         }
 
         /* =========================
-           EXPERIENCIA
+           EXPERIENCIA & PIE
         ========================= */
         .experiencia {
-            margin-top: 32px;
-            padding: 26px 20px;
+            margin-top: 30px;
+            padding: 24px 18px;
             text-align: center;
             border-top: 1px solid var(--border-card);
             border-bottom: 1px solid var(--border-card);
         }
 
         .experiencia h2 {
-            font-size: 15.5px;
+            font-size: 15px;
             font-weight: 700;
             color: var(--text-main);
-            margin-bottom: 8px;
+            margin-bottom: 7px;
             letter-spacing: 1.5px;
         }
 
         .experiencia p {
             color: var(--text-muted);
-            font-size: 14.5px;
+            font-size: 14px;
             line-height: 1.6;
         }
 
-        /* =========================
-           PIE
-        ========================= */
         .pie {
-            margin-top: 34px;
+            margin-top: 30px;
             text-align: center;
         }
 
@@ -508,12 +632,12 @@
             font-size: 11px;
             font-weight: 600;
             letter-spacing: 1.8px;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .logo-pie {
             display: block;
-            width: 84px;
+            width: 80px;
             margin: 0 auto;
             opacity: 0.9;
         }
@@ -521,13 +645,13 @@
         .logo-pie-fallback {
             display: grid;
             place-items: center;
-            width: 58px;
-            height: 58px;
+            width: 56px;
+            height: 56px;
             margin: 0 auto;
             border: 1px solid var(--accent);
-            border-radius: 15px;
+            border-radius: 14px;
             color: var(--accent);
-            font-size: 22px;
+            font-size: 21px;
             font-weight: 800;
             letter-spacing: -1.5px;
         }
@@ -565,15 +689,15 @@
             box-shadow: 0 12px 28px rgba(37, 211, 102, 0.5);
         }
 
-        @media (max-width: 400px) {
+        @media (max-width: 500px) {
+            .servicios-grid {
+                grid-template-columns: 1fr;
+            }
             .contenedor {
-                padding: 30px 16px 86px;
+                padding: 28px 16px 86px;
             }
             .titulo {
-                font-size: 18px;
-            }
-            .servicio {
-                padding: 20px;
+                font-size: 18.5px;
             }
         }
     </style>
@@ -599,99 +723,109 @@
         <h1 class="titulo">Soluciones Informáticas</h1>
         <p class="subtitulo">TECNOLOGÍA · STARLINK · IMPRESIÓN 3D</p>
         <div class="linea"></div>
+
+        <!-- Navegación rápida -->
+        <nav class="accesos-rapidos" aria-label="Accesos rápidos">
+            <a href="#soporte" class="acceso-pill">💻 Soporte Técnico</a>
+            <a href="#starlink" class="acceso-pill">🛰️ Starlink</a>
+            <a href="#impresion3d" class="acceso-pill">🖨️ Impresión 3D</a>
+            <a href="#ubicacion" class="acceso-pill">📍 Ubicación</a>
+        </nav>
     </header>
 
-    <main class="servicios">
+    <main>
 
-        <article class="servicio">
-            <h2><span aria-hidden="true">💻</span> Reparación de PC y Notebooks</h2>
-            <p>
-                Diagnóstico, reparación y mantenimiento de equipos informáticos.
-                Soluciones de hardware, cambio de componentes y software.
-            </p>
-        </article>
+        <!-- GRILLA COMPACTA DE SERVICIOS TÉCNICOS -->
+        <section id="soporte" class="servicios-grid" aria-label="Servicios informáticos">
 
-        <article class="servicio">
-            <h2><span aria-hidden="true">🔧</span> Servicio Técnico</h2>
-            <p>
-                Mantenimiento preventivo, optimización y puesta a punto
-                de computadoras para particulares, comercios y empresas.
-            </p>
-        </article>
+            <article class="servicio-compacto">
+                <div>
+                    <h2><span aria-hidden="true">💻</span> Reparación de PC y Notebooks</h2>
+                    <p>Diagnóstico, reparación y cambio de componentes de hardware y software.</p>
+                </div>
+            </article>
 
-        <article class="servicio">
-            <h2><span aria-hidden="true">🌐</span> Redes y Conectividad</h2>
-            <p>
-                Instalación y configuración de redes, Wi-Fi, routers,
-                VPN y soluciones de conectividad estable.
-            </p>
-        </article>
+            <article class="servicio-compacto">
+                <div>
+                    <h2><span aria-hidden="true">🔧</span> Servicio Técnico</h2>
+                    <p>Mantenimiento preventivo, limpieza y puesta a punto para hogar y comercio.</p>
+                </div>
+            </article>
 
-        <!-- INSTALADORES DE STARLINK CON REFERIDO -->
-        <article class="servicio servicio-starlink">
-            <span class="tag-starlink">Instaladores de Starlink · Mes Bonificado</span>
-            <h2><span aria-hidden="true">🛰️</span> Instalación y Configuración de Starlink</h2>
-            <p>
-                Instalación profesional de antenas Starlink (hogar, campo y empresas),
-                montaje en altura, cableado exterior y optimización de Wi-Fi.
-                Pedí tu equipo oficial desde nuestro enlace y obtené <strong>1 mes de servicio gratis</strong>.
-            </p>
-            <div class="codigo-ref">Código referido: RC-DF-12786679-12291-7</div>
-            <div class="acciones-starlink">
+            <article class="servicio-compacto">
+                <div>
+                    <h2><span aria-hidden="true">🌐</span> Redes y Conectividad</h2>
+                    <p>Instalación y configuración de redes, Wi-Fi, routers, VPN y cableado.</p>
+                </div>
+            </article>
+
+            <article class="servicio-compacto">
+                <div>
+                    <h2><span aria-hidden="true">🏢</span> Empresas y Remoto</h2>
+                    <p>Soporte integral para oficinas y asistencia remota inmediata.</p>
+                </div>
                 <a
-                    href="https://starlink.com/ar?referral=RC-DF-12786679-12291-7"
-                    class="boton-catalogo"
-                    style="margin-top: 0;"
+                    href="https://get.teamviewer.com/nhu2n8u"
+                    class="link-remoto"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <span aria-hidden="true">🛰️</span> PEDIR KIT STARLINK CON BENEFICIO <span aria-hidden="true">↗</span>
+                    🖥️ Descargar TeamViewer →
                 </a>
-                <a
-                    href="https://wa.me/5493364626333?text=Hola%20ON!%20Quisiera%20consultar%20por%20la%20instalaci%C3%B3n%20de%20Starlink."
-                    class="boton boton-secundario-acento"
-                    style="margin-top: 0;"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    <span class="icono" aria-hidden="true">💬</span>
-                    Consultar instalación por WhatsApp
-                </a>
-            </div>
-        </article>
+            </article>
 
-        <article class="servicio servicio-destacado">
-            <h2><span aria-hidden="true">🖨️</span> Impresión 3D y Tags NFC</h2>
-            <p>
-                Diseño e impresión de piezas personalizadas, llaveros,
-                identificadores NFC, prototipos y soluciones a medida.
-            </p>
-            <a class="boton-catalogo" href="catalogo.html">
-                <span aria-hidden="true">🛍️</span> VER CATÁLOGO DE IMPRESIÓN 3D <span aria-hidden="true">→</span>
-            </a>
-        </article>
+        </section>
 
-        <article class="servicio">
-            <h2><span aria-hidden="true">🏢</span> Soluciones para Empresas</h2>
-            <p>
-                Soporte informático integral, mantenimiento, conectividad
-                y asistencia rápida para comercios y oficinas.
-            </p>
-            <a
-                href="https://get.teamviewer.com/nhu2n8u"
-                class="boton boton-secundario-acento"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
-                <span class="icono" aria-hidden="true">🖥️</span>
-                DESCARGAR SOPORTE REMOTO
-            </a>
-        </article>
+        <!-- BLOQUES PRINCIPALES CON ACCIÓN DIRECTA -->
+        <section class="destacados" aria-label="Servicios destacados">
+
+            <!-- INSTALADORES DE STARLINK -->
+            <article id="starlink" class="servicio servicio-starlink">
+                <span class="tag-starlink">Instaladores de Starlink · Mes Bonificado</span>
+                <h2><span aria-hidden="true">🛰️</span> Instalación y Configuración de Starlink</h2>
+                <p>
+                    Instalación profesional de antenas Starlink (hogar, campo y empresas),
+                    montaje en altura, cableado exterior y optimización de Wi-Fi.
+                    Pedí tu equipo oficial desde nuestro enlace y obtené <strong>1 mes de servicio gratis</strong>.
+                </p>
+
+                <div class="fila-codigo">
+                    <span class="codigo-texto" id="codigo-starlink">RC-DF-12786679-12291-7</span>
+                    <button type="button" class="btn-copiar" id="btn-copiar-codigo">Copiar código</button>
+                </div>
+
+                <div class="acciones-starlink">
+                    <a
+                        href="https://starlink.com/ar?referral=RC-DF-12786679-12291-7"
+                        class="boton-secundario-acento"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <span aria-hidden="true">🛰️</span> Pedir Kit Starlink con Beneficio ↗
+                    </a>
+                </div>
+            </article>
+
+            <!-- CATÁLOGO IMPRESIÓN 3D -->
+            <article id="impresion3d" class="servicio servicio-destacado">
+                <h2><span aria-hidden="true">🖨️</span> Impresión 3D y Tags NFC</h2>
+                <p>
+                    Diseño e impresión de piezas personalizadas, llaveros,
+                    identificadores NFC, prototipos y soluciones a medida.
+                </p>
+                <div class="acciones-starlink">
+                    <a class="boton-secundario-acento" href="catalogo.html">
+                        <span aria-hidden="true">🛍️</span> Ver Catálogo de Impresión 3D →
+                    </a>
+                </div>
+            </article>
+
+        </section>
 
     </main>
 
-    <!-- BOTONES DE CONTACTO Y UBICACIÓN -->
-    <section class="botones" aria-label="Contacto y ubicación">
+    <!-- BOTÓN PRINCIPAL DE CONTACTO -->
+    <section class="botones" aria-label="Contacto directo">
 
         <a
             href="https://wa.me/5493364626333?text=Hola%20ON!%20Te%20escribo%20desde%20la%20web%20para%20hacerte%20una%20consulta."
@@ -701,16 +835,6 @@
         >
             <span class="icono" aria-hidden="true">💬</span>
             Consultar por WhatsApp
-        </a>
-
-        <a
-            href="https://www.google.com/maps/search/?api=1&query=Quint%C3%ADn+Cordova+277+La+Emilia+Buenos+Aires"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="boton"
-        >
-            <span class="icono" aria-hidden="true">📍</span>
-            Cómo llegar (Google Maps)
         </a>
 
         <a
@@ -725,13 +849,21 @@
 
     </section>
 
-    <!-- UBICACIÓN Y HORARIOS -->
-    <section class="info-local" aria-label="Ubicación y horarios de atención">
+    <!-- UBICACIÓN Y HORARIOS ACCIONABLES -->
+    <section id="ubicacion" class="info-local" aria-label="Ubicación y horarios de atención">
         <h2>Ubicación y Horarios</h2>
         <div class="info-lista">
             <div class="info-item">
                 <span aria-hidden="true">📍</span>
-                <div><strong>Taller:</strong> Quintín Cordova 277, La Emilia (CP 2901).</div>
+                <div>
+                    <strong>Taller:</strong> Quintín Cordova 277, La Emilia (CP 2901) ·
+                    <a
+                        href="https://www.google.com/maps/search/?api=1&query=Quint%C3%ADn+Cordova+277+La+Emilia+Buenos+Aires"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="enlace-inline"
+                    >Abrir en Google Maps ↗</a>
+                </div>
             </div>
             <div class="info-item">
                 <span aria-hidden="true">🚐</span>
@@ -743,7 +875,10 @@
             </div>
             <div class="info-item">
                 <span aria-hidden="true">📞</span>
-                <div><strong>Teléfono / WhatsApp:</strong> 0336 462-6333</div>
+                <div>
+                    <strong>Teléfono / WhatsApp:</strong>
+                    <a href="tel:+543364626333" class="enlace-inline">0336 462-6333</a>
+                </div>
             </div>
         </div>
     </section>
@@ -754,7 +889,7 @@
 
         <details>
             <summary>¿Cómo funciona el referido de Starlink?</summary>
-            <p>Al pedir tu kit ingresando desde nuestro botón oficial de Starlink, se aplica automáticamente el código RC-DF-12786679-12291-7 y obtenés un mes de servicio bonificado. Además, podés coordinar con nosotros la instalación y configuración.</p>
+            <p>Al pedir tu kit ingresando desde nuestro enlace oficial de Starlink, se aplica el código RC-DF-12786679-12291-7 y obtenés un mes de servicio bonificado. Luego podés escribirnos por WhatsApp para coordinar la instalación y configuración.</p>
         </details>
 
         <details>
@@ -826,6 +961,23 @@
             badge.classList.add("cerrado");
             texto.textContent = "Dejanos tu WhatsApp · Respondemos a primera hora";
         }
+    })();
+
+    // Copiar código de referido Starlink
+    (function configurarCopiadoStarlink() {
+        const btn = document.getElementById("btn-copiar-codigo");
+        const codigo = document.getElementById("codigo-starlink");
+        if (!btn || !codigo) return;
+
+        btn.addEventListener("click", () => {
+            navigator.clipboard.writeText(codigo.textContent.trim()).then(() => {
+                const original = btn.textContent;
+                btn.textContent = "✓ Copiado";
+                setTimeout(() => {
+                    btn.textContent = original;
+                }, 2000);
+            });
+        });
     })();
 </script>
 

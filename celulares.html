@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#080a09">
     <title>Catálogo de Celulares | ON Soporte Informático</title>
-    <meta name="description" content="Equipos celulares nuevos en caja sellada: Samsung, Xiaomi, POCO y Motorola. Precios actualizados en pesos argentinos.">
+    <meta name="description" content="Venta de celulares Android e iPhone nuevos en caja sellada y usados seleccionados con garantía. Precios actualizados en pesos argentinos.">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="ON Soporte Informático">
     <meta property="og:title" content="Catálogo de Celulares | ON Soporte Informático">
-    <meta property="og:description" content="Consultá disponibilidad y precios actualizados de celulares Samsung, Xiaomi, POCO y Motorola.">
+    <meta property="og:description" content="Consultá disponibilidad y precios actualizados de celulares Android e iPhone, nuevos y usados seleccionados.">
     <meta property="og:url" content="https://onsoporteinformatico.com/celulares.html">
     <meta property="og:image" content="https://onsoporteinformatico.com/assets/og-on-preview.png">
     <meta name="twitter:card" content="summary_large_image">
@@ -31,6 +31,8 @@
             --border-card: #222925;
             --accent: #39d353;
             --accent-glow: rgba(57, 211, 83, 0.22);
+            --amber: #f59e0b;
+            --amber-light: #fcd34d;
             --text-main: #f3f5f4;
             --text-muted: #98a29c;
         }
@@ -149,11 +151,90 @@
         }
 
         /* =========================
-           BUSCADOR Y FILTROS
+           TABS PRINCIPALES (ANDROID / IPHONE)
+        ========================= */
+        .tabs-linea {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .tab-linea {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            padding: 12px 10px;
+            border-radius: 13px;
+            border: 1px solid var(--border-card);
+            background: var(--bg-card);
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 13.5px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-linea svg,
+        .filtro svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        .tab-linea:hover,
+        .tab-linea.activo {
+            border-color: var(--accent);
+            background: rgba(57, 211, 83, 0.14);
+            color: var(--accent);
+            box-shadow: 0 4px 14px rgba(57, 211, 83, 0.14);
+        }
+
+        /* =========================
+           SUB-TABS (NUEVOS / USADOS)
+        ========================= */
+        .tabs-condicion {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .tab-condicion {
+            padding: 10px 10px;
+            border-radius: 11px;
+            border: 1px solid var(--border-card);
+            background: #0d110f;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-condicion:hover,
+        .tab-condicion.activo {
+            border-color: var(--accent);
+            background: rgba(57, 211, 83, 0.12);
+            color: var(--accent);
+        }
+
+        .tab-condicion[data-condicion="Usado"]:hover,
+        .tab-condicion[data-condicion="Usado"].activo {
+            border-color: var(--amber);
+            background: rgba(245, 158, 11, 0.16);
+            color: var(--amber-light);
+        }
+
+        /* =========================
+           BUSCADOR Y FILTROS DE MARCA
         ========================= */
         .buscador-caja {
             position: relative;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .buscador-input {
@@ -198,8 +279,11 @@
         }
 
         .filtro {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
             flex: 0 0 auto;
-            padding: 9px 14px;
+            padding: 8px 14px;
             border: 1px solid var(--border-card);
             border-radius: 999px;
             background: var(--bg-card);
@@ -215,7 +299,7 @@
         .filtro.activo {
             border-color: var(--accent);
             background: rgba(57, 211, 83, 0.14);
-            color: var(--accent);
+            color: var(--text-main);
         }
 
         .estado-resultados {
@@ -229,40 +313,85 @@
         }
 
         /* =========================
-           SECCIÓN POR MARCA Y GRILLA DE A 2
+           SECCIÓN POR GRUPO Y GRILLA DE A 2
         ========================= */
         .secciones-marcas {
             display: flex;
             flex-direction: column;
-            gap: 26px;
+            gap: 28px;
         }
 
         .marca-titulo-barra {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 8px;
             margin-bottom: 12px;
-            padding-bottom: 8px;
+            padding-bottom: 9px;
             border-bottom: 1px solid var(--border-card);
         }
 
-        .marca-titulo-barra h2 {
-            font-size: 17px;
-            font-weight: 800;
-            color: var(--text-main);
+        .marca-titulo-izq {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 9px;
+            flex-wrap: wrap;
+        }
+
+        .logo-marca-seccion {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-main);
+            flex-shrink: 0;
+        }
+
+        .logo-marca-seccion svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .marca-titulo-barra h2 {
+            font-size: 16.5px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .tag-seccion-condicion {
+            padding: 3px 9px;
+            border-radius: 999px;
+            font-size: 10.5px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .tag-seccion-condicion.nuevo {
+            background: rgba(57, 211, 83, 0.14);
+            border: 1px solid rgba(57, 211, 83, 0.35);
+            color: var(--accent);
+        }
+
+        .tag-seccion-condicion.usado {
+            background: rgba(245, 158, 11, 0.16);
+            border: 1px solid rgba(245, 158, 11, 0.42);
+            color: var(--amber-light);
         }
 
         .marca-cantidad {
             font-size: 11.5px;
             font-weight: 700;
-            color: var(--accent);
-            background: rgba(57, 211, 83, 0.1);
-            border: 1px solid rgba(57, 211, 83, 0.25);
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-card);
             padding: 3px 10px;
             border-radius: 999px;
+            flex-shrink: 0;
         }
 
         .grid-celulares {
@@ -271,6 +400,7 @@
             gap: 12px;
         }
 
+        /* TARJETA NUEVO vs TARJETA USADO */
         .card-cel {
             display: flex;
             flex-direction: column;
@@ -281,8 +411,23 @@
             transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
         }
 
-        .card-cel:hover {
-            border-color: rgba(57, 211, 83, 0.55);
+        .card-cel.es-nuevo {
+            border-color: rgba(57, 211, 83, 0.24);
+        }
+
+        .card-cel.es-nuevo:hover {
+            border-color: rgba(57, 211, 83, 0.65);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+        }
+
+        .card-cel.es-usado {
+            border-color: rgba(245, 158, 11, 0.32);
+            background: linear-gradient(180deg, #16140f 0%, #111513 100%);
+        }
+
+        .card-cel.es-usado:hover {
+            border-color: rgba(245, 158, 11, 0.72);
             transform: translateY(-2px);
             box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
         }
@@ -300,6 +445,10 @@
             overflow: hidden;
         }
 
+        .card-cel.es-usado .cel-media {
+            background: radial-gradient(circle at 50% 35%, #241f15 0%, #0d0c0a 100%);
+        }
+
         .cel-media img {
             width: 100%;
             height: 100%;
@@ -311,20 +460,30 @@
             transform: scale(1.05);
         }
 
-        .cel-badge-marca {
+        .cel-badge-condicion {
             position: absolute;
             top: 8px;
             left: 8px;
-            padding: 3px 8px;
+            padding: 4px 9px;
             border-radius: 999px;
-            background: rgba(8, 10, 9, 0.85);
-            border: 1px solid rgba(57, 211, 83, 0.35);
-            color: var(--accent);
             font-size: 9.5px;
             font-weight: 800;
-            letter-spacing: 0.6px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
             z-index: 2;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
+        }
+
+        .cel-badge-condicion.nuevo {
+            background: #0d2614;
+            border: 1px solid var(--accent);
+            color: #6ef384;
+        }
+
+        .cel-badge-condicion.usado {
+            background: #2b1d07;
+            border: 1px solid var(--amber);
+            color: var(--amber-light);
         }
 
         .cel-badge-5g {
@@ -346,7 +505,24 @@
             flex: 1;
             flex-direction: column;
             padding: 13px;
-            gap: 8px;
+            gap: 7px;
+        }
+
+        .cel-marca-oficial {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #9aa59e;
+        }
+
+        .cel-marca-oficial svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
         }
 
         .cel-modelo {
@@ -365,6 +541,13 @@
             color: var(--text-muted);
             font-size: 11px;
             font-weight: 600;
+            line-height: 1.35;
+        }
+
+        .card-cel.es-usado .cel-memoria {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.22);
+            color: #fde68a;
         }
 
         .cel-pie {
@@ -380,6 +563,10 @@
             font-size: 16.5px;
             font-weight: 800;
             color: var(--accent);
+        }
+
+        .card-cel.es-usado .cel-precio {
+            color: var(--amber-light);
         }
 
         .cel-precio.consultar {
@@ -418,6 +605,7 @@
             border-radius: 14px;
             color: var(--text-muted);
             font-size: 14px;
+            line-height: 1.5;
         }
 
         /* =========================
@@ -599,6 +787,10 @@
             .grid-celulares {
                 grid-template-columns: 1fr;
             }
+            .tab-linea {
+                font-size: 12.5px;
+                padding: 10px 6px;
+            }
         }
     </style>
 </head>
@@ -613,9 +805,9 @@
         >
 
         <header class="presentacion">
-            <div class="etiqueta">Equipos Nuevos · Caja Sellada</div>
+            <div class="etiqueta">Android & iPhone · Nuevos y Usados</div>
             <h1>Catálogo de Celulares</h1>
-            <p class="intro">Precios finales en pesos argentinos actualizados automáticamente al día.<br>Tocá cualquier equipo para ampliar o consultar stock por WhatsApp.</p>
+            <p class="intro">Equipos nuevos en caja sellada y usados seleccionados con garantía.<br>Precios finales en pesos argentinos actualizados al día.</p>
             <div class="linea"></div>
         </header>
 
@@ -624,23 +816,45 @@
             <strong>Pesos ARS</strong>
         </div>
 
+        <!-- FILTRO 1: LÍNEA (TODOS / ANDROID / IPHONE) -->
+        <div class="tabs-linea" id="tabs-linea" role="tablist" aria-label="Seleccionar línea">
+            <button class="tab-linea activo" type="button" data-linea="Todos">Todos</button>
+            <button class="tab-linea" type="button" data-linea="Android">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-2.86-1.21-6.08-1.21-8.94 0L5.65 5.67c-.19-.28-.54-.37-.83-.22-.3.16-.42.54-.26.85l1.84 3.18C4.8 10.85 3.5 12.62 3.5 14.75h17c0-2.13-1.3-3.9-2.9-5.27zM8.5 12.75c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm7 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/></svg>
+                Android
+            </button>
+            <button class="tab-linea" type="button" data-linea="iPhone">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.32c.67-.81 1.12-1.94 1-3.07-.96.04-2.13.64-2.82 1.45-.61.7-1.15 1.85-1.01 2.96 1.07.08 2.16-.53 2.83-1.34z"/></svg>
+                iPhone
+            </button>
+        </div>
+
+        <!-- FILTRO 2: CONDICIÓN (TODOS / NUEVOS / USADOS) -->
+        <div class="tabs-condicion" id="tabs-condicion" role="tablist" aria-label="Seleccionar condición">
+            <button class="tab-condicion activo" type="button" data-condicion="Todos">Todos</button>
+            <button class="tab-condicion" type="button" data-condicion="Nuevo">✨ Nuevos</button>
+            <button class="tab-condicion" type="button" data-condicion="Usado">♻️ Usados</button>
+        </div>
+
         <div class="buscador-caja">
             <span class="buscador-icono" aria-hidden="true">🔍</span>
             <input
                 type="search"
                 id="buscador"
                 class="buscador-input"
-                placeholder="Buscar modelo o capacidad (ej: A56, S26, 8/256, 5G)..."
+                placeholder="Buscar modelo, capacidad o color (ej: iPhone 16, A56, 256GB, Titanio)..."
                 aria-label="Buscar celulares"
             >
         </div>
 
+        <!-- FILTRO 3: LOGOS OFICIALES DE MARCAS -->
         <nav class="filtros" id="filtros" aria-label="Filtrar por marca">
-            <button class="filtro activo" type="button" data-marca="Todos">Todos</button>
-            <button class="filtro" type="button" data-marca="Samsung">🔆 Samsung</button>
-            <button class="filtro" type="button" data-marca="Xiaomi">📲 Xiaomi</button>
-            <button class="filtro" type="button" data-marca="POCO">⚡ POCO</button>
-            <button class="filtro" type="button" data-marca="Motorola">🛵 Motorola</button>
+            <button class="filtro activo" type="button" data-marca="Todos">Todas las marcas</button>
+            <button class="filtro" type="button" data-marca="Apple" data-logo="Apple">Apple</button>
+            <button class="filtro" type="button" data-marca="Samsung" data-logo="Samsung">Samsung</button>
+            <button class="filtro" type="button" data-marca="Xiaomi" data-logo="Xiaomi">Xiaomi</button>
+            <button class="filtro" type="button" data-marca="POCO" data-logo="POCO">POCO</button>
+            <button class="filtro" type="button" data-marca="Motorola" data-logo="Motorola">Motorola</button>
         </nav>
 
         <div class="estado-resultados">
@@ -648,20 +862,20 @@
             <span>Precios sujetos a stock</span>
         </div>
 
-        <section class="secciones-marcas" id="lista-equipos" aria-label="Catálogo de celulares por marca"></section>
+        <section class="secciones-marcas" id="lista-equipos" aria-label="Catálogo de celulares"></section>
 
-        <p class="nota-legal">Imágenes de referencia ilustrativas. Los valores publicados se calculan en pesos argentinos según la cotización vigente al momento de la consulta.</p>
+        <p class="nota-legal">Imágenes de referencia ilustrativas. Los equipos usados se entregan revisados y con garantía escrita. Los valores publicados se calculan en pesos argentinos según la cotización vigente.</p>
 
         <section class="a-medida">
-            <strong>¿Buscás otro modelo o capacidad?</strong>
-            <p>Trabajamos toda la línea Samsung, Xiaomi, POCO, Motorola y iPhone a pedido.</p>
+            <strong>¿Buscás otro modelo o querés entregar tu usado?</strong>
+            <p>Tomamos equipos seleccionados en parte de pago y conseguimos modelos a pedido.</p>
             <a
                 class="boton-primario"
-                href="https://wa.me/5493364626333?text=Hola%20ON!%20Quisiera%20consultar%20por%20un%20celular%20que%20no%20vi%20en%20la%20lista."
+                href="https://wa.me/5493364626333?text=Hola%20ON!%20Quisiera%20consultar%20por%20un%20celular%20o%20plan%20canje."
                 target="_blank"
                 rel="noopener noreferrer"
             >
-                💬 Consultar otro modelo por WhatsApp ↗
+                💬 Consultar por WhatsApp ↗
             </a>
         </section>
 
@@ -698,103 +912,204 @@
 
     <script>
         /* =========================================================================
-           CONFIGURACIÓN RÁPIDA (EDITÁ SOLO ESTA PARTE PARA ACTUALIZAR PRECIOS)
+           CONFIGURACIÓN RÁPIDA DE GANANCIAS Y COTIZACIÓN
         ========================================================================= */
-        const MARGEN_GANANCIA = 1.30;      // 1.30 = +30% de ganancia
-        const COTIZACION_RESPALDO = 1450;  // Dólar de respaldo si falla internet/API
+        const MARGEN_ANDROID = 1.30;       // +30% de ganancia para Android (Nuevos y Usados)
+        const GANANCIA_IPHONE_USD = 50;    // +50 USD fijos de ganancia por cada iPhone (Nuevo o Usado)
+        const COTIZACION_RESPALDO = 1450;  // Dólar de respaldo si falla la API externa
         const TELEFONO_ON = "5493364626333";
 
         // TABLA DE PRECIOS: Un equipo por renglón con el formato:
-        // Marca | Modelo | Memoria | Costo en USD (o "Consultar" si no tiene precio)
+        // Línea (Android / iPhone) | Condición (Nuevo / Usado) | Marca | Modelo | Memoria / Detalle | Costo (número en USD, o "ARS 35000" si ya está en pesos)
         const TABLA_CELULARES = `
-            Samsung  | Samsung A07             | 4GB / 64GB   | 152
-            Samsung  | Samsung A07             | 4GB / 128GB  | 165
-            Samsung  | Samsung A16             | 4GB / 128GB  | 186
-            Samsung  | Samsung A17 4G          | 4GB / 128GB  | 195
-            Samsung  | Samsung A17 4G          | 6GB / 128GB  | 219
-            Samsung  | Samsung A17 4G          | 8GB / 256GB  | 287
-            Samsung  | Samsung A17 5G          | 4GB / 128GB  | 206
-            Samsung  | Samsung A17 5G          | 6GB / 128GB  | 213
-            Samsung  | Samsung A17 5G          | 8GB / 256GB  | 312
-            Samsung  | Samsung A27             | 6GB / 128GB  | 294
-            Samsung  | Samsung A27             | 8GB / 256GB  | 349
-            Samsung  | Samsung A37             | 6GB / 128GB  | 335
-            Samsung  | Samsung A37             | 8GB / 256GB  | 390
-            Samsung  | Samsung A56             | 8GB / 256GB  | 413
-            Samsung  | Samsung A56             | 12GB / 256GB | 435
-            Samsung  | Samsung A57             | 8GB / 128GB  | 435
-            Samsung  | Samsung A57             | 8GB / 256GB  | 498
-            Samsung  | Samsung S25 FE          | 8GB / 256GB  | 600
-            Samsung  | Samsung S26             | 12GB / 256GB | 755
-            Samsung  | Samsung S26             | 12GB / 512GB | 885
-            Samsung  | Samsung S26+            | 12GB / 256GB | 970
-            Samsung  | Samsung S26+            | 12GB / 512GB | Consultar
-            Samsung  | Samsung S26 Ultra       | 12GB / 256GB | 1045
-            Samsung  | Samsung S26 Ultra       | 12GB / 512GB | 1195
+            // --- IPHONE NUEVOS (Costo USD + 50 USD) ---
+            iPhone  | Nuevo | Apple    | iPhone 15               | 128GB · Caja Sellada                   | 760
+            iPhone  | Nuevo | Apple    | iPhone 16               | 128GB · Caja Sellada                   | 850
+            iPhone  | Nuevo | Apple    | iPhone 17               | 256GB · Caja Sellada                   | 980
+            iPhone  | Nuevo | Apple    | iPhone 18 Pro           | 256GB · Caja Sellada                   | 1370
+            iPhone  | Nuevo | Apple    | iPhone 18 Pro           | 512GB · Borgoña                        | 1630
+            iPhone  | Nuevo | Apple    | iPhone 18 Pro Max       | 256GB · Black / Borgoña                | 1590
+            iPhone  | Nuevo | Apple    | iPhone 18 Pro Max       | 512GB · Black                          | 1770
 
-            Xiaomi   | Xiaomi A7 Pro           | 4GB / 64GB   | 126
-            Xiaomi   | Xiaomi A7 Pro           | 4GB / 128GB  | 152
-            Xiaomi   | Xiaomi 15C              | 4GB / 128GB  | 159
-            Xiaomi   | Xiaomi 15C              | 4GB / 256GB  | Consultar
-            Xiaomi   | Xiaomi 15C              | 8GB / 256GB  | 193
-            Xiaomi   | Xiaomi Redmi 15         | 6GB / 128GB  | 185
-            Xiaomi   | Xiaomi Redmi 15         | 8GB / 256GB  | 215
-            Xiaomi   | Xiaomi Redmi 17         | 4GB / 128GB  | 180
-            Xiaomi   | Xiaomi Redmi 17         | 6GB / 256GB  | 233
-            Xiaomi   | Xiaomi Note 15          | 6GB / 128GB  | 214
-            Xiaomi   | Xiaomi Note 15          | 8GB / 256GB  | 256
-            Xiaomi   | Xiaomi Note 15 Pro      | 8GB / 256GB  | 312
-            Xiaomi   | Xiaomi Note 15 Pro 5G   | 8GB / 256GB  | 343
-            Xiaomi   | Xiaomi Note 15 Pro 5G   | 12GB / 512GB | 372
-            Xiaomi   | Xiaomi Note 17          | 6GB / 256GB  | 255
-            Xiaomi   | Xiaomi Note 17          | 8GB / 256GB  | 266
-            Xiaomi   | Xiaomi Note 17 Pro      | 8GB / 256GB  | 289
-            Xiaomi   | Xiaomi Note 17 Pro 5G   | 8GB / 256GB  | 369
+            // --- IPHONE USADOS SELECCIONADOS (Costo USD + 50 USD) ---
+            iPhone  | Usado | Apple    | iPhone 13               | 128GB · Bat. 100% · Rojo Product RED   | 300
+            iPhone  | Usado | Apple    | iPhone 13 mini          | 256GB · Bat. 100% · Rojo Product RED   | 270
+            iPhone  | Usado | Apple    | iPhone 13 Pro           | 128GB · Bat. 87% · Grafito             | 450
+            iPhone  | Usado | Apple    | iPhone 14               | 128GB · Bat. 87%–100% · Starlight      | 360
+            iPhone  | Usado | Apple    | iPhone 15               | 128GB · Bat. 86% · Rosa                | 440
+            iPhone  | Usado | Apple    | iPhone 15               | 128GB · Bat. 85% · Negro               | 440
+            iPhone  | Usado | Apple    | iPhone 15               | 256GB · Bat. 88% · Negro               | 470
+            iPhone  | Usado | Apple    | iPhone 15 Plus          | 128GB · Bat. 85% · Azul                | 470
+            iPhone  | Usado | Apple    | iPhone 15 Pro Max       | 256GB · Bat. 85% · Titanio Negro       | 690
+            iPhone  | Usado | Apple    | iPhone 15 Pro Max       | 256GB · Bat. 84%–85% · Titanio Blanco  | 690
+            iPhone  | Usado | Apple    | iPhone 15 Pro Max       | 256GB · Bat. 84% · Titanio Azul        | 690
+            iPhone  | Usado | Apple    | iPhone 16               | 128GB · Bat. 89% · Negro               | 600
+            iPhone  | Usado | Apple    | iPhone 16 Pro           | 128GB · Bat. 88% · Titanio Negro       | 730
+            iPhone  | Usado | Apple    | iPhone 16 Pro           | 128GB · Bat. 89% · Titanio Blanco      | 730
+            iPhone  | Usado | Apple    | iPhone 16 Pro           | 256GB · Bat. 88% · Titanio Desierto    | 760
+            iPhone  | Usado | Apple    | iPhone 16 Pro Max       | 256GB · Bat. 84% · Titanio Negro       | 810
+            iPhone  | Usado | Apple    | iPhone 16 Pro Max       | 256GB · Bat. 89% · Titanio Natural     | 840
+            iPhone  | Usado | Apple    | iPhone 16 Pro Max       | 256GB · Bat. 89% · Titanio Desierto    | 840
+            iPhone  | Usado | Apple    | iPhone 17 Pro           | 256GB · Bat. 91% · Azul Profundo       | 1050
+            iPhone  | Usado | Apple    | iPhone 17 Pro           | 256GB · Bat. 95% · Plata               | 1050
+            iPhone  | Usado | Apple    | iPhone 17 Pro Max       | 256GB · Bat. 92% · Naranja Cósmico     | 1170
 
-            POCO     | POCO C71                | 3GB / 64GB   | 127
-            POCO     | POCO C71                | 4GB / 128GB  | 147
-            POCO     | POCO C81 Pro            | 4GB / 64GB   | 130
-            POCO     | POCO C81 Pro            | 4GB / 128GB  | 150
-            POCO     | POCO C81 Pro            | 4GB / 256GB  | 178
-            POCO     | POCO C85                | 6GB / 128GB  | 169
-            POCO     | POCO C85                | 8GB / 256GB  | 202
-            POCO     | POCO C95                | 6GB / 128GB  | 205
-            POCO     | POCO C95                | 8GB / 256GB  | 239
-            POCO     | POCO M8 5G              | 8GB / 256GB  | 247
-            POCO     | POCO X8 Pro 5G          | 8GB / 256GB  | 401
+            // --- ANDROID NUEVOS (SAMSUNG) ---
+            Android | Nuevo | Samsung  | Samsung A07             | 4GB / 64GB                             | 152
+            Android | Nuevo | Samsung  | Samsung A07             | 4GB / 128GB                            | 165
+            Android | Nuevo | Samsung  | Samsung A16             | 4GB / 128GB                            | 186
+            Android | Nuevo | Samsung  | Samsung A17 4G          | 4GB / 128GB                            | 195
+            Android | Nuevo | Samsung  | Samsung A17 4G          | 6GB / 128GB                            | 219
+            Android | Nuevo | Samsung  | Samsung A17 4G          | 8GB / 256GB                            | 287
+            Android | Nuevo | Samsung  | Samsung A17 5G          | 4GB / 128GB                            | 206
+            Android | Nuevo | Samsung  | Samsung A17 5G          | 6GB / 128GB                            | 213
+            Android | Nuevo | Samsung  | Samsung A17 5G          | 8GB / 256GB                            | 312
+            Android | Nuevo | Samsung  | Samsung A27             | 6GB / 128GB                            | 294
+            Android | Nuevo | Samsung  | Samsung A27             | 8GB / 256GB                            | 349
+            Android | Nuevo | Samsung  | Samsung A37             | 6GB / 128GB                            | 335
+            Android | Nuevo | Samsung  | Samsung A37             | 8GB / 256GB                            | 390
+            Android | Nuevo | Samsung  | Samsung A56             | 8GB / 256GB                            | 413
+            Android | Nuevo | Samsung  | Samsung A56             | 12GB / 256GB                           | 435
+            Android | Nuevo | Samsung  | Samsung A57             | 8GB / 128GB                            | 435
+            Android | Nuevo | Samsung  | Samsung A57             | 8GB / 256GB                            | 498
+            Android | Nuevo | Samsung  | Samsung S21 FE 5G       | 128GB · Nuevo                          | ARS 600000
+            Android | Nuevo | Samsung  | Samsung S25 FE          | 8GB / 256GB                            | 600
+            Android | Nuevo | Samsung  | Samsung S26             | 12GB / 256GB                           | 755
+            Android | Nuevo | Samsung  | Samsung S26             | 12GB / 512GB                           | 885
+            Android | Nuevo | Samsung  | Samsung S26+            | 12GB / 256GB                           | 970
+            Android | Nuevo | Samsung  | Samsung S26+            | 12GB / 512GB                           | Consultar
+            Android | Nuevo | Samsung  | Samsung S26 Ultra       | 12GB / 256GB                           | 1045
+            Android | Nuevo | Samsung  | Samsung S26 Ultra       | 12GB / 512GB                           | 1195
 
-            Motorola | Motorola G06            | 4GB / 64GB   | 114
-            Motorola | Motorola G06            | 4GB / 128GB  | 144
-            Motorola | Motorola G06            | 4GB / 256GB  | 164
-            Motorola | Motorola G15            | 4GB / 256GB  | 168
-            Motorola | Motorola G17            | 4GB / 256GB  | 202
-            Motorola | Motorola G17 Power      | 8GB / 256GB  | 243
-            Motorola | Motorola G35            | 4GB / 256GB  | 188
-            Motorola | Motorola G47            | 8GB / 128GB  | 203
-            Motorola | Motorola G56            | 8GB / 256GB  | 253
-            Motorola | Motorola G57            | 8GB / 256GB  | 241
-            Motorola | Motorola G67            | 4GB / 256GB  | 256
-            Motorola | Motorola G77            | 8GB / 256GB  | Consultar
-            Motorola | Motorola G86            | 8GB / 256GB  | 302
-            Motorola | Motorola G86 Power      | 8GB / 256GB  | Consultar
-            Motorola | Motorola Edge 60 Fusion | 8GB / 256GB  | Consultar
+            // --- ANDROID NUEVOS (XIAOMI) ---
+            Android | Nuevo | Xiaomi   | Xiaomi A7 Pro           | 4GB / 64GB                             | 126
+            Android | Nuevo | Xiaomi   | Xiaomi A7 Pro           | 4GB / 128GB                            | 152
+            Android | Nuevo | Xiaomi   | Xiaomi 15C              | 4GB / 128GB                            | 159
+            Android | Nuevo | Xiaomi   | Xiaomi 15C              | 4GB / 256GB                            | Consultar
+            Android | Nuevo | Xiaomi   | Xiaomi 15C              | 8GB / 256GB                            | 193
+            Android | Nuevo | Xiaomi   | Xiaomi Redmi 15         | 6GB / 128GB                            | 185
+            Android | Nuevo | Xiaomi   | Xiaomi Redmi 15         | 8GB / 256GB                            | 215
+            Android | Nuevo | Xiaomi   | Xiaomi Redmi 17         | 4GB / 128GB                            | 180
+            Android | Nuevo | Xiaomi   | Xiaomi Redmi 17         | 6GB / 256GB                            | 233
+            Android | Nuevo | Xiaomi   | Xiaomi Note 15          | 6GB / 128GB                            | 214
+            Android | Nuevo | Xiaomi   | Xiaomi Note 15          | 8GB / 256GB                            | 256
+            Android | Nuevo | Xiaomi   | Xiaomi Note 15 Pro      | 8GB / 256GB                            | 312
+            Android | Nuevo | Xiaomi   | Xiaomi Note 15 Pro 5G   | 8GB / 256GB                            | 343
+            Android | Nuevo | Xiaomi   | Xiaomi Note 15 Pro 5G   | 12GB / 512GB                           | 372
+            Android | Nuevo | Xiaomi   | Xiaomi Note 17          | 6GB / 256GB                            | 255
+            Android | Nuevo | Xiaomi   | Xiaomi Note 17          | 8GB / 256GB                            | 266
+            Android | Nuevo | Xiaomi   | Xiaomi Note 17 Pro      | 8GB / 256GB                            | 289
+            Android | Nuevo | Xiaomi   | Xiaomi Note 17 Pro 5G   | 8GB / 256GB                            | 369
+
+            // --- ANDROID NUEVOS (POCO) ---
+            Android | Nuevo | POCO     | POCO C71                | 3GB / 64GB                             | 127
+            Android | Nuevo | POCO     | POCO C71                | 4GB / 128GB                            | 147
+            Android | Nuevo | POCO     | POCO C81 Pro            | 4GB / 64GB                             | 130
+            Android | Nuevo | POCO     | POCO C81 Pro            | 4GB / 128GB                            | 150
+            Android | Nuevo | POCO     | POCO C81 Pro            | 4GB / 256GB                            | 178
+            Android | Nuevo | POCO     | POCO C85                | 6GB / 128GB                            | 169
+            Android | Nuevo | POCO     | POCO C85                | 8GB / 256GB                            | 202
+            Android | Nuevo | POCO     | POCO C95                | 6GB / 128GB                            | 205
+            Android | Nuevo | POCO     | POCO C95                | 8GB / 256GB                            | 239
+            Android | Nuevo | POCO     | POCO M8 5G              | 8GB / 256GB                            | 247
+            Android | Nuevo | POCO     | POCO X8 Pro 5G          | 8GB / 256GB                            | 401
+
+            // --- ANDROID NUEVOS (MOTOROLA) ---
+            Android | Nuevo | Motorola | Motorola G06            | 4GB / 64GB                             | 114
+            Android | Nuevo | Motorola | Motorola G06            | 4GB / 128GB                            | 144
+            Android | Nuevo | Motorola | Motorola G06            | 4GB / 256GB                            | 164
+            Android | Nuevo | Motorola | Motorola G15            | 4GB / 256GB                            | 168
+            Android | Nuevo | Motorola | Motorola G17            | 4GB / 256GB                            | 202
+            Android | Nuevo | Motorola | Motorola G17 Power      | 8GB / 256GB                            | 243
+            Android | Nuevo | Motorola | Motorola G35            | 4GB / 256GB                            | 188
+            Android | Nuevo | Motorola | Motorola G47            | 8GB / 128GB                            | 203
+            Android | Nuevo | Motorola | Motorola G56            | 8GB / 256GB                            | 253
+            Android | Nuevo | Motorola | Motorola G57            | 8GB / 256GB                            | 241
+            Android | Nuevo | Motorola | Motorola G67            | 4GB / 256GB                            | 256
+            Android | Nuevo | Motorola | Motorola G77            | 8GB / 256GB                            | Consultar
+            Android | Nuevo | Motorola | Motorola G86            | 8GB / 256GB                            | 302
+            Android | Nuevo | Motorola | Motorola G86 Power      | 8GB / 256GB                            | Consultar
+            Android | Nuevo | Motorola | Motorola Edge 60 Fusion | 8GB / 256GB                            | Consultar
+
+            // --- ANDROID USADOS / REACONDICIONADOS (SAMSUNG GAMA ALTA Y MEDIA) ---
+            Android | Usado | Samsung  | Samsung Z Fold 4        | 512GB · Reacondicionado                | ARS 770000
+            Android | Usado | Samsung  | Samsung Z Fold 4        | 256GB · Reacondicionado                | ARS 715000
+            Android | Usado | Samsung  | Samsung Z Fold 3        | 256GB · Reacondicionado                | ARS 605000
+            Android | Usado | Samsung  | Samsung S22 Ultra       | 128GB · Reacondicionado                | ARS 595000
+            Android | Usado | Samsung  | Samsung Note 20 Ultra   | 512GB · Reacondicionado                | ARS 550000
+            Android | Usado | Samsung  | Samsung Z Flip 4        | 128GB · Reacondicionado                | ARS 495000
+            Android | Usado | Samsung  | Samsung Note 10 Plus    | 512GB · Reacondicionado                | ARS 420000
+            Android | Usado | Samsung  | Samsung S20 Plus        | 128GB · Reacondicionado                | ARS 365000
+            Android | Usado | Samsung  | Samsung S20 FE          | 128GB · Reacondicionado                | ARS 320000
+            Android | Usado | Samsung  | Samsung Z Flip 3        | 128GB · Marco roto                     | ARS 320000
+            Android | Usado | Samsung  | Samsung Note 10         | 256GB · Reacondicionado                | ARS 310000
+            Android | Usado | Samsung  | Samsung S20 (Balita)    | 128GB · Reacondicionado                | ARS 290000
+            Android | Usado | Samsung  | Samsung Z Flip          | 256GB · Tapa rota                      | ARS 260000
+            Android | Usado | Samsung  | Samsung A72             | 128GB · Reacondicionado                | ARS 255000
+            Android | Usado | Samsung  | Samsung S10 Plus        | 128GB · Reacondicionado                | ARS 250000
+            Android | Usado | Samsung  | Samsung S10             | 128GB · Reacondicionado                | ARS 240000
+            Android | Usado | Samsung  | Samsung A71             | 128GB · Reacondicionado                | ARS 210000
+            Android | Usado | Samsung  | Samsung S10e            | 128GB · Reacondicionado                | ARS 200000
+            Android | Usado | Samsung  | Samsung A70             | 128GB · Reacondicionado                | ARS 165000
+            Android | Usado | Samsung  | Samsung A51             | 128GB · Reacondicionado                | ARS 160000
+            Android | Usado | Samsung  | Samsung A22 4G          | 128GB · Reacondicionado                | ARS 155000
+            Android | Usado | Samsung  | Samsung Note 9          | 128GB · Reacondicionado                | ARS 135000
+            Android | Usado | Samsung  | Samsung A9 2018         | 128GB · Reacondicionado                | ARS 135000
+            Android | Usado | Samsung  | Samsung S9 Plus         | 64GB · Reacondicionado                 | ARS 125000
+            Android | Usado | Samsung  | Samsung A30             | 64GB · Reacondicionado                 | ARS 120000
+            Android | Usado | Samsung  | Samsung Note 8          | 64GB · Reacondicionado                 | ARS 110000
+            Android | Usado | Samsung  | Samsung S8 Plus         | 64GB · Reacondicionado                 | ARS 110000
+            Android | Usado | Samsung  | Samsung S9              | 64GB · Reacondicionado                 | ARS 110000
+            Android | Usado | Samsung  | Samsung A12             | 64GB · Reacondicionado                 | ARS 105000
+            Android | Usado | Samsung  | Samsung A6 Plus         | 64GB · Reacondicionado                 | ARS 100000
+            Android | Usado | Samsung  | Samsung A8 2018         | 32GB · Reacondicionado                 | ARS 100000
+            Android | Usado | Samsung  | Samsung A11             | 64GB · Reacondicionado                 | ARS 100000
+            Android | Usado | Samsung  | Samsung A20             | 32GB · Reacondicionado                 | ARS 100000
+            Android | Usado | Samsung  | Samsung A20s            | 32GB · Reacondicionado                 | ARS 100000
+            Android | Usado | Samsung  | Samsung A30             | 32GB · Reacondicionado                 | ARS 100000
+            Android | Usado | Samsung  | Samsung S7 Edge         | 32GB · Reacondicionado                 | ARS 90000
+            Android | Usado | Samsung  | Samsung S8 (Traslúcido) | 64GB · Reacondicionado                 | ARS 90000
+            Android | Usado | Samsung  | Samsung A10s            | 32GB · Reacondicionado                 | ARS 85000
+            Android | Usado | Samsung  | Samsung A10             | 32GB · Reacondicionado                 | ARS 80000
+            Android | Usado | Samsung  | Samsung A5 2017         | 32GB · Reacondicionado                 | ARS 75000
+            Android | Usado | Samsung  | Samsung J6              | 32GB · Reacondicionado                 | ARS 70000
+            Android | Usado | Samsung  | Samsung A01             | 32GB · Reacondicionado                 | ARS 65000
+            Android | Usado | Samsung  | Samsung J2 Prime        | 16GB · Reacondicionado                 | ARS 45000
+            Android | Usado | Samsung  | Samsung Grand Prime     | 8GB · Reacondicionado                  | ARS 35000
         `;
+
+        /* =========================================================================
+           LOGOS OFICIALES VECTORIALES DE CADA MARCA
+        ========================================================================= */
+        const LOGOS_OFICIALES = {
+            "Apple": `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.32c.67-.81 1.12-1.94 1-3.07-.96.04-2.13.64-2.82 1.45-.61.7-1.15 1.85-1.01 2.96 1.07.08 2.16-.53 2.83-1.34z"/></svg>`,
+            "Samsung": `<svg viewBox="0 0 64 24" fill="none" aria-hidden="true"><ellipse cx="32" cy="12" rx="30" ry="10" transform="rotate(-7 32 12)" fill="#1428A0"/><text x="32" y="15.2" fill="#FFFFFF" font-family="Arial, Helvetica, sans-serif" font-size="8.2" font-weight="900" letter-spacing="0.8" text-anchor="middle">SAMSUNG</text></svg>`,
+            "Xiaomi": `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="6" fill="#FF6900"/><path d="M6.5 16V8.5h4.3c1.3 0 2.2.8 2.2 2.1V16h-1.8v-5c0-.5-.3-.8-.8-.8H8.3V16H6.5zm8.9 0V8.5h1.8V16h-1.8zm-5.6 0v-4.2h1.7V16H9.8z" fill="#FFFFFF"/></svg>`,
+            "POCO": `<svg viewBox="0 0 56 24" fill="none" aria-hidden="true"><rect x="1" y="3" width="54" height="18" rx="4" fill="#FFD400"/><text x="28" y="15.5" fill="#111111" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="900" letter-spacing="1.2" text-anchor="middle">POCO</text></svg>`,
+            "Motorola": `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="#001428" stroke="#38BDF8" stroke-width="1.2"/><path d="M6.4 16.8L9.6 7.2l2.4 5.5 2.4-5.5 3.2 9.6h-1.6l-1.7-5.1-2.3 4.8-2.3-4.8-1.7 5.1H6.4z" fill="#FFFFFF"/></svg>`
+        };
+
+        function obtenerLogoMarca(marca) {
+            return LOGOS_OFICIALES[marca] || `<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/></svg>`;
+        }
+
+        document.querySelectorAll(".filtro[data-logo]").forEach(btn => {
+            const marca = btn.dataset.logo;
+            btn.innerHTML = `${obtenerLogoMarca(marca)}<span>${marca}</span>`;
+        });
 
         /* =========================================================================
            MOTOR AUTOMÁTICO (NO HACE FALTA TOCAR NADA DE ACÁ PARA ABAJO)
         ========================================================================= */
-        const ICONOS_MARCA = {
-            "Samsung": "🔆",
-            "Xiaomi": "📲",
-            "POCO": "⚡",
-            "Motorola": "🛵"
-        };
-
         function detectarEstiloVisual(marca, modelo) {
             const m = modelo.toLowerCase();
+            if (marca === "Apple" || m.includes("iphone")) {
+                return m.includes("pro") ? "iphone-pro" : "iphone-base";
+            }
             if (marca === "Samsung") {
-                if (m.includes("ultra")) return "samsung-ultra";
-                if (m.includes("s2")) return "samsung-s";
+                if (m.includes("fold") || m.includes("flip")) return "samsung-fold";
+                if (m.includes("ultra") || m.includes("note")) return "samsung-ultra";
+                if (m.includes("s2") || m.includes("s10") || m.includes("s9") || m.includes("s8") || m.includes("s7")) return "samsung-s";
                 return "samsung-a";
             }
             if (marca === "Xiaomi") {
@@ -811,37 +1126,45 @@
             return "samsung-a";
         }
 
-        function generarNombreArchivoFoto(modelo) {
+        function generarNombreArchivoFoto(modelo, condicion) {
             const slug = modelo
                 .toLowerCase()
                 .replace(/\+/g, "plus")
                 .replace(/\s+(4g|5g)\b/g, "")
                 .replace(/[^a-z0-9]+/g, "-")
                 .replace(/^-|-$/g, "");
-            return `assets/celulares/${slug}.png`;
+            const sufijo = condicion === "Usado" ? "-usado" : "";
+            return `assets/celulares/${slug}${sufijo}.png`;
         }
 
-        // Convierte la tabla de texto en objetos listos para mostrar
         const celulares = TABLA_CELULARES
             .split("\n")
             .map(linea => linea.trim())
             .filter(linea => linea && !linea.startsWith("//") && linea.includes("|"))
             .map(linea => {
-                const [marcaRaw, modeloRaw, memoriaRaw, precioRaw] = linea.split("|").map(col => col.trim());
+                const [lineaRaw, condicionRaw, marcaRaw, modeloRaw, memoriaRaw, precioRaw] = linea.split("|").map(col => col.trim());
+                const esEnPesos = /^ars/i.test(precioRaw || "");
                 const numeroPrecio = parseFloat((precioRaw || "").replace(/[^0-9.]/g, ""));
-                const costoUSD = !isNaN(numeroPrecio) && numeroPrecio > 0 ? numeroPrecio : null;
+                const valorNumerico = !isNaN(numeroPrecio) && numeroPrecio > 0 ? numeroPrecio : null;
+                const condicion = /usad/i.test(condicionRaw) ? "Usado" : "Nuevo";
+                const lineaSO = /iphone|ios|apple/i.test(lineaRaw) ? "iPhone" : "Android";
+
                 return {
+                    linea: lineaSO,
+                    condicion,
                     marca: marcaRaw,
-                    icono: ICONOS_MARCA[marcaRaw] || "📱",
                     modelo: modeloRaw,
                     memoria: memoriaRaw,
-                    costoUSD,
-                    foto: generarNombreArchivoFoto(modeloRaw),
+                    costoUSD: esEnPesos ? null : valorNumerico,
+                    costoARS: esEnPesos ? valorNumerico : null,
+                    foto: generarNombreArchivoFoto(modeloRaw, condicion),
                     estilo: detectarEstiloVisual(marcaRaw, modeloRaw)
                 };
             });
 
         let cotizacionActual = COTIZACION_RESPALDO;
+        let lineaSeleccionada = "Todos";
+        let condicionSeleccionada = "Todos";
         let marcaSeleccionada = "Todos";
         let filtroTexto = "";
 
@@ -863,11 +1186,14 @@
         }
 
         function generarImagenReferenciaSVG(eq) {
-            const nombreCorto = eq.modelo.replace(/^(Samsung|Xiaomi|POCO|Motorola)\s+/i, "");
+            const nombreCorto = eq.modelo.replace(/^(Samsung|Xiaomi|POCO|Motorola|Apple)\s+/i, "");
             const paletas = {
+                "iphone-base": { c1: "#1e293b", c2: "#090d16", acento: "#38bdf8", camara: "iphone-dual" },
+                "iphone-pro": { c1: "#292524", c2: "#141210", acento: "#eab308", camara: "iphone-triple" },
                 "samsung-a": { c1: "#1e293b", c2: "#0f172a", acento: "#38bdf8", camara: "triple-vertical" },
                 "samsung-s": { c1: "#27272a", c2: "#18181b", acento: "#a78bfa", camara: "triple-vertical" },
                 "samsung-ultra": { c1: "#292524", c2: "#1c1917", acento: "#eab308", camara: "ultra-quad" },
+                "samsung-fold": { c1: "#1e1b4b", c2: "#090d16", acento: "#818cf8", camara: "triple-vertical" },
                 "xiaomi-ring": { c1: "#1e293b", c2: "#090d16", acento: "#39d353", camara: "anillo-central" },
                 "xiaomi-note": { c1: "#1f2937", c2: "#111827", acento: "#60a5fa", camara: "modulo-cuadrado" },
                 "xiaomi-pro": { c1: "#2e1065", c2: "#0f172a", acento: "#c084fc", camara: "anillo-central" },
@@ -879,7 +1205,20 @@
             const p = paletas[eq.estilo] || paletas["samsung-a"];
 
             let lentesSVG = "";
-            if (p.camara === "triple-vertical") {
+            if (p.camara === "iphone-triple") {
+                lentesSVG = `
+                    <rect x="82" y="38" width="44" height="44" rx="12" fill="#090d0c" stroke="#52525b" stroke-width="1.5"/>
+                    <circle cx="95" cy="51" r="8" fill="#18181b" stroke="#71717a" stroke-width="1.8"/>
+                    <circle cx="95" cy="69" r="8" fill="#18181b" stroke="#71717a" stroke-width="1.8"/>
+                    <circle cx="113" cy="60" r="8" fill="#18181b" stroke="#71717a" stroke-width="1.8"/>
+                `;
+            } else if (p.camara === "iphone-dual") {
+                lentesSVG = `
+                    <rect x="82" y="38" width="38" height="42" rx="11" fill="#090d0c" stroke="#52525b" stroke-width="1.5"/>
+                    <circle cx="95" cy="50" r="7.5" fill="#18181b" stroke="#71717a" stroke-width="1.8"/>
+                    <circle cx="107" cy="67" r="7.5" fill="#18181b" stroke="#71717a" stroke-width="1.8"/>
+                `;
+            } else if (p.camara === "triple-vertical") {
                 lentesSVG = `
                     <circle cx="96" cy="54" r="9" fill="#090d0c" stroke="#52525b" stroke-width="2"/>
                     <circle cx="96" cy="54" r="4" fill="${p.acento}" opacity="0.65"/>
@@ -920,6 +1259,10 @@
                 `;
             }
 
+            const islaDinamica = eq.linea === "iPhone"
+                ? `<rect x="126" y="50" width="24" height="5.5" rx="2.75" fill="#050606"/>`
+                : `<circle cx="138" cy="53" r="2.2" fill="#090d0c"/>`;
+
             const svg = `
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
                     <defs>
@@ -937,21 +1280,35 @@
                     ${lentesSVG}
                     <rect x="96" y="42" width="84" height="170" rx="16" fill="#070908" stroke="#71717a" stroke-width="2"/>
                     <rect x="100" y="46" width="76" height="162" rx="13" fill="url(#screenGrad)"/>
-                    <circle cx="138" cy="53" r="2.2" fill="#090d0c"/>
-                    <text x="138" y="124" fill="#f3f5f4" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">${escapeHTML(nombreCorto)}</text>
-                    <text x="138" y="141" fill="${p.acento}" font-family="Arial, sans-serif" font-size="9.5" font-weight="bold" text-anchor="middle">${escapeHTML(eq.memoria)}</text>
+                    ${islaDinamica}
+                    <text x="138" y="124" fill="#f3f5f4" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle">${escapeHTML(nombreCorto)}</text>
+                    <text x="138" y="141" fill="${p.acento}" font-family="Arial, sans-serif" font-size="8.5" font-weight="bold" text-anchor="middle">${escapeHTML(eq.memoria.split("·")[0].trim())}</text>
                     <rect x="118" y="198" width="40" height="3" rx="1.5" fill="#94a3b8" opacity="0.6"/>
                 </svg>
             `;
             return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
         }
 
-        function calcularPrecioARS(costoUSD) {
-            if (costoUSD === null || costoUSD === undefined || isNaN(costoUSD)) {
+        function calcularPrecioARS(eq) {
+            // Si el equipo ya viene cotizado en pesos ARS: aplica +30% y redondea hacia arriba al múltiplo de $ 1.000
+            if (eq.costoARS !== null && eq.costoARS !== undefined && !isNaN(eq.costoARS)) {
+                const brutoARS = eq.costoARS * MARGEN_ANDROID;
+                return Math.ceil(brutoARS / 1000) * 1000;
+            }
+
+            if (eq.costoUSD === null || eq.costoUSD === undefined || isNaN(eq.costoUSD)) {
                 return null;
             }
-            const bruto = costoUSD * MARGEN_GANANCIA * cotizacionActual;
-            return Math.ceil(bruto / 1000) * 1000;
+
+            // Si es iPhone: costo en USD + 50 USD fijos de ganancia * dólar más caro
+            if (eq.linea === "iPhone") {
+                const brutoIphone = (eq.costoUSD + GANANCIA_IPHONE_USD) * cotizacionActual;
+                return Math.ceil(brutoIphone / 1000) * 1000;
+            }
+
+            // Si es Android en USD: costo en USD * 1.30 (+30%) * dólar más caro
+            const brutoAndroid = eq.costoUSD * MARGEN_ANDROID * cotizacionActual;
+            return Math.ceil(brutoAndroid / 1000) * 1000;
         }
 
         function formatearPesos(valor) {
@@ -961,7 +1318,7 @@
         function abrirVisor(idx) {
             const eq = celulares[idx];
             if (!eq) return;
-            const precioARS = calcularPrecioARS(eq.costoUSD);
+            const precioARS = calcularPrecioARS(eq);
             const textoPrecio = precioARS ? formatearPesos(precioARS) : "Consultar precio";
             const fallbackSVG = generarImagenReferenciaSVG(eq);
 
@@ -970,13 +1327,13 @@
                 this.src = fallbackSVG;
             };
             visorImg.src = eq.foto;
-            visorImg.alt = `${eq.modelo} ${eq.memoria}`;
-            visorTitulo.textContent = eq.modelo;
+            visorImg.alt = `${eq.modelo} (${eq.condicion})`;
+            visorTitulo.textContent = `${eq.modelo} (${eq.condicion})`;
             visorDetalle.textContent = `${eq.marca} · ${eq.memoria} · ${textoPrecio}`;
 
             const mensajeWsp = precioARS
-                ? `Hola ON! Quisiera consultar disponibilidad por el ${eq.modelo} (${eq.memoria}) publicado a ${textoPrecio}.`
-                : `Hola ON! Quisiera consultar precio y disponibilidad por el ${eq.modelo} (${eq.memoria}).`;
+                ? `Hola ON! Quisiera consultar disponibilidad por el ${eq.modelo} ${eq.condicion} (${eq.memoria}) publicado a ${textoPrecio}.`
+                : `Hola ON! Quisiera consultar precio y disponibilidad por el ${eq.modelo} ${eq.condicion} (${eq.memoria}).`;
             visorWsp.href = `https://wa.me/${TELEFONO_ON}?text=${encodeURIComponent(mensajeWsp)}`;
             visor.classList.add("abierto");
         }
@@ -999,46 +1356,61 @@
             const filtrados = celulares
                 .map((eq, index) => ({ ...eq, index }))
                 .filter(eq => {
+                    const coincideLinea = lineaSeleccionada === "Todos" || eq.linea === lineaSeleccionada;
+                    const coincideCondicion = condicionSeleccionada === "Todos" || eq.condicion === condicionSeleccionada;
                     const coincideMarca = marcaSeleccionada === "Todos" || eq.marca === marcaSeleccionada;
                     const coincideTexto = !termino ||
                         eq.modelo.toLowerCase().includes(termino) ||
                         eq.memoria.toLowerCase().includes(termino) ||
-                        eq.marca.toLowerCase().includes(termino);
-                    return coincideMarca && coincideTexto;
+                        eq.marca.toLowerCase().includes(termino) ||
+                        eq.linea.toLowerCase().includes(termino) ||
+                        eq.condicion.toLowerCase().includes(termino);
+                    return coincideLinea && coincideCondicion && coincideMarca && coincideTexto;
                 });
 
             contadorEquipos.textContent = `${filtrados.length} ${filtrados.length === 1 ? "equipo" : "equipos"}`;
 
             if (filtrados.length === 0) {
-                contenedorLista.innerHTML = `<div class="sin-resultados">No encontramos equipos con "${escapeHTML(filtroTexto)}".<br>Consultanos por WhatsApp si buscás otro modelo.</div>`;
+                contenedorLista.innerHTML = `<div class="sin-resultados">No encontramos equipos con ese filtro.<br>Probá tocando "Todos" o consultanos por WhatsApp si buscás otro modelo.</div>`;
                 return;
             }
 
             const grupos = {};
             filtrados.forEach(eq => {
-                if (!grupos[eq.marca]) {
-                    grupos[eq.marca] = { icono: eq.icono, items: [] };
+                const claveGrupo = `${eq.marca}|${eq.condicion}`;
+                if (!grupos[claveGrupo]) {
+                    grupos[claveGrupo] = {
+                        marca: eq.marca,
+                        condicion: eq.condicion,
+                        items: []
+                    };
                 }
-                grupos[eq.marca].items.push(eq);
+                grupos[claveGrupo].items.push(eq);
             });
 
-            contenedorLista.innerHTML = Object.entries(grupos).map(([marca, grupo]) => {
+            contenedorLista.innerHTML = Object.values(grupos).map(grupo => {
+                const esNuevo = grupo.condicion === "Nuevo";
+                const claseCondicion = esNuevo ? "nuevo" : "usado";
+                const textoTag = esNuevo ? "✨ Nuevos" : "♻️ Usados";
+
                 const cardsHTML = grupo.items.map(eq => {
-                    const precioARS = calcularPrecioARS(eq.costoUSD);
+                    const precioARS = calcularPrecioARS(eq);
                     const textoPrecio = precioARS ? formatearPesos(precioARS) : "Consultar";
                     const clasePrecio = precioARS ? "cel-precio" : "cel-precio consultar";
                     const es5G = /5g/i.test(eq.modelo);
+                    const claseTarjeta = eq.condicion === "Nuevo" ? "es-nuevo" : "es-usado";
+                    const badgeTexto = eq.condicion === "Nuevo" ? "✨ NUEVO · SELLADO" : "♻️ USADO · SELECCIONADO";
                     const fallbackSVG = generarImagenReferenciaSVG(eq);
 
                     const mensajeWsp = precioARS
-                        ? `Hola ON! Quisiera consultar disponibilidad por el ${eq.modelo} (${eq.memoria}) publicado a ${textoPrecio}.`
-                        : `Hola ON! Quisiera consultar precio y disponibilidad por el ${eq.modelo} (${eq.memoria}).`;
+                        ? `Hola ON! Quisiera consultar disponibilidad por el ${eq.modelo} ${eq.condicion} (${eq.memoria}) publicado a ${textoPrecio}.`
+                        : `Hola ON! Quisiera consultar precio y disponibilidad por el ${eq.modelo} ${eq.condicion} (${eq.memoria}).`;
                     const linkWsp = `https://wa.me/${TELEFONO_ON}?text=${encodeURIComponent(mensajeWsp)}`;
 
                     return `
-                        <article class="card-cel">
+                        <article class="card-cel ${claseTarjeta}">
                             <div class="cel-media" data-idx="${eq.index}" title="Tocar para ampliar">
-                                <span class="cel-badge-marca">${escapeHTML(eq.marca)}</span>
+                                <span class="cel-badge-condicion ${claseCondicion}">${badgeTexto}</span>
                                 ${es5G ? `<span class="cel-badge-5g">5G</span>` : ""}
                                 <img
                                     src="${escapeHTML(eq.foto)}"
@@ -1048,6 +1420,10 @@
                                 >
                             </div>
                             <div class="cel-cuerpo">
+                                <div class="cel-marca-oficial">
+                                    ${obtenerLogoMarca(eq.marca)}
+                                    <span>${escapeHTML(eq.marca)}</span>
+                                </div>
                                 <h3 class="cel-modelo">${escapeHTML(eq.modelo)}</h3>
                                 <span class="cel-memoria">${escapeHTML(eq.memoria)}</span>
                                 <div class="cel-pie">
@@ -1060,10 +1436,14 @@
                 }).join("");
 
                 return `
-                    <section aria-label="${escapeHTML(marca)}">
+                    <section aria-label="${escapeHTML(grupo.marca)} ${escapeHTML(grupo.condicion)}">
                         <div class="marca-titulo-barra">
-                            <h2><span aria-hidden="true">${grupo.icono}</span> ${escapeHTML(marca)}</h2>
-                            <span class="marca-cantidad">${grupo.items.length} ${grupo.items.length === 1 ? "modelo" : "modelos"}</span>
+                            <div class="marca-titulo-izq">
+                                <span class="logo-marca-seccion">${obtenerLogoMarca(grupo.marca)}</span>
+                                <h2>${escapeHTML(grupo.marca)}</h2>
+                                <span class="tag-seccion-condicion ${claseCondicion}">${textoTag}</span>
+                            </div>
+                            <span class="marca-cantidad">${grupo.items.length}</span>
                         </div>
                         <div class="grid-celulares">
                             ${cardsHTML}
@@ -1104,6 +1484,32 @@
             renderizar();
         }
 
+        // Eventos de Tabs de Línea (Todos / Android / iPhone)
+        document.querySelectorAll(".tab-linea").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelector(".tab-linea.activo")?.classList.remove("activo");
+                btn.classList.add("activo");
+                lineaSeleccionada = btn.dataset.linea;
+                if (lineaSeleccionada === "iPhone" && marcaSeleccionada !== "Todos" && marcaSeleccionada !== "Apple") {
+                    marcaSeleccionada = "Todos";
+                    document.querySelector(".filtro.activo")?.classList.remove("activo");
+                    document.querySelector('.filtro[data-marca="Todos"]')?.classList.add("activo");
+                }
+                renderizar();
+            });
+        });
+
+        // Eventos de Tabs de Condición (Todos / Nuevos / Usados)
+        document.querySelectorAll(".tab-condicion").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelector(".tab-condicion.activo")?.classList.remove("activo");
+                btn.classList.add("activo");
+                condicionSeleccionada = btn.dataset.condicion;
+                renderizar();
+            });
+        });
+
+        // Eventos de Filtro por Marca
         document.querySelectorAll(".filtro").forEach(btn => {
             btn.addEventListener("click", () => {
                 document.querySelector(".filtro.activo")?.classList.remove("activo");

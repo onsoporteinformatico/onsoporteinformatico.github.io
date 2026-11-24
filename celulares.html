@@ -697,88 +697,149 @@
     </a>
 
     <script>
-        const MARGEN_GANANCIA = 1.30; // +30% de ganancia
-        const COTIZACION_RESPALDO = 1450; // Valor de respaldo si falla la API externa
+        /* =========================================================================
+           CONFIGURACIÓN RÁPIDA (EDITÁ SOLO ESTA PARTE PARA ACTUALIZAR PRECIOS)
+        ========================================================================= */
+        const MARGEN_GANANCIA = 1.30;      // 1.30 = +30% de ganancia
+        const COTIZACION_RESPALDO = 1450;  // Dólar de respaldo si falla internet/API
         const TELEFONO_ON = "5493364626333";
 
-        // Lista de equipos: podés subir fotos reales en carpeta assets/celulares/ con el nombre indicado en "foto"
-        const celulares = [
-            // SAMSUNG
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A07", memoria: "4GB / 64GB", costoUSD: 152, foto: "assets/celulares/samsung-a07.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A07", memoria: "4GB / 128GB", costoUSD: 165, foto: "assets/celulares/samsung-a07.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A16", memoria: "4GB / 128GB", costoUSD: 186, foto: "assets/celulares/samsung-a16.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A17 4G", memoria: "4GB / 128GB", costoUSD: 195, foto: "assets/celulares/samsung-a17.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A17 4G", memoria: "6GB / 128GB", costoUSD: 219, foto: "assets/celulares/samsung-a17.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A17 4G", memoria: "8GB / 256GB", costoUSD: 287, foto: "assets/celulares/samsung-a17.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A17 5G", memoria: "4GB / 128GB", costoUSD: 206, foto: "assets/celulares/samsung-a17.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A17 5G", memoria: "6GB / 128GB", costoUSD: 213, foto: "assets/celulares/samsung-a17.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A17 5G", memoria: "8GB / 256GB", costoUSD: 312, foto: "assets/celulares/samsung-a17.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A27", memoria: "6GB / 128GB", costoUSD: 294, foto: "assets/celulares/samsung-a27.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A27", memoria: "8GB / 256GB", costoUSD: 349, foto: "assets/celulares/samsung-a27.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A37", memoria: "6GB / 128GB", costoUSD: 335, foto: "assets/celulares/samsung-a37.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A37", memoria: "8GB / 256GB", costoUSD: 390, foto: "assets/celulares/samsung-a37.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A56", memoria: "8GB / 256GB", costoUSD: 413, foto: "assets/celulares/samsung-a56.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A56", memoria: "12GB / 256GB", costoUSD: 435, foto: "assets/celulares/samsung-a56.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A57", memoria: "8GB / 128GB", costoUSD: 435, foto: "assets/celulares/samsung-a57.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung A57", memoria: "8GB / 256GB", costoUSD: 498, foto: "assets/celulares/samsung-a57.png", estilo: "samsung-a" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung S25 FE", memoria: "8GB / 256GB", costoUSD: 600, foto: "assets/celulares/samsung-s25fe.png", estilo: "samsung-s" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung S26", memoria: "12GB / 256GB", costoUSD: 755, foto: "assets/celulares/samsung-s26.png", estilo: "samsung-s" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung S26", memoria: "12GB / 512GB", costoUSD: 885, foto: "assets/celulares/samsung-s26.png", estilo: "samsung-s" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung S26+", memoria: "12GB / 256GB", costoUSD: 970, foto: "assets/celulares/samsung-s26plus.png", estilo: "samsung-s" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung S26+", memoria: "12GB / 512GB", costoUSD: null, foto: "assets/celulares/samsung-s26plus.png", estilo: "samsung-s" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung S26 Ultra", memoria: "12GB / 256GB", costoUSD: 1045, foto: "assets/celulares/samsung-s26ultra.png", estilo: "samsung-ultra" },
-            { marca: "Samsung", icono: "🔆", modelo: "Samsung S26 Ultra", memoria: "12GB / 512GB", costoUSD: 1195, foto: "assets/celulares/samsung-s26ultra.png", estilo: "samsung-ultra" },
+        // TABLA DE PRECIOS: Un equipo por renglón con el formato:
+        // Marca | Modelo | Memoria | Costo en USD (o "Consultar" si no tiene precio)
+        const TABLA_CELULARES = `
+            Samsung  | Samsung A07             | 4GB / 64GB   | 152
+            Samsung  | Samsung A07             | 4GB / 128GB  | 165
+            Samsung  | Samsung A16             | 4GB / 128GB  | 186
+            Samsung  | Samsung A17 4G          | 4GB / 128GB  | 195
+            Samsung  | Samsung A17 4G          | 6GB / 128GB  | 219
+            Samsung  | Samsung A17 4G          | 8GB / 256GB  | 287
+            Samsung  | Samsung A17 5G          | 4GB / 128GB  | 206
+            Samsung  | Samsung A17 5G          | 6GB / 128GB  | 213
+            Samsung  | Samsung A17 5G          | 8GB / 256GB  | 312
+            Samsung  | Samsung A27             | 6GB / 128GB  | 294
+            Samsung  | Samsung A27             | 8GB / 256GB  | 349
+            Samsung  | Samsung A37             | 6GB / 128GB  | 335
+            Samsung  | Samsung A37             | 8GB / 256GB  | 390
+            Samsung  | Samsung A56             | 8GB / 256GB  | 413
+            Samsung  | Samsung A56             | 12GB / 256GB | 435
+            Samsung  | Samsung A57             | 8GB / 128GB  | 435
+            Samsung  | Samsung A57             | 8GB / 256GB  | 498
+            Samsung  | Samsung S25 FE          | 8GB / 256GB  | 600
+            Samsung  | Samsung S26             | 12GB / 256GB | 755
+            Samsung  | Samsung S26             | 12GB / 512GB | 885
+            Samsung  | Samsung S26+            | 12GB / 256GB | 970
+            Samsung  | Samsung S26+            | 12GB / 512GB | Consultar
+            Samsung  | Samsung S26 Ultra       | 12GB / 256GB | 1045
+            Samsung  | Samsung S26 Ultra       | 12GB / 512GB | 1195
 
-            // XIAOMI
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi A7 Pro", memoria: "4GB / 64GB", costoUSD: 126, foto: "assets/celulares/xiaomi-a7pro.png", estilo: "xiaomi-ring" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi A7 Pro", memoria: "4GB / 128GB", costoUSD: 152, foto: "assets/celulares/xiaomi-a7pro.png", estilo: "xiaomi-ring" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi 15C", memoria: "4GB / 128GB", costoUSD: 159, foto: "assets/celulares/xiaomi-15c.png", estilo: "xiaomi-ring" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi 15C", memoria: "4GB / 256GB", costoUSD: null, foto: "assets/celulares/xiaomi-15c.png", estilo: "xiaomi-ring" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi 15C", memoria: "8GB / 256GB", costoUSD: 193, foto: "assets/celulares/xiaomi-15c.png", estilo: "xiaomi-ring" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Redmi 15", memoria: "6GB / 128GB", costoUSD: 185, foto: "assets/celulares/xiaomi-redmi15.png", estilo: "xiaomi-note" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Redmi 15", memoria: "8GB / 256GB", costoUSD: 215, foto: "assets/celulares/xiaomi-redmi15.png", estilo: "xiaomi-note" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Redmi 17", memoria: "4GB / 128GB", costoUSD: 180, foto: "assets/celulares/xiaomi-redmi17.png", estilo: "xiaomi-note" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Redmi 17", memoria: "6GB / 256GB", costoUSD: 233, foto: "assets/celulares/xiaomi-redmi17.png", estilo: "xiaomi-note" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 15", memoria: "6GB / 128GB", costoUSD: 214, foto: "assets/celulares/xiaomi-note15.png", estilo: "xiaomi-note" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 15", memoria: "8GB / 256GB", costoUSD: 256, foto: "assets/celulares/xiaomi-note15.png", estilo: "xiaomi-note" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 15 Pro", memoria: "8GB / 256GB", costoUSD: 312, foto: "assets/celulares/xiaomi-note15pro.png", estilo: "xiaomi-pro" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 15 Pro 5G", memoria: "8GB / 256GB", costoUSD: 343, foto: "assets/celulares/xiaomi-note15pro.png", estilo: "xiaomi-pro" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 15 Pro 5G", memoria: "12GB / 512GB", costoUSD: 372, foto: "assets/celulares/xiaomi-note15pro.png", estilo: "xiaomi-pro" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 17", memoria: "6GB / 256GB", costoUSD: 255, foto: "assets/celulares/xiaomi-note17.png", estilo: "xiaomi-note" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 17", memoria: "8GB / 256GB", costoUSD: 266, foto: "assets/celulares/xiaomi-note17.png", estilo: "xiaomi-note" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 17 Pro", memoria: "8GB / 256GB", costoUSD: 289, foto: "assets/celulares/xiaomi-note17pro.png", estilo: "xiaomi-pro" },
-            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 17 Pro 5G", memoria: "8GB / 256GB", costoUSD: 369, foto: "assets/celulares/xiaomi-note17pro.png", estilo: "xiaomi-pro" },
+            Xiaomi   | Xiaomi A7 Pro           | 4GB / 64GB   | 126
+            Xiaomi   | Xiaomi A7 Pro           | 4GB / 128GB  | 152
+            Xiaomi   | Xiaomi 15C              | 4GB / 128GB  | 159
+            Xiaomi   | Xiaomi 15C              | 4GB / 256GB  | Consultar
+            Xiaomi   | Xiaomi 15C              | 8GB / 256GB  | 193
+            Xiaomi   | Xiaomi Redmi 15         | 6GB / 128GB  | 185
+            Xiaomi   | Xiaomi Redmi 15         | 8GB / 256GB  | 215
+            Xiaomi   | Xiaomi Redmi 17         | 4GB / 128GB  | 180
+            Xiaomi   | Xiaomi Redmi 17         | 6GB / 256GB  | 233
+            Xiaomi   | Xiaomi Note 15          | 6GB / 128GB  | 214
+            Xiaomi   | Xiaomi Note 15          | 8GB / 256GB  | 256
+            Xiaomi   | Xiaomi Note 15 Pro      | 8GB / 256GB  | 312
+            Xiaomi   | Xiaomi Note 15 Pro 5G   | 8GB / 256GB  | 343
+            Xiaomi   | Xiaomi Note 15 Pro 5G   | 12GB / 512GB | 372
+            Xiaomi   | Xiaomi Note 17          | 6GB / 256GB  | 255
+            Xiaomi   | Xiaomi Note 17          | 8GB / 256GB  | 266
+            Xiaomi   | Xiaomi Note 17 Pro      | 8GB / 256GB  | 289
+            Xiaomi   | Xiaomi Note 17 Pro 5G   | 8GB / 256GB  | 369
 
-            // POCO
-            { marca: "POCO", icono: "⚡", modelo: "POCO C71", memoria: "3GB / 64GB", costoUSD: 127, foto: "assets/celulares/poco-c71.png", estilo: "poco-visor" },
-            { marca: "POCO", icono: "⚡", modelo: "POCO C71", memoria: "4GB / 128GB", costoUSD: 147, foto: "assets/celulares/poco-c71.png", estilo: "poco-visor" },
-            { marca: "POCO", icono: "⚡", modelo: "POCO C81 Pro", memoria: "4GB / 64GB", costoUSD: 130, foto: "assets/celulares/poco-c81pro.png", estilo: "poco-visor" },
-            { marca: "POCO", icono: "⚡", modelo: "POCO C81 Pro", memoria: "4GB / 128GB", costoUSD: 150, foto: "assets/celulares/poco-c81pro.png", estilo: "poco-visor" },
-            { marca: "POCO", icono: "⚡", modelo: "POCO C81 Pro", memoria: "4GB / 256GB", costoUSD: 178, foto: "assets/celulares/poco-c81pro.png", estilo: "poco-visor" },
-            { marca: "POCO", icono: "⚡", modelo: "POCO C85", memoria: "6GB / 128GB", costoUSD: 169, foto: "assets/celulares/poco-c85.png", estilo: "poco-visor" },
-            { marca: "POCO", icono: "⚡", modelo: "POCO C85", memoria: "8GB / 256GB", costoUSD: 202, foto: "assets/celulares/poco-c85.png", estilo: "poco-visor" },
-            { marca: "POCO", icono: "⚡", modelo: "POCO C95", memoria: "6GB / 128GB", costoUSD: 205, foto: "assets/celulares/poco-c95.png", estilo: "poco-visor" },
-            { marca: "POCO", icono: "⚡", modelo: "POCO C95", memoria: "8GB / 256GB", costoUSD: 239, foto: "assets/celulares/poco-c95.png", estilo: "poco-visor" },
-            { marca: "POCO", icono: "⚡", modelo: "POCO M8 5G", memoria: "8GB / 256GB", costoUSD: 247, foto: "assets/celulares/poco-m8.png", estilo: "poco-pro" },
-            { marca: "POCO", icono: "⚡", modelo: "POCO X8 Pro 5G", memoria: "8GB / 256GB", costoUSD: 401, foto: "assets/celulares/poco-x8pro.png", estilo: "poco-pro" },
+            POCO     | POCO C71                | 3GB / 64GB   | 127
+            POCO     | POCO C71                | 4GB / 128GB  | 147
+            POCO     | POCO C81 Pro            | 4GB / 64GB   | 130
+            POCO     | POCO C81 Pro            | 4GB / 128GB  | 150
+            POCO     | POCO C81 Pro            | 4GB / 256GB  | 178
+            POCO     | POCO C85                | 6GB / 128GB  | 169
+            POCO     | POCO C85                | 8GB / 256GB  | 202
+            POCO     | POCO C95                | 6GB / 128GB  | 205
+            POCO     | POCO C95                | 8GB / 256GB  | 239
+            POCO     | POCO M8 5G              | 8GB / 256GB  | 247
+            POCO     | POCO X8 Pro 5G          | 8GB / 256GB  | 401
 
-            // MOTOROLA
-            { marca: "Motorola", icono: "🛵", modelo: "Motorola G06", memoria: "4GB / 64GB", costoUSD: 114, foto: "assets/celulares/moto-g06.png", estilo: "moto-g" },
-            { marca: "Motorola", icono: "🛵", modelo: "Motorola G06", memoria: "4GB / 128GB", costoUSD: 144, foto: "assets/celulares/moto-g06.png", estilo: "moto-g" },
-            { marca: "Motorola", icono: "🛵", modelo: "Motorola G06", memoria: "4GB / 256GB", costoUSD: 164, foto: "assets/celulares/moto-g06.png", estilo: "moto-g" },
-            { marca: "Motorola", icono: "🛵", modelo: "Motorola G15", memoria: "4GB / 256GB", costoUSD: 168, foto: "assets/celulares/moto-g15.png", estilo: "moto-g" },
-            { marca: "Motorola", icono: "🛵", modelo: "Motorola G17", memoria: "4GB / 256GB", costoUSD: 202, foto: "assets/celulares/moto-g17.png", estilo: "moto-g" },
-            { marca: "Motorola", icono: "🛵", modelo: "Motorola G17 Power", memoria: "8GB / 256GB", costoUSD: 243, foto: "assets/celulares/moto-g17power.png", estilo: "moto-g" },
-            { marca: "Motorola", icono: "🛵", modelo: "Motorola G35", memoria: "4GB / 256GB", costoUSD: 188, foto: "assets/celulares/moto-g35.png", estilo: "moto-g" },
-            { marca: "Motorola", icono: "🛵", modelo: "Motorola G47", memoria: "8GB / 128GB", costoUSD: 203, foto: "assets/celulares/moto-g47.png", estilo: "moto-g" },
-            { marca: "Motorola", icono: "🛵", modelo: "Motorola G56", memoria: "8GB / 256GB", costoUSD: 253, foto: "assets/celulares/moto-g56.png", estilo: "moto-g" },
-            { marca: "Motorola", icono: "🛵", modelo: "Motorola G57", memoria: "8GB / 256GB", costoUSD: 241, foto: "assets/celulares/moto-g57.png", estilo: "moto-g" },
-            { marca: "Motorola", icono: "🛵", modelo: "Motorola G67", memoria: "4GB / 256GB", costoUSD: 256, foto: "assets/celulares/moto-g67.png", estilo: "moto-g" },
-            { marca: "Motorola", icono: "🛵", modelo: "Motorola G77", memoria: "8GB / 256GB", costoUSD: null, foto: "assets/celulares/moto-g77.png", estilo: "moto-g" },
-            { marca: "Motorola", icono: "🛵", modelo: "Motorola G86", memoria: "8GB / 256GB", costoUSD: 302, foto: "assets/celulares/moto-g86.png", estilo: "moto-edge" },
-            { marca: "Motorola", icono: "🛵", modelo: "Motorola G86 Power", memoria: "8GB / 256GB", costoUSD: null, foto: "assets/celulares/moto-g86power.png", estilo: "moto-edge" },
-            { marca: "Motorola", icono: "🛵", modelo: "Motorola Edge 60 Fusion", memoria: "8GB / 256GB", costoUSD: null, foto: "assets/celulares/moto-edge60fusion.png", estilo: "moto-edge" }
-        ];
+            Motorola | Motorola G06            | 4GB / 64GB   | 114
+            Motorola | Motorola G06            | 4GB / 128GB  | 144
+            Motorola | Motorola G06            | 4GB / 256GB  | 164
+            Motorola | Motorola G15            | 4GB / 256GB  | 168
+            Motorola | Motorola G17            | 4GB / 256GB  | 202
+            Motorola | Motorola G17 Power      | 8GB / 256GB  | 243
+            Motorola | Motorola G35            | 4GB / 256GB  | 188
+            Motorola | Motorola G47            | 8GB / 128GB  | 203
+            Motorola | Motorola G56            | 8GB / 256GB  | 253
+            Motorola | Motorola G57            | 8GB / 256GB  | 241
+            Motorola | Motorola G67            | 4GB / 256GB  | 256
+            Motorola | Motorola G77            | 8GB / 256GB  | Consultar
+            Motorola | Motorola G86            | 8GB / 256GB  | 302
+            Motorola | Motorola G86 Power      | 8GB / 256GB  | Consultar
+            Motorola | Motorola Edge 60 Fusion | 8GB / 256GB  | Consultar
+        `;
+
+        /* =========================================================================
+           MOTOR AUTOMÁTICO (NO HACE FALTA TOCAR NADA DE ACÁ PARA ABAJO)
+        ========================================================================= */
+        const ICONOS_MARCA = {
+            "Samsung": "🔆",
+            "Xiaomi": "📲",
+            "POCO": "⚡",
+            "Motorola": "🛵"
+        };
+
+        function detectarEstiloVisual(marca, modelo) {
+            const m = modelo.toLowerCase();
+            if (marca === "Samsung") {
+                if (m.includes("ultra")) return "samsung-ultra";
+                if (m.includes("s2")) return "samsung-s";
+                return "samsung-a";
+            }
+            if (marca === "Xiaomi") {
+                if (m.includes("pro")) return "xiaomi-pro";
+                if (m.includes("note") || m.includes("redmi")) return "xiaomi-note";
+                return "xiaomi-ring";
+            }
+            if (marca === "POCO") {
+                return m.includes("pro") || m.includes("m8") ? "poco-pro" : "poco-visor";
+            }
+            if (marca === "Motorola") {
+                return m.includes("edge") || m.includes("g86") ? "moto-edge" : "moto-g";
+            }
+            return "samsung-a";
+        }
+
+        function generarNombreArchivoFoto(modelo) {
+            const slug = modelo
+                .toLowerCase()
+                .replace(/\+/g, "plus")
+                .replace(/\s+(4g|5g)\b/g, "")
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/^-|-$/g, "");
+            return `assets/celulares/${slug}.png`;
+        }
+
+        // Convierte la tabla de texto en objetos listos para mostrar
+        const celulares = TABLA_CELULARES
+            .split("\n")
+            .map(linea => linea.trim())
+            .filter(linea => linea && !linea.startsWith("//") && linea.includes("|"))
+            .map(linea => {
+                const [marcaRaw, modeloRaw, memoriaRaw, precioRaw] = linea.split("|").map(col => col.trim());
+                const numeroPrecio = parseFloat((precioRaw || "").replace(/[^0-9.]/g, ""));
+                const costoUSD = !isNaN(numeroPrecio) && numeroPrecio > 0 ? numeroPrecio : null;
+                return {
+                    marca: marcaRaw,
+                    icono: ICONOS_MARCA[marcaRaw] || "📱",
+                    modelo: modeloRaw,
+                    memoria: memoriaRaw,
+                    costoUSD,
+                    foto: generarNombreArchivoFoto(modeloRaw),
+                    estilo: detectarEstiloVisual(marcaRaw, modeloRaw)
+                };
+            });
 
         let cotizacionActual = COTIZACION_RESPALDO;
         let marcaSeleccionada = "Todos";

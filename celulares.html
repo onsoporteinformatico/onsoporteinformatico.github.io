@@ -576,3 +576,489 @@
             position: fixed;
             right: 18px;
             bottom: 18px;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 18px;
+            border-radius: 999px;
+            background: #25d366;
+            color: #05140a;
+            font-size: 14px;
+            font-weight: 800;
+            text-decoration: none;
+            box-shadow: 0 8px 24px rgba(37, 211, 102, 0.35);
+            transition: transform 0.2s ease;
+        }
+
+        .wsp-flotante:hover {
+            transform: translateY(-2px) scale(1.02);
+        }
+
+        @media (max-width: 360px) {
+            .grid-celulares {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="contenedor">
+        <a class="volver" href="index.html">← Volver a ON Soporte Informático</a>
+        <img
+            src="logo_on_transparente.png"
+            alt="ON Soporte Informático"
+            class="logo"
+            onerror="this.outerHTML='<div class=\'logo-fallback\' aria-label=\'ON Soporte Informático\'>ON</div>'"
+        >
+
+        <header class="presentacion">
+            <div class="etiqueta">Equipos Nuevos · Caja Sellada</div>
+            <h1>Catálogo de Celulares</h1>
+            <p class="intro">Precios finales en pesos argentinos actualizados automáticamente al día.<br>Tocá cualquier equipo para ampliar o consultar stock por WhatsApp.</p>
+            <div class="linea"></div>
+        </header>
+
+        <div class="info-cotizacion">
+            <span id="estado-cotizacion">Actualizando precios del día...</span>
+            <strong>Pesos ARS</strong>
+        </div>
+
+        <div class="buscador-caja">
+            <span class="buscador-icono" aria-hidden="true">🔍</span>
+            <input
+                type="search"
+                id="buscador"
+                class="buscador-input"
+                placeholder="Buscar modelo o capacidad (ej: A56, S26, 8/256, 5G)..."
+                aria-label="Buscar celulares"
+            >
+        </div>
+
+        <nav class="filtros" id="filtros" aria-label="Filtrar por marca">
+            <button class="filtro activo" type="button" data-marca="Todos">Todos</button>
+            <button class="filtro" type="button" data-marca="Samsung">🔆 Samsung</button>
+            <button class="filtro" type="button" data-marca="Xiaomi">📲 Xiaomi</button>
+            <button class="filtro" type="button" data-marca="POCO">⚡ POCO</button>
+            <button class="filtro" type="button" data-marca="Motorola">🛵 Motorola</button>
+        </nav>
+
+        <div class="estado-resultados">
+            <span id="contador-equipos">Cargando equipos...</span>
+            <span>Precios sujetos a stock</span>
+        </div>
+
+        <section class="secciones-marcas" id="lista-equipos" aria-label="Catálogo de celulares por marca"></section>
+
+        <p class="nota-legal">Imágenes de referencia ilustrativas. Los valores publicados se calculan en pesos argentinos según la cotización vigente al momento de la consulta.</p>
+
+        <section class="a-medida">
+            <strong>¿Buscás otro modelo o capacidad?</strong>
+            <p>Trabajamos toda la línea Samsung, Xiaomi, POCO, Motorola y iPhone a pedido.</p>
+            <a
+                class="boton-primario"
+                href="https://wa.me/5493364626333?text=Hola%20ON!%20Quisiera%20consultar%20por%20un%20celular%20que%20no%20vi%20en%20la%20lista."
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                💬 Consultar otro modelo por WhatsApp ↗
+            </a>
+        </section>
+
+        <footer class="pie">
+            <div>ON · SOPORTE INFORMÁTICO</div>
+            <a href="index.html">Volver a la página principal ↑</a>
+        </footer>
+    </main>
+
+    <!-- VISOR AMPLIADO -->
+    <div class="visor" id="visor" role="dialog" aria-modal="true" aria-labelledby="visor-titulo">
+        <div class="visor-caja">
+            <button class="visor-cerrar" id="visor-cerrar" type="button" aria-label="Cerrar vista previa">×</button>
+            <div class="visor-img-wrap">
+                <img id="visor-img" src="" alt="">
+            </div>
+            <div class="visor-info">
+                <h3 id="visor-titulo"></h3>
+                <p id="visor-detalle"></p>
+                <a class="boton-primario" id="visor-wsp" href="#" target="_blank" rel="noopener noreferrer">💬 Consultar disponibilidad por WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <a
+        href="https://wa.me/5493364626333?text=Hola%20ON!%20Te%20escribo%20desde%20el%20cat%C3%A1logo%20de%20celulares%20para%20hacerte%20una%20consulta."
+        target="_blank"
+        rel="noopener noreferrer"
+        class="wsp-flotante"
+        aria-label="Contactar por WhatsApp"
+    >
+        <span>💬</span> WhatsApp
+    </a>
+
+    <script>
+        const MARGEN_GANANCIA = 1.30; // +30% de ganancia
+        const COTIZACION_RESPALDO = 1450; // Valor de respaldo si falla la API externa
+        const TELEFONO_ON = "5493364626333";
+
+        // Lista de equipos: podés subir fotos reales en carpeta assets/celulares/ con el nombre indicado en "foto"
+        const celulares = [
+            // SAMSUNG
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A07", memoria: "4GB / 64GB", costoUSD: 152, foto: "assets/celulares/samsung-a07.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A07", memoria: "4GB / 128GB", costoUSD: 165, foto: "assets/celulares/samsung-a07.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A16", memoria: "4GB / 128GB", costoUSD: 186, foto: "assets/celulares/samsung-a16.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A17 4G", memoria: "4GB / 128GB", costoUSD: 195, foto: "assets/celulares/samsung-a17.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A17 4G", memoria: "6GB / 128GB", costoUSD: 219, foto: "assets/celulares/samsung-a17.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A17 4G", memoria: "8GB / 256GB", costoUSD: 287, foto: "assets/celulares/samsung-a17.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A17 5G", memoria: "4GB / 128GB", costoUSD: 206, foto: "assets/celulares/samsung-a17.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A17 5G", memoria: "6GB / 128GB", costoUSD: 213, foto: "assets/celulares/samsung-a17.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A17 5G", memoria: "8GB / 256GB", costoUSD: 312, foto: "assets/celulares/samsung-a17.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A27", memoria: "6GB / 128GB", costoUSD: 294, foto: "assets/celulares/samsung-a27.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A27", memoria: "8GB / 256GB", costoUSD: 349, foto: "assets/celulares/samsung-a27.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A37", memoria: "6GB / 128GB", costoUSD: 335, foto: "assets/celulares/samsung-a37.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A37", memoria: "8GB / 256GB", costoUSD: 390, foto: "assets/celulares/samsung-a37.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A56", memoria: "8GB / 256GB", costoUSD: 413, foto: "assets/celulares/samsung-a56.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A56", memoria: "12GB / 256GB", costoUSD: 435, foto: "assets/celulares/samsung-a56.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A57", memoria: "8GB / 128GB", costoUSD: 435, foto: "assets/celulares/samsung-a57.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung A57", memoria: "8GB / 256GB", costoUSD: 498, foto: "assets/celulares/samsung-a57.png", estilo: "samsung-a" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung S25 FE", memoria: "8GB / 256GB", costoUSD: 600, foto: "assets/celulares/samsung-s25fe.png", estilo: "samsung-s" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung S26", memoria: "12GB / 256GB", costoUSD: 755, foto: "assets/celulares/samsung-s26.png", estilo: "samsung-s" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung S26", memoria: "12GB / 512GB", costoUSD: 885, foto: "assets/celulares/samsung-s26.png", estilo: "samsung-s" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung S26+", memoria: "12GB / 256GB", costoUSD: 970, foto: "assets/celulares/samsung-s26plus.png", estilo: "samsung-s" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung S26+", memoria: "12GB / 512GB", costoUSD: null, foto: "assets/celulares/samsung-s26plus.png", estilo: "samsung-s" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung S26 Ultra", memoria: "12GB / 256GB", costoUSD: 1045, foto: "assets/celulares/samsung-s26ultra.png", estilo: "samsung-ultra" },
+            { marca: "Samsung", icono: "🔆", modelo: "Samsung S26 Ultra", memoria: "12GB / 512GB", costoUSD: 1195, foto: "assets/celulares/samsung-s26ultra.png", estilo: "samsung-ultra" },
+
+            // XIAOMI
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi A7 Pro", memoria: "4GB / 64GB", costoUSD: 126, foto: "assets/celulares/xiaomi-a7pro.png", estilo: "xiaomi-ring" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi A7 Pro", memoria: "4GB / 128GB", costoUSD: 152, foto: "assets/celulares/xiaomi-a7pro.png", estilo: "xiaomi-ring" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi 15C", memoria: "4GB / 128GB", costoUSD: 159, foto: "assets/celulares/xiaomi-15c.png", estilo: "xiaomi-ring" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi 15C", memoria: "4GB / 256GB", costoUSD: null, foto: "assets/celulares/xiaomi-15c.png", estilo: "xiaomi-ring" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi 15C", memoria: "8GB / 256GB", costoUSD: 193, foto: "assets/celulares/xiaomi-15c.png", estilo: "xiaomi-ring" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Redmi 15", memoria: "6GB / 128GB", costoUSD: 185, foto: "assets/celulares/xiaomi-redmi15.png", estilo: "xiaomi-note" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Redmi 15", memoria: "8GB / 256GB", costoUSD: 215, foto: "assets/celulares/xiaomi-redmi15.png", estilo: "xiaomi-note" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Redmi 17", memoria: "4GB / 128GB", costoUSD: 180, foto: "assets/celulares/xiaomi-redmi17.png", estilo: "xiaomi-note" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Redmi 17", memoria: "6GB / 256GB", costoUSD: 233, foto: "assets/celulares/xiaomi-redmi17.png", estilo: "xiaomi-note" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 15", memoria: "6GB / 128GB", costoUSD: 214, foto: "assets/celulares/xiaomi-note15.png", estilo: "xiaomi-note" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 15", memoria: "8GB / 256GB", costoUSD: 256, foto: "assets/celulares/xiaomi-note15.png", estilo: "xiaomi-note" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 15 Pro", memoria: "8GB / 256GB", costoUSD: 312, foto: "assets/celulares/xiaomi-note15pro.png", estilo: "xiaomi-pro" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 15 Pro 5G", memoria: "8GB / 256GB", costoUSD: 343, foto: "assets/celulares/xiaomi-note15pro.png", estilo: "xiaomi-pro" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 15 Pro 5G", memoria: "12GB / 512GB", costoUSD: 372, foto: "assets/celulares/xiaomi-note15pro.png", estilo: "xiaomi-pro" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 17", memoria: "6GB / 256GB", costoUSD: 255, foto: "assets/celulares/xiaomi-note17.png", estilo: "xiaomi-note" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 17", memoria: "8GB / 256GB", costoUSD: 266, foto: "assets/celulares/xiaomi-note17.png", estilo: "xiaomi-note" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 17 Pro", memoria: "8GB / 256GB", costoUSD: 289, foto: "assets/celulares/xiaomi-note17pro.png", estilo: "xiaomi-pro" },
+            { marca: "Xiaomi", icono: "📲", modelo: "Xiaomi Note 17 Pro 5G", memoria: "8GB / 256GB", costoUSD: 369, foto: "assets/celulares/xiaomi-note17pro.png", estilo: "xiaomi-pro" },
+
+            // POCO
+            { marca: "POCO", icono: "⚡", modelo: "POCO C71", memoria: "3GB / 64GB", costoUSD: 127, foto: "assets/celulares/poco-c71.png", estilo: "poco-visor" },
+            { marca: "POCO", icono: "⚡", modelo: "POCO C71", memoria: "4GB / 128GB", costoUSD: 147, foto: "assets/celulares/poco-c71.png", estilo: "poco-visor" },
+            { marca: "POCO", icono: "⚡", modelo: "POCO C81 Pro", memoria: "4GB / 64GB", costoUSD: 130, foto: "assets/celulares/poco-c81pro.png", estilo: "poco-visor" },
+            { marca: "POCO", icono: "⚡", modelo: "POCO C81 Pro", memoria: "4GB / 128GB", costoUSD: 150, foto: "assets/celulares/poco-c81pro.png", estilo: "poco-visor" },
+            { marca: "POCO", icono: "⚡", modelo: "POCO C81 Pro", memoria: "4GB / 256GB", costoUSD: 178, foto: "assets/celulares/poco-c81pro.png", estilo: "poco-visor" },
+            { marca: "POCO", icono: "⚡", modelo: "POCO C85", memoria: "6GB / 128GB", costoUSD: 169, foto: "assets/celulares/poco-c85.png", estilo: "poco-visor" },
+            { marca: "POCO", icono: "⚡", modelo: "POCO C85", memoria: "8GB / 256GB", costoUSD: 202, foto: "assets/celulares/poco-c85.png", estilo: "poco-visor" },
+            { marca: "POCO", icono: "⚡", modelo: "POCO C95", memoria: "6GB / 128GB", costoUSD: 205, foto: "assets/celulares/poco-c95.png", estilo: "poco-visor" },
+            { marca: "POCO", icono: "⚡", modelo: "POCO C95", memoria: "8GB / 256GB", costoUSD: 239, foto: "assets/celulares/poco-c95.png", estilo: "poco-visor" },
+            { marca: "POCO", icono: "⚡", modelo: "POCO M8 5G", memoria: "8GB / 256GB", costoUSD: 247, foto: "assets/celulares/poco-m8.png", estilo: "poco-pro" },
+            { marca: "POCO", icono: "⚡", modelo: "POCO X8 Pro 5G", memoria: "8GB / 256GB", costoUSD: 401, foto: "assets/celulares/poco-x8pro.png", estilo: "poco-pro" },
+
+            // MOTOROLA
+            { marca: "Motorola", icono: "🛵", modelo: "Motorola G06", memoria: "4GB / 64GB", costoUSD: 114, foto: "assets/celulares/moto-g06.png", estilo: "moto-g" },
+            { marca: "Motorola", icono: "🛵", modelo: "Motorola G06", memoria: "4GB / 128GB", costoUSD: 144, foto: "assets/celulares/moto-g06.png", estilo: "moto-g" },
+            { marca: "Motorola", icono: "🛵", modelo: "Motorola G06", memoria: "4GB / 256GB", costoUSD: 164, foto: "assets/celulares/moto-g06.png", estilo: "moto-g" },
+            { marca: "Motorola", icono: "🛵", modelo: "Motorola G15", memoria: "4GB / 256GB", costoUSD: 168, foto: "assets/celulares/moto-g15.png", estilo: "moto-g" },
+            { marca: "Motorola", icono: "🛵", modelo: "Motorola G17", memoria: "4GB / 256GB", costoUSD: 202, foto: "assets/celulares/moto-g17.png", estilo: "moto-g" },
+            { marca: "Motorola", icono: "🛵", modelo: "Motorola G17 Power", memoria: "8GB / 256GB", costoUSD: 243, foto: "assets/celulares/moto-g17power.png", estilo: "moto-g" },
+            { marca: "Motorola", icono: "🛵", modelo: "Motorola G35", memoria: "4GB / 256GB", costoUSD: 188, foto: "assets/celulares/moto-g35.png", estilo: "moto-g" },
+            { marca: "Motorola", icono: "🛵", modelo: "Motorola G47", memoria: "8GB / 128GB", costoUSD: 203, foto: "assets/celulares/moto-g47.png", estilo: "moto-g" },
+            { marca: "Motorola", icono: "🛵", modelo: "Motorola G56", memoria: "8GB / 256GB", costoUSD: 253, foto: "assets/celulares/moto-g56.png", estilo: "moto-g" },
+            { marca: "Motorola", icono: "🛵", modelo: "Motorola G57", memoria: "8GB / 256GB", costoUSD: 241, foto: "assets/celulares/moto-g57.png", estilo: "moto-g" },
+            { marca: "Motorola", icono: "🛵", modelo: "Motorola G67", memoria: "4GB / 256GB", costoUSD: 256, foto: "assets/celulares/moto-g67.png", estilo: "moto-g" },
+            { marca: "Motorola", icono: "🛵", modelo: "Motorola G77", memoria: "8GB / 256GB", costoUSD: null, foto: "assets/celulares/moto-g77.png", estilo: "moto-g" },
+            { marca: "Motorola", icono: "🛵", modelo: "Motorola G86", memoria: "8GB / 256GB", costoUSD: 302, foto: "assets/celulares/moto-g86.png", estilo: "moto-edge" },
+            { marca: "Motorola", icono: "🛵", modelo: "Motorola G86 Power", memoria: "8GB / 256GB", costoUSD: null, foto: "assets/celulares/moto-g86power.png", estilo: "moto-edge" },
+            { marca: "Motorola", icono: "🛵", modelo: "Motorola Edge 60 Fusion", memoria: "8GB / 256GB", costoUSD: null, foto: "assets/celulares/moto-edge60fusion.png", estilo: "moto-edge" }
+        ];
+
+        let cotizacionActual = COTIZACION_RESPALDO;
+        let marcaSeleccionada = "Todos";
+        let filtroTexto = "";
+
+        const contenedorLista = document.getElementById("lista-equipos");
+        const contadorEquipos = document.getElementById("contador-equipos");
+        const estadoCotizacion = document.getElementById("estado-cotizacion");
+        const buscador = document.getElementById("buscador");
+
+        const visor = document.getElementById("visor");
+        const visorImg = document.getElementById("visor-img");
+        const visorTitulo = document.getElementById("visor-titulo");
+        const visorDetalle = document.getElementById("visor-detalle");
+        const visorWsp = document.getElementById("visor-wsp");
+
+        function escapeHTML(value) {
+            return String(value).replace(/[&<>"']/g, char => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"
+            }[char]));
+        }
+
+        function generarImagenReferenciaSVG(eq) {
+            const nombreCorto = eq.modelo.replace(/^(Samsung|Xiaomi|POCO|Motorola)\s+/i, "");
+            const paletas = {
+                "samsung-a": { c1: "#1e293b", c2: "#0f172a", acento: "#38bdf8", camara: "triple-vertical" },
+                "samsung-s": { c1: "#27272a", c2: "#18181b", acento: "#a78bfa", camara: "triple-vertical" },
+                "samsung-ultra": { c1: "#292524", c2: "#1c1917", acento: "#eab308", camara: "ultra-quad" },
+                "xiaomi-ring": { c1: "#1e293b", c2: "#090d16", acento: "#39d353", camara: "anillo-central" },
+                "xiaomi-note": { c1: "#1f2937", c2: "#111827", acento: "#60a5fa", camara: "modulo-cuadrado" },
+                "xiaomi-pro": { c1: "#2e1065", c2: "#0f172a", acento: "#c084fc", camara: "anillo-central" },
+                "poco-visor": { c1: "#27272a", c2: "#121214", acento: "#facc15", camara: "visor-poco" },
+                "poco-pro": { c1: "#18181b", c2: "#09090b", acento: "#facc15", camara: "visor-poco" },
+                "moto-g": { c1: "#172554", c2: "#0f172a", acento: "#38bdf8", camara: "modulo-moto" },
+                "moto-edge": { c1: "#134e4a", c2: "#091514", acento: "#39d353", camara: "modulo-moto" }
+            };
+            const p = paletas[eq.estilo] || paletas["samsung-a"];
+
+            let lentesSVG = "";
+            if (p.camara === "triple-vertical") {
+                lentesSVG = `
+                    <circle cx="96" cy="54" r="9" fill="#090d0c" stroke="#52525b" stroke-width="2"/>
+                    <circle cx="96" cy="54" r="4" fill="${p.acento}" opacity="0.65"/>
+                    <circle cx="96" cy="78" r="9" fill="#090d0c" stroke="#52525b" stroke-width="2"/>
+                    <circle cx="96" cy="78" r="4" fill="#38bdf8" opacity="0.55"/>
+                    <circle cx="96" cy="102" r="9" fill="#090d0c" stroke="#52525b" stroke-width="2"/>
+                    <circle cx="114" cy="66" r="3" fill="#fef08a"/>
+                `;
+            } else if (p.camara === "ultra-quad") {
+                lentesSVG = `
+                    <circle cx="95" cy="52" r="9.5" fill="#090d0c" stroke="#71717a" stroke-width="2"/>
+                    <circle cx="95" cy="77" r="9.5" fill="#090d0c" stroke="#71717a" stroke-width="2"/>
+                    <circle cx="95" cy="102" r="9.5" fill="#090d0c" stroke="#71717a" stroke-width="2"/>
+                    <circle cx="116" cy="64" r="6" fill="#090d0c" stroke="#71717a" stroke-width="1.5"/>
+                    <circle cx="116" cy="88" r="6" fill="#090d0c" stroke="#71717a" stroke-width="1.5"/>
+                `;
+            } else if (p.camara === "anillo-central") {
+                lentesSVG = `
+                    <circle cx="120" cy="78" r="26" fill="#0b0f0e" stroke="#3f3f46" stroke-width="2.5"/>
+                    <circle cx="111" cy="70" r="7" fill="#18181b" stroke="#71717a" stroke-width="1.5"/>
+                    <circle cx="129" cy="70" r="7" fill="#18181b" stroke="#71717a" stroke-width="1.5"/>
+                    <circle cx="111" cy="87" r="7" fill="#18181b" stroke="#71717a" stroke-width="1.5"/>
+                    <circle cx="129" cy="87" r="4" fill="#fef08a"/>
+                `;
+            } else if (p.camara === "visor-poco") {
+                lentesSVG = `
+                    <rect x="82" y="42" width="76" height="44" rx="12" fill="#09090b" stroke="#3f3f46" stroke-width="1.5"/>
+                    <circle cx="101" cy="64" r="10" fill="#18181b" stroke="#71717a" stroke-width="2"/>
+                    <circle cx="127" cy="64" r="10" fill="#18181b" stroke="#71717a" stroke-width="2"/>
+                    <text x="148" y="67" fill="${p.acento}" font-family="Arial, sans-serif" font-size="8" font-weight="bold" text-anchor="middle">POCO</text>
+                `;
+            } else {
+                lentesSVG = `
+                    <rect x="84" y="42" width="38" height="54" rx="11" fill="#090d0c" stroke="#3f3f46" stroke-width="1.5"/>
+                    <circle cx="96" cy="56" r="7.5" fill="#18181b" stroke="#71717a" stroke-width="1.5"/>
+                    <circle cx="96" cy="79" r="7.5" fill="#18181b" stroke="#71717a" stroke-width="1.5"/>
+                    <circle cx="113" cy="67" r="3.5" fill="#fef08a"/>
+                `;
+            }
+
+            const svg = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="240" height="240">
+                    <defs>
+                        <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="${p.c1}"/>
+                            <stop offset="100%" stop-color="${p.c2}"/>
+                        </linearGradient>
+                        <linearGradient id="screenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="${p.acento}" stop-opacity="0.32"/>
+                            <stop offset="55%" stop-color="#0f172a" stop-opacity="0.95"/>
+                            <stop offset="100%" stop-color="#39d353" stop-opacity="0.22"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="74" y="28" width="92" height="184" rx="18" fill="url(#bodyGrad)" stroke="#52525b" stroke-width="2"/>
+                    ${lentesSVG}
+                    <rect x="96" y="42" width="84" height="170" rx="16" fill="#070908" stroke="#71717a" stroke-width="2"/>
+                    <rect x="100" y="46" width="76" height="162" rx="13" fill="url(#screenGrad)"/>
+                    <circle cx="138" cy="53" r="2.2" fill="#090d0c"/>
+                    <text x="138" y="124" fill="#f3f5f4" font-family="Arial, sans-serif" font-size="13" font-weight="bold" text-anchor="middle">${escapeHTML(nombreCorto)}</text>
+                    <text x="138" y="141" fill="${p.acento}" font-family="Arial, sans-serif" font-size="9.5" font-weight="bold" text-anchor="middle">${escapeHTML(eq.memoria)}</text>
+                    <rect x="118" y="198" width="40" height="3" rx="1.5" fill="#94a3b8" opacity="0.6"/>
+                </svg>
+            `;
+            return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+        }
+
+        function calcularPrecioARS(costoUSD) {
+            if (costoUSD === null || costoUSD === undefined || isNaN(costoUSD)) {
+                return null;
+            }
+            const bruto = costoUSD * MARGEN_GANANCIA * cotizacionActual;
+            return Math.ceil(bruto / 1000) * 1000;
+        }
+
+        function formatearPesos(valor) {
+            return "$ " + valor.toLocaleString("es-AR");
+        }
+
+        function abrirVisor(idx) {
+            const eq = celulares[idx];
+            if (!eq) return;
+            const precioARS = calcularPrecioARS(eq.costoUSD);
+            const textoPrecio = precioARS ? formatearPesos(precioARS) : "Consultar precio";
+            const fallbackSVG = generarImagenReferenciaSVG(eq);
+
+            visorImg.onerror = function () {
+                this.onerror = null;
+                this.src = fallbackSVG;
+            };
+            visorImg.src = eq.foto;
+            visorImg.alt = `${eq.modelo} ${eq.memoria}`;
+            visorTitulo.textContent = eq.modelo;
+            visorDetalle.textContent = `${eq.marca} · ${eq.memoria} · ${textoPrecio}`;
+
+            const mensajeWsp = precioARS
+                ? `Hola ON! Quisiera consultar disponibilidad por el ${eq.modelo} (${eq.memoria}) publicado a ${textoPrecio}.`
+                : `Hola ON! Quisiera consultar precio y disponibilidad por el ${eq.modelo} (${eq.memoria}).`;
+            visorWsp.href = `https://wa.me/${TELEFONO_ON}?text=${encodeURIComponent(mensajeWsp)}`;
+            visor.classList.add("abierto");
+        }
+
+        function cerrarVisor() {
+            visor.classList.remove("abierto");
+        }
+
+        document.getElementById("visor-cerrar").addEventListener("click", cerrarVisor);
+        visor.addEventListener("click", (e) => {
+            if (e.target === visor) cerrarVisor();
+        });
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape") cerrarVisor();
+        });
+
+        function renderizar() {
+            const termino = filtroTexto.trim().toLowerCase();
+
+            const filtrados = celulares
+                .map((eq, index) => ({ ...eq, index }))
+                .filter(eq => {
+                    const coincideMarca = marcaSeleccionada === "Todos" || eq.marca === marcaSeleccionada;
+                    const coincideTexto = !termino ||
+                        eq.modelo.toLowerCase().includes(termino) ||
+                        eq.memoria.toLowerCase().includes(termino) ||
+                        eq.marca.toLowerCase().includes(termino);
+                    return coincideMarca && coincideTexto;
+                });
+
+            contadorEquipos.textContent = `${filtrados.length} ${filtrados.length === 1 ? "equipo" : "equipos"}`;
+
+            if (filtrados.length === 0) {
+                contenedorLista.innerHTML = `<div class="sin-resultados">No encontramos equipos con "${escapeHTML(filtroTexto)}".<br>Consultanos por WhatsApp si buscás otro modelo.</div>`;
+                return;
+            }
+
+            const grupos = {};
+            filtrados.forEach(eq => {
+                if (!grupos[eq.marca]) {
+                    grupos[eq.marca] = { icono: eq.icono, items: [] };
+                }
+                grupos[eq.marca].items.push(eq);
+            });
+
+            contenedorLista.innerHTML = Object.entries(grupos).map(([marca, grupo]) => {
+                const cardsHTML = grupo.items.map(eq => {
+                    const precioARS = calcularPrecioARS(eq.costoUSD);
+                    const textoPrecio = precioARS ? formatearPesos(precioARS) : "Consultar";
+                    const clasePrecio = precioARS ? "cel-precio" : "cel-precio consultar";
+                    const es5G = /5g/i.test(eq.modelo);
+                    const fallbackSVG = generarImagenReferenciaSVG(eq);
+
+                    const mensajeWsp = precioARS
+                        ? `Hola ON! Quisiera consultar disponibilidad por el ${eq.modelo} (${eq.memoria}) publicado a ${textoPrecio}.`
+                        : `Hola ON! Quisiera consultar precio y disponibilidad por el ${eq.modelo} (${eq.memoria}).`;
+                    const linkWsp = `https://wa.me/${TELEFONO_ON}?text=${encodeURIComponent(mensajeWsp)}`;
+
+                    return `
+                        <article class="card-cel">
+                            <div class="cel-media" data-idx="${eq.index}" title="Tocar para ampliar">
+                                <span class="cel-badge-marca">${escapeHTML(eq.marca)}</span>
+                                ${es5G ? `<span class="cel-badge-5g">5G</span>` : ""}
+                                <img
+                                    src="${escapeHTML(eq.foto)}"
+                                    alt="${escapeHTML(eq.modelo)}"
+                                    loading="lazy"
+                                    onerror="this.onerror=null;this.src='${fallbackSVG}'"
+                                >
+                            </div>
+                            <div class="cel-cuerpo">
+                                <h3 class="cel-modelo">${escapeHTML(eq.modelo)}</h3>
+                                <span class="cel-memoria">${escapeHTML(eq.memoria)}</span>
+                                <div class="cel-pie">
+                                    <div class="${clasePrecio}">${escapeHTML(textoPrecio)}</div>
+                                    <a class="btn-pedir" href="${linkWsp}" target="_blank" rel="noopener noreferrer">💬 Consultar</a>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                }).join("");
+
+                return `
+                    <section aria-label="${escapeHTML(marca)}">
+                        <div class="marca-titulo-barra">
+                            <h2><span aria-hidden="true">${grupo.icono}</span> ${escapeHTML(marca)}</h2>
+                            <span class="marca-cantidad">${grupo.items.length} ${grupo.items.length === 1 ? "modelo" : "modelos"}</span>
+                        </div>
+                        <div class="grid-celulares">
+                            ${cardsHTML}
+                        </div>
+                    </section>
+                `;
+            }).join("");
+
+            contenedorLista.querySelectorAll(".cel-media").forEach(el => {
+                el.addEventListener("click", () => {
+                    abrirVisor(Number(el.dataset.idx));
+                });
+            });
+        }
+
+        async function obtenerDolarMasCaro() {
+            try {
+                const respuesta = await fetch("https://dolarapi.com/v1/dolares", { cache: "no-store" });
+                if (!respuesta.ok) throw new Error("Error al consultar cotización");
+                const lista = await respuesta.json();
+
+                const tiposValidos = ["blue", "bolsa", "contadoconliqui", "cripto", "oficial"];
+                const valoresVenta = lista
+                    .filter(d => tiposValidos.includes(d.casa) && typeof d.venta === "number" && d.venta > 0)
+                    .map(d => d.venta);
+
+                if (valoresVenta.length > 0) {
+                    cotizacionActual = Math.max(...valoresVenta);
+                    const hoy = new Date().toLocaleDateString("es-AR", { day: "2-digit", month: "2-digit", year: "numeric" });
+                    estadoCotizacion.textContent = `✓ Valores actualizados al ${hoy}`;
+                } else {
+                    estadoCotizacion.textContent = "✓ Lista de precios vigente";
+                }
+            } catch (error) {
+                cotizacionActual = COTIZACION_RESPALDO;
+                estadoCotizacion.textContent = "✓ Lista de precios vigente";
+            }
+            renderizar();
+        }
+
+        document.querySelectorAll(".filtro").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelector(".filtro.activo")?.classList.remove("activo");
+                btn.classList.add("activo");
+                marcaSeleccionada = btn.dataset.marca;
+                renderizar();
+            });
+        });
+
+        buscador.addEventListener("input", (e) => {
+            filtroTexto = e.target.value;
+            renderizar();
+        });
+
+        renderizar();
+        obtenerDolarMasCaro();
+    </script>
+</body>
+</html>

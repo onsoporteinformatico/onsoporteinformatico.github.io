@@ -283,6 +283,10 @@
             transition: all 0.2s ease;
         }
 
+        .filtro.oculto {
+            display: none;
+        }
+
         .filtro svg {
             width: 15px;
             height: 15px;
@@ -815,13 +819,13 @@
 
         <!-- FILTRO 3: MARCAS / LÍNEAS -->
         <nav class="filtros" id="filtros" aria-label="Filtrar por marca o línea">
-            <button class="filtro activo" type="button" data-linea="Todos">Todas las marcas</button>
-            <button class="filtro" type="button" data-linea="Samsung" data-logo="Samsung">Samsung</button>
-            <button class="filtro" type="button" data-linea="Xiaomi" data-logo="Xiaomi">Xiaomi</button>
-            <button class="filtro" type="button" data-linea="POCO" data-logo="POCO">POCO</button>
-            <button class="filtro" type="button" data-linea="Motorola" data-logo="Motorola">Motorola</button>
-            <button class="filtro" type="button" data-linea="iPhone" data-logo="Apple">iPhone</button>
-            <button class="filtro" type="button" data-linea="Apple Watch" data-logo="Apple">Apple Watch</button>
+            <button class="filtro activo" type="button" data-linea="Todos" data-eco-group="Todos">Todas las marcas</button>
+            <button class="filtro" type="button" data-linea="Samsung" data-logo="Samsung" data-eco-group="Android">Samsung</button>
+            <button class="filtro" type="button" data-linea="Xiaomi" data-logo="Xiaomi" data-eco-group="Android">Xiaomi</button>
+            <button class="filtro" type="button" data-linea="POCO" data-logo="POCO" data-eco-group="Android">POCO</button>
+            <button class="filtro" type="button" data-linea="Motorola" data-logo="Motorola" data-eco-group="Android">Motorola</button>
+            <button class="filtro" type="button" data-linea="iPhone" data-logo="Apple" data-eco-group="Apple">iPhone</button>
+            <button class="filtro" type="button" data-linea="Apple Watch" data-logo="Apple" data-eco-group="Apple">Apple Watch</button>
         </nav>
 
         <div class="estado-resultados">
@@ -1061,6 +1065,29 @@
         const visorTitulo = document.getElementById("visor-titulo");
         const visorDetalle = document.getElementById("visor-detalle");
         const visorWsp = document.getElementById("visor-wsp");
+
+        function actualizarVisibilidadFiltrosMarca() {
+            document.querySelectorAll(".filtro").forEach(btn => {
+                const grupoEco = btn.dataset.ecoGroup;
+                const linea = btn.dataset.linea;
+
+                let visible = true;
+                if (ecoSeleccionado !== "Todos" && grupoEco !== "Todos" && grupoEco !== ecoSeleccionado) {
+                    visible = false;
+                }
+                if (condSeleccionada === "Usado" && linea === "Apple Watch") {
+                    visible = false;
+                }
+
+                btn.classList.toggle("oculto", !visible);
+
+                if (!visible && btn.classList.contains("activo")) {
+                    btn.classList.remove("activo");
+                    lineaSeleccionada = "Todos";
+                    document.querySelector('.filtro[data-linea="Todos"]')?.classList.add("activo");
+                }
+            });
+        }
 
         function escapeHTML(value) {
             return String(value).replace(/[&<>"']/g, char => ({
@@ -1311,17 +1338,7 @@
                 document.querySelector(".tab-eco.activo")?.classList.remove("activo");
                 btn.classList.add("activo");
                 ecoSeleccionado = btn.dataset.eco;
-
-                if (ecoSeleccionado === "Android" && (lineaSeleccionada === "iPhone" || lineaSeleccionada === "Apple Watch")) {
-                    lineaSeleccionada = "Todos";
-                    document.querySelector(".filtro.activo")?.classList.remove("activo");
-                    document.querySelector('.filtro[data-linea="Todos"]')?.classList.add("activo");
-                } else if (ecoSeleccionado === "Apple" && ["Samsung", "Xiaomi", "POCO", "Motorola"].includes(lineaSeleccionada)) {
-                    lineaSeleccionada = "Todos";
-                    document.querySelector(".filtro.activo")?.classList.remove("activo");
-                    document.querySelector('.filtro[data-linea="Todos"]')?.classList.add("activo");
-                }
-
+                actualizarVisibilidadFiltrosMarca();
                 renderizar();
             });
         });
@@ -1331,14 +1348,7 @@
                 document.querySelector(".tab-cond.activo")?.classList.remove("activo");
                 btn.classList.add("activo");
                 condSeleccionada = btn.dataset.cond;
-
-                // Si elige Usados y tenía seleccionado Apple Watch (que son todos nuevos), resetea la línea a Todos
-                if (condSeleccionada === "Usado" && lineaSeleccionada === "Apple Watch") {
-                    lineaSeleccionada = "Todos";
-                    document.querySelector(".filtro.activo")?.classList.remove("activo");
-                    document.querySelector('.filtro[data-linea="Todos"]')?.classList.add("activo");
-                }
-
+                actualizarVisibilidadFiltrosMarca();
                 renderizar();
             });
         });
@@ -1357,6 +1367,7 @@
             renderizar();
         });
 
+        actualizarVisibilidadFiltrosMarca();
         renderizar();
         obtenerDolarMasCaro();
     </script>

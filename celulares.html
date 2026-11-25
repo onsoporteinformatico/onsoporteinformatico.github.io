@@ -812,7 +812,7 @@
                 type="search"
                 id="buscador"
                 class="buscador-input"
-                placeholder="Buscar modelo, memoria o tamaño (ej: S26, Note 15, Watch Ultra, A51, 256GB)..."
+                placeholder="Buscar modelo, memoria, color o batería (ej: iPhone 18, S26, Titanio, 256GB)..."
                 aria-label="Buscar celulares o Apple Watch"
             >
         </div>
@@ -835,7 +835,7 @@
 
         <section class="secciones-grupos" id="lista-productos" aria-label="Catálogo de celulares y Apple Watch"></section>
 
-        <p class="nota-legal">Imágenes de referencia ilustrativas. Los equipos nuevos se entregan en caja original sellada y los reacondicionados cuentan con revisión técnica y garantía escrita. Los valores publicados se calculan en pesos argentinos según la cotización vigente.</p>
+        <p class="nota-legal">Imágenes de referencia ilustrativas. Los equipos nuevos se entregan en caja original sellada y los usados/reacondicionados cuentan con revisión técnica y garantía escrita. Los valores publicados se calculan en pesos argentinos según la cotización vigente.</p>
 
         <section class="a-medida">
             <strong>¿Buscás otro modelo, color o capacidad?</strong>
@@ -886,7 +886,7 @@
            CONFIGURACIÓN RÁPIDA DE GANANCIA Y COTIZACIÓN
         ========================================================================= */
         const MARGEN_GANANCIA = 1.30;      // 1.30 = +30% de ganancia sobre equipos en USD
-        const MARGEN_USADOS_ARS = 1.00;    // 1.00 = respeta el precio en pesos publicado (cambiar a 1.15 si querés +15%)
+        const MARGEN_USADOS_ARS = 1.00;    // 1.00 = respeta el precio en pesos publicado (ej: reacondicionados Samsung)
         const COTIZACION_RESPALDO = 1450;  // Dólar de respaldo si falla la API externa
         const TELEFONO_ON = "5493364626333";
 
@@ -1020,15 +1020,38 @@
             Android | Samsung  | Usado | Samsung Galaxy Z Fold 4    | 512GB · Reacondicionado| ARS | 770000
 
             // ==================== APPLE · iPHONE NUEVOS EN CAJA SELLADA ====================
-            Apple   | iPhone   | Nuevo | iPhone 13                  | 128GB · Caja sellada   | USD | 560
-            Apple   | iPhone   | Nuevo | iPhone 15                  | 128GB · Caja sellada   | USD | 730
-            Apple   | iPhone   | Nuevo | iPhone 16                  | 128GB · Caja sellada   | USD | 840
-            Apple   | iPhone   | Nuevo | iPhone 16 Pro              | 256GB · Caja sellada   | USD | 1140
-            Apple   | iPhone   | Nuevo | iPhone 16 Pro Max          | 256GB · Caja sellada   | USD | 1260
+            Apple   | iPhone   | Nuevo | iPhone 15                  | 128GB · Caja sellada              | USD | 760
+            Apple   | iPhone   | Nuevo | iPhone 16                  | 128GB · Caja sellada              | USD | 850
+            Apple   | iPhone   | Nuevo | iPhone 17                  | 256GB · Caja sellada              | USD | 980
+            Apple   | iPhone   | Nuevo | iPhone 18 Pro              | 256GB · Caja sellada              | USD | 1370
+            Apple   | iPhone   | Nuevo | iPhone 18 Pro              | 512GB · Borgoña · Caja sellada    | USD | 1630
+            Apple   | iPhone   | Nuevo | iPhone 18 Pro Max          | 256GB · Black / Borgoña · Sellado | USD | 1590
+            Apple   | iPhone   | Nuevo | iPhone 18 Pro Max          | 512GB · Black · Caja sellada      | USD | 1770
 
             // ==================== APPLE · iPHONE USADOS SELECCIONADOS ====================
-            Apple   | iPhone   | Usado | iPhone 13 Pro              | 128GB · Batería +85%   | USD | 520
-            Apple   | iPhone   | Usado | iPhone 14 Pro              | 256GB · Batería +85%   | USD | 650
+            Apple   | iPhone   | Usado | iPhone 13                  | 128GB · Bat. 100% · Product RED          | USD | 300
+            Apple   | iPhone   | Usado | iPhone 13 mini             | 256GB · Bat. 100% · Product RED          | USD | 270
+            Apple   | iPhone   | Usado | iPhone 13 Pro              | 128GB · Bat. 87% · Grafito               | USD | 450
+            Apple   | iPhone   | Usado | iPhone 14                  | 128GB · Bat. 87% · Starlight             | USD | 360
+            Apple   | iPhone   | Usado | iPhone 14                  | 128GB · Bat. 100% · Starlight            | USD | 360
+            Apple   | iPhone   | Usado | iPhone 15                  | 128GB · Bat. 86% · Rosa                  | USD | 440
+            Apple   | iPhone   | Usado | iPhone 15                  | 128GB · Bat. 85% · Negro (x2 unid.)      | USD | 440
+            Apple   | iPhone   | Usado | iPhone 15                  | 256GB · Bat. 88% · Negro                 | USD | 470
+            Apple   | iPhone   | Usado | iPhone 15 Plus             | 128GB · Bat. 85% · Azul                  | USD | 470
+            Apple   | iPhone   | Usado | iPhone 15 Pro Max          | 256GB · Bat. 85% · Titanio Negro (x2)    | USD | 690
+            Apple   | iPhone   | Usado | iPhone 15 Pro Max          | 256GB · Bat. 85% · Titanio Blanco        | USD | 690
+            Apple   | iPhone   | Usado | iPhone 15 Pro Max          | 256GB · Bat. 84% · Titanio Blanco        | USD | 690
+            Apple   | iPhone   | Usado | iPhone 15 Pro Max          | 256GB · Bat. 84% · Titanio Azul          | USD | 690
+            Apple   | iPhone   | Usado | iPhone 16                  | 128GB · Bat. 89% · Negro                 | USD | 600
+            Apple   | iPhone   | Usado | iPhone 16 Pro              | 128GB · Bat. 88% · Titanio Negro         | USD | 730
+            Apple   | iPhone   | Usado | iPhone 16 Pro              | 128GB · Bat. 89% · Titanio Blanco        | USD | 730
+            Apple   | iPhone   | Usado | iPhone 16 Pro              | 256GB · Bat. 88% · Titanio Desierto      | USD | 760
+            Apple   | iPhone   | Usado | iPhone 16 Pro Max          | 256GB · Bat. 84% · Titanio Negro         | USD | 810
+            Apple   | iPhone   | Usado | iPhone 16 Pro Max          | 256GB · Bat. 89% · Titanio Natural (x3)  | USD | 840
+            Apple   | iPhone   | Usado | iPhone 16 Pro Max          | 256GB · Bat. 89% · Titanio Desierto      | USD | 840
+            Apple   | iPhone   | Usado | iPhone 17 Pro              | 256GB · Bat. 91% · Azul Profundo         | USD | 1050
+            Apple   | iPhone   | Usado | iPhone 17 Pro              | 256GB · Bat. 95% · Plata                 | USD | 1050
+            Apple   | iPhone   | Usado | iPhone 17 Pro Max          | 256GB · Bat. 92% · Naranja Cósmico       | USD | 1170
 
             // ==================== APPLE WATCH · SERIE SE 3 ====================
             Apple   | Apple Watch | Watch | Apple Watch SE 3        | 40mm · GPS                        | USD | 340
@@ -1121,7 +1144,7 @@
                     modelo: modeloRaw,
                     specs: specsRaw,
                     garantia: esUsado
-                        ? "✓ Reacondicionado · Con garantía"
+                        ? (ecoRaw === "Apple" ? "✓ Testeado · Con garantía escrita" : "✓ Reacondicionado · Con garantía")
                         : "✓ Nuevo · Caja original sellada",
                     moneda,
                     valor,

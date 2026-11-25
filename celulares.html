@@ -782,8 +782,8 @@
 
         <header class="presentacion">
             <div class="etiqueta">Android · iPhone · Apple Watch</div>
-            <h1>Celulares Android y Apple (Nuevos y Usados) - Accesorios</h1>
-            <p class="intro">Equipos nuevos en caja sellada, usados seleccionados con garantía y toda la línea Apple Watch.<br>Precios finales en pesos argentinos actualizados al día.</p>
+            <h1>Celulares y Apple Watch</h1>
+            <p class="intro">Equipos nuevos en caja sellada, reacondicionados seleccionados con garantía y toda la línea Apple Watch.<br>Precios finales en pesos argentinos actualizados al día.</p>
             <div class="linea"></div>
         </header>
 
@@ -812,12 +812,12 @@
                 type="search"
                 id="buscador"
                 class="buscador-input"
-                placeholder="Buscar modelo, memoria o tamaño (ej: iPhone, Watch Ultra, 44mm, Samsung, 256GB)..."
+                placeholder="Buscar modelo, memoria o tamaño (ej: S26, Note 15, Watch Ultra, A51, 256GB)..."
                 aria-label="Buscar celulares o Apple Watch"
             >
         </div>
 
-        <!-- FILTRO 3: MARCAS / LÍNEAS -->
+        <!-- FILTRO 3: MARCAS / LÍNEAS (SE OCULTAN SEGÚN ECOSISTEMA) -->
         <nav class="filtros" id="filtros" aria-label="Filtrar por marca o línea">
             <button class="filtro activo" type="button" data-linea="Todos" data-eco-group="Todos">Todas las marcas</button>
             <button class="filtro" type="button" data-linea="Samsung" data-logo="Samsung" data-eco-group="Android">Samsung</button>
@@ -833,9 +833,9 @@
             <span>Precios sujetos a stock</span>
         </div>
 
-        <section class="secciones-grupos" id="lista-productos" aria-label="Catálogo de Celulares Android y Apple (Nuevos y Usados) - Accesorios"></section>
+        <section class="secciones-grupos" id="lista-productos" aria-label="Catálogo de celulares y Apple Watch"></section>
 
-        <p class="nota-legal">Imágenes de referencia ilustrativas. Los equipos nuevos se entregan en caja original sellada y los usados cuentan con revisión técnica y garantía escrita. Los valores publicados se calculan en pesos argentinos según la cotización vigente.</p>
+        <p class="nota-legal">Imágenes de referencia ilustrativas. Los equipos nuevos se entregan en caja original sellada y los reacondicionados cuentan con revisión técnica y garantía escrita. Los valores publicados se calculan en pesos argentinos según la cotización vigente.</p>
 
         <section class="a-medida">
             <strong>¿Buscás otro modelo, color o capacidad?</strong>
@@ -885,62 +885,173 @@
         /* =========================================================================
            CONFIGURACIÓN RÁPIDA DE GANANCIA Y COTIZACIÓN
         ========================================================================= */
-        const MARGEN_GANANCIA = 1.30;      // 1.30 = +30% de ganancia
+        const MARGEN_GANANCIA = 1.30;      // 1.30 = +30% de ganancia sobre equipos en USD
+        const MARGEN_USADOS_ARS = 1.00;    // 1.00 = respeta el precio en pesos publicado (cambiar a 1.15 si querés +15%)
         const COTIZACION_RESPALDO = 1450;  // Dólar de respaldo si falla la API externa
         const TELEFONO_ON = "5493364626333";
 
         // TABLA DE PRODUCTOS: Un producto por renglón con el formato:
-        // Ecosistema (Android / Apple) | Línea/Marca | Condición (Nuevo / Usado / Watch) | Modelo | Especificaciones | Costo USD
+        // Ecosistema (Android / Apple) | Línea/Marca | Condición (Nuevo / Usado / Watch) | Modelo | Especificaciones | Moneda (USD / ARS) | Precio
         const TABLA_PRODUCTOS = `
-            // ==================== ANDROID · NUEVOS EN CAJA SELLADA ====================
-            Android | Samsung  | Nuevo | Samsung Galaxy A16         | 128GB · 4GB RAM                   | 175
-            Android | Samsung  | Nuevo | Samsung Galaxy A26 5G      | 256GB · 8GB RAM                   | 275
-            Android | Samsung  | Nuevo | Samsung Galaxy A36 5G      | 256GB · 8GB RAM                   | 345
-            Android | Samsung  | Nuevo | Samsung Galaxy A56 5G      | 256GB · 8GB RAM                   | 430
-            Android | Samsung  | Nuevo | Samsung Galaxy S24 FE      | 256GB · 8GB RAM                   | 590
-            Android | Xiaomi   | Nuevo | Xiaomi Redmi 14C           | 256GB · 8GB RAM                   | 155
-            Android | Xiaomi   | Nuevo | Xiaomi Redmi Note 14       | 256GB · 8GB RAM                   | 215
-            Android | Xiaomi   | Nuevo | Xiaomi Redmi Note 14 Pro   | 256GB · 8GB RAM                   | 295
-            Android | POCO     | Nuevo | POCO X7 Pro 5G             | 512GB · 12GB RAM                  | 395
-            Android | Motorola | Nuevo | Motorola Moto G35 5G       | 256GB · 8GB RAM                   | 195
-            Android | Motorola | Nuevo | Motorola Edge 50 Fusion    | 256GB · 8GB RAM                   | 340
+            // ==================== ANDROID · SAMSUNG NUEVOS ====================
+            Android | Samsung  | Nuevo | Samsung Galaxy A07         | 64GB · 4GB RAM   | USD | 152
+            Android | Samsung  | Nuevo | Samsung Galaxy A07         | 128GB · 4GB RAM  | USD | 166
+            Android | Samsung  | Nuevo | Samsung Galaxy A16         | 128GB · 4GB RAM  | USD | 186
+            Android | Samsung  | Nuevo | Samsung Galaxy A17 4G      | 128GB · 4GB RAM  | USD | 195
+            Android | Samsung  | Nuevo | Samsung Galaxy A17 4G      | 128GB · 6GB RAM  | USD | 219
+            Android | Samsung  | Nuevo | Samsung Galaxy A17 4G      | 256GB · 8GB RAM  | USD | 287
+            Android | Samsung  | Nuevo | Samsung Galaxy A17 5G      | 128GB · 4GB RAM  | USD | 206
+            // Android | Samsung | Nuevo | Samsung Galaxy A17 5G    | 128GB · 6GB RAM  | USD | —
+            Android | Samsung  | Nuevo | Samsung Galaxy A17 5G      | 256GB · 8GB RAM  | USD | 312
+            Android | Samsung  | Nuevo | Samsung Galaxy A27         | 128GB · 6GB RAM  | USD | 297
+            Android | Samsung  | Nuevo | Samsung Galaxy A27         | 256GB · 8GB RAM  | USD | 349
+            Android | Samsung  | Nuevo | Samsung Galaxy A37         | 128GB · 6GB RAM  | USD | 335
+            Android | Samsung  | Nuevo | Samsung Galaxy A37         | 256GB · 8GB RAM  | USD | 390
+            Android | Samsung  | Nuevo | Samsung Galaxy A56         | 256GB · 8GB RAM  | USD | 411
+            Android | Samsung  | Nuevo | Samsung Galaxy A56         | 256GB · 12GB RAM | USD | 433
+            Android | Samsung  | Nuevo | Samsung Galaxy A57         | 128GB · 8GB RAM  | USD | 437
+            Android | Samsung  | Nuevo | Samsung Galaxy A57         | 256GB · 8GB RAM  | USD | 497
+            Android | Samsung  | Nuevo | Samsung Galaxy S25 FE      | 256GB · 8GB RAM  | USD | 600
+            // Android | Samsung | Nuevo | Samsung Galaxy S26       | 256GB · 12GB RAM | USD | —
+            Android | Samsung  | Nuevo | Samsung Galaxy S26         | 512GB · 12GB RAM | USD | 885
+            // Android | Samsung | Nuevo | Samsung Galaxy S26+      | 256GB · 12GB RAM | USD | —
+            // Android | Samsung | Nuevo | Samsung Galaxy S26+      | 512GB · 12GB RAM | USD | —
+            Android | Samsung  | Nuevo | Samsung Galaxy S26 Ultra   | 256GB · 12GB RAM | USD | 1045
+            Android | Samsung  | Nuevo | Samsung Galaxy S26 Ultra   | 512GB · 12GB RAM | USD | 1195
+            Android | Samsung  | Nuevo | Samsung Galaxy S21 FE 5G   | 128GB · Nuevo    | ARS | 600000
 
-            // ==================== ANDROID · USADOS SELECCIONADOS ====================
-            Android | Samsung  | Usado | Samsung Galaxy S23 Ultra   | 256GB · Impecable con garantía    | 620
+            // ==================== ANDROID · XIAOMI NUEVOS ====================
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi A7 Pro        | 64GB · 4GB RAM   | USD | 126
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi A7 Pro        | 128GB · 4GB RAM  | USD | 152
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi 15C           | 128GB · 4GB RAM  | USD | 159
+            // Android | Xiaomi  | Nuevo | Xiaomi Redmi 15C         | 256GB · 4GB RAM  | USD | —
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi 15C           | 256GB · 8GB RAM  | USD | 193
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi 15            | 128GB · 6GB RAM  | USD | 185
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi 15            | 256GB · 8GB RAM  | USD | 216
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi 17            | 128GB · 4GB RAM  | USD | 180
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi 17            | 256GB · 6GB RAM  | USD | 233
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi Note 15       | 128GB · 6GB RAM  | USD | 214
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi Note 15       | 256GB · 8GB RAM  | USD | 256
+            // Android | Xiaomi  | Nuevo | Xiaomi Redmi Note 15     | 512GB · 8GB RAM  | USD | —
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi Note 15 Pro   | 256GB · 8GB RAM  | USD | 312
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi Note 15 Pro 5G| 256GB · 8GB RAM  | USD | 341
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi Note 15 Pro 5G| 512GB · 12GB RAM | USD | 370
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi Note 17       | 256GB · 6GB RAM  | USD | 252
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi Note 17       | 256GB · 8GB RAM  | USD | 264
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi Note 17 5G    | 256GB · 6GB RAM  | USD | 287
+            Android | Xiaomi   | Nuevo | Xiaomi Redmi Note 17 Pro 5G| 256GB · 8GB RAM  | USD | 365
+
+            // ==================== ANDROID · POCO NUEVOS ====================
+            // Android | POCO    | Nuevo | POCO C71                   | 64GB · 3GB RAM   | USD | —
+            Android | POCO     | Nuevo | POCO C71                   | 128GB · 4GB RAM  | USD | 147
+            Android | POCO     | Nuevo | POCO C81 Pro               | 64GB · 4GB RAM   | USD | 130
+            Android | POCO     | Nuevo | POCO C81 Pro               | 128GB · 4GB RAM  | USD | 151
+            Android | POCO     | Nuevo | POCO C81 Pro               | 256GB · 4GB RAM  | USD | 178
+            Android | POCO     | Nuevo | POCO C85                   | 128GB · 6GB RAM  | USD | 169
+            Android | POCO     | Nuevo | POCO C85                   | 256GB · 8GB RAM  | USD | 202
+            Android | POCO     | Nuevo | POCO C95                   | 128GB · 6GB RAM  | USD | 205
+            Android | POCO     | Nuevo | POCO C95                   | 256GB · 8GB RAM  | USD | 239
+            Android | POCO     | Nuevo | POCO M8 5G                 | 256GB · 8GB RAM  | USD | 247
+            Android | POCO     | Nuevo | POCO X8 Pro 5G             | 256GB · 8GB RAM  | USD | 401
+
+            // ==================== ANDROID · MOTOROLA NUEVOS ====================
+            // Android | Motorola| Nuevo | Motorola Moto G06          | 64GB · 4GB RAM   | USD | —
+            Android | Motorola | Nuevo | Motorola Moto G06          | 128GB · 4GB RAM  | USD | 144
+            // Android | Motorola| Nuevo | Motorola Moto G06          | 256GB · 4GB RAM  | USD | —
+            // Android | Motorola| Nuevo | Motorola Moto G15          | 256GB · 4GB RAM  | USD | —
+            Android | Motorola | Nuevo | Motorola Moto G17          | 256GB · 4GB RAM  | USD | 202
+            Android | Motorola | Nuevo | Motorola Moto G17 Power    | 256GB · 8GB RAM  | USD | 243
+            Android | Motorola | Nuevo | Motorola Moto G35          | 256GB · 4GB RAM  | USD | 188
+            Android | Motorola | Nuevo | Motorola Moto G47          | 128GB · 8GB RAM  | USD | 203
+            Android | Motorola | Nuevo | Motorola Moto G56          | 256GB · 8GB RAM  | USD | 252
+            Android | Motorola | Nuevo | Motorola Moto G57          | 256GB · 8GB RAM  | USD | 241
+            Android | Motorola | Nuevo | Motorola Moto G67          | 256GB · 4GB RAM  | USD | 254
+            // Android | Motorola| Nuevo | Motorola Moto G77          | 256GB · 8GB RAM  | USD | —
+            Android | Motorola | Nuevo | Motorola Moto G86          | 256GB · 8GB RAM  | USD | 300
+            // Android | Motorola| Nuevo | Motorola Moto G86 Power    | 256GB · 8GB RAM  | USD | —
+            // Android | Motorola| Nuevo | Motorola Edge 60 Fusion    | 256GB · 8GB RAM  | USD | —
+
+            // ==================== ANDROID · REACONDICIONADOS GAMA MEDIA ====================
+            Android | Samsung  | Usado | Samsung Galaxy Grand Prime | 8GB · Reacondicionado  | ARS | 35000
+            Android | Samsung  | Usado | Samsung Galaxy J2 Prime    | 16GB · Reacondicionado | ARS | 45000
+            Android | Samsung  | Usado | Samsung Galaxy A01         | 32GB · Reacondicionado | ARS | 65000
+            Android | Samsung  | Usado | Samsung Galaxy J6          | 32GB · Reacondicionado | ARS | 70000
+            Android | Samsung  | Usado | Samsung Galaxy A5 2017     | 32GB · Reacondicionado | ARS | 75000
+            Android | Samsung  | Usado | Samsung Galaxy A10         | 32GB · Reacondicionado | ARS | 80000
+            Android | Samsung  | Usado | Samsung Galaxy A10s        | 32GB · Reacondicionado | ARS | 85000
+            Android | Samsung  | Usado | Samsung Galaxy A6 Plus     | 64GB · Reacondicionado | ARS | 100000
+            Android | Samsung  | Usado | Samsung Galaxy A8 2018     | 32GB · Reacondicionado | ARS | 100000
+            Android | Samsung  | Usado | Samsung Galaxy A11         | 64GB · Reacondicionado | ARS | 100000
+            Android | Samsung  | Usado | Samsung Galaxy A20         | 32GB · Reacondicionado | ARS | 100000
+            Android | Samsung  | Usado | Samsung Galaxy A20s        | 32GB · Reacondicionado | ARS | 100000
+            Android | Samsung  | Usado | Samsung Galaxy A30         | 32GB · Reacondicionado | ARS | 100000
+            Android | Samsung  | Usado | Samsung Galaxy A12         | 64GB · Reacondicionado | ARS | 105000
+            Android | Samsung  | Usado | Samsung Galaxy A30         | 64GB · Reacondicionado | ARS | 120000
+            Android | Samsung  | Usado | Samsung Galaxy A9 2018     | 128GB · Reacondicionado| ARS | 135000
+            Android | Samsung  | Usado | Samsung Galaxy A22 4G      | 128GB · Reacondicionado| ARS | 155000
+            Android | Samsung  | Usado | Samsung Galaxy A51         | 128GB · Reacondicionado| ARS | 160000
+            Android | Samsung  | Usado | Samsung Galaxy A70         | 128GB · Reacondicionado| ARS | 165000
+            Android | Samsung  | Usado | Samsung Galaxy A71         | 128GB · Reacondicionado| ARS | 210000
+            Android | Samsung  | Usado | Samsung Galaxy A72         | 128GB · Reacondicionado| ARS | 255000
+
+            // ==================== ANDROID · REACONDICIONADOS GAMA ALTA ====================
+            Android | Samsung  | Usado | Samsung Galaxy S7 Edge     | 32GB · Reacondicionado | ARS | 90000
+            Android | Samsung  | Usado | Samsung Galaxy S8 Traslúcido| 64GB · Reacondicionado| ARS | 90000
+            Android | Samsung  | Usado | Samsung Galaxy Note 8      | 64GB · Reacondicionado | ARS | 110000
+            Android | Samsung  | Usado | Samsung Galaxy S8 Plus     | 64GB · Reacondicionado | ARS | 110000
+            Android | Samsung  | Usado | Samsung Galaxy S9          | 64GB · Reacondicionado | ARS | 110000
+            Android | Samsung  | Usado | Samsung Galaxy S9 Plus     | 64GB · Reacondicionado | ARS | 125000
+            Android | Samsung  | Usado | Samsung Galaxy Note 9      | 128GB · Reacondicionado| ARS | 135000
+            Android | Samsung  | Usado | Samsung Galaxy S10e        | 128GB · Reacondicionado| ARS | 200000
+            Android | Samsung  | Usado | Samsung Galaxy S10         | 128GB · Reacondicionado| ARS | 240000
+            Android | Samsung  | Usado | Samsung Galaxy S10 Plus    | 128GB · Reacondicionado| ARS | 250000
+            Android | Samsung  | Usado | Samsung Z Flip (Tapa rota) | 256GB · Detalle estético| ARS | 260000
+            Android | Samsung  | Usado | Samsung Galaxy S20 (Balita)| 128GB · Reacondicionado| ARS | 290000
+            Android | Samsung  | Usado | Samsung Galaxy Note 10     | 256GB · Reacondicionado| ARS | 310000
+            Android | Samsung  | Usado | Samsung Galaxy S20 FE      | 128GB · Reacondicionado| ARS | 320000
+            Android | Samsung  | Usado | Samsung Z Flip 3 (Marco roto)| 128GB · Detalle estético| ARS | 320000
+            Android | Samsung  | Usado | Samsung Galaxy S20 Plus    | 128GB · Reacondicionado| ARS | 365000
+            Android | Samsung  | Usado | Samsung Galaxy Note 10 Plus| 512GB · Reacondicionado| ARS | 420000
+            Android | Samsung  | Usado | Samsung Galaxy Z Flip 4    | 128GB · Reacondicionado| ARS | 495000
+            Android | Samsung  | Usado | Samsung Galaxy Note 20 Ultra| 512GB · Reacondicionado| ARS | 550000
+            Android | Samsung  | Usado | Samsung Galaxy S22 Ultra   | 128GB · Reacondicionado| ARS | 595000
+            Android | Samsung  | Usado | Samsung Galaxy Z Fold 3    | 256GB · Reacondicionado| ARS | 605000
+            Android | Samsung  | Usado | Samsung Galaxy Z Fold 4    | 256GB · Reacondicionado| ARS | 715000
+            Android | Samsung  | Usado | Samsung Galaxy Z Fold 4    | 512GB · Reacondicionado| ARS | 770000
 
             // ==================== APPLE · iPHONE NUEVOS EN CAJA SELLADA ====================
-            Apple   | iPhone   | Nuevo | iPhone 13                  | 128GB · Caja sellada              | 560
-            Apple   | iPhone   | Nuevo | iPhone 15                  | 128GB · Caja sellada              | 730
-            Apple   | iPhone   | Nuevo | iPhone 16                  | 128GB · Caja sellada              | 840
-            Apple   | iPhone   | Nuevo | iPhone 16 Pro              | 256GB · Caja sellada              | 1140
-            Apple   | iPhone   | Nuevo | iPhone 16 Pro Max          | 256GB · Caja sellada              | 1260
+            Apple   | iPhone   | Nuevo | iPhone 13                  | 128GB · Caja sellada   | USD | 560
+            Apple   | iPhone   | Nuevo | iPhone 15                  | 128GB · Caja sellada   | USD | 730
+            Apple   | iPhone   | Nuevo | iPhone 16                  | 128GB · Caja sellada   | USD | 840
+            Apple   | iPhone   | Nuevo | iPhone 16 Pro              | 256GB · Caja sellada   | USD | 1140
+            Apple   | iPhone   | Nuevo | iPhone 16 Pro Max          | 256GB · Caja sellada   | USD | 1260
 
             // ==================== APPLE · iPHONE USADOS SELECCIONADOS ====================
-            Apple   | iPhone   | Usado | iPhone 13 Pro              | 128GB · Batería +85% · Garantía   | 520
-            Apple   | iPhone   | Usado | iPhone 14 Pro              | 256GB · Batería +85% · Garantía   | 650
+            Apple   | iPhone   | Usado | iPhone 13 Pro              | 128GB · Batería +85%   | USD | 520
+            Apple   | iPhone   | Usado | iPhone 14 Pro              | 256GB · Batería +85%   | USD | 650
 
             // ==================== APPLE WATCH · SERIE SE 3 ====================
-            Apple   | Apple Watch | Watch | Apple Watch SE 3        | 40mm · GPS                        | 340
-            Apple   | Apple Watch | Watch | Apple Watch SE 3 +LTE   | 40mm · GPS + Cellular (LTE)       | 460
-            Apple   | Apple Watch | Watch | Apple Watch SE 3        | 44mm · GPS                        | 370
-            Apple   | Apple Watch | Watch | Apple Watch SE 3 +LTE   | 44mm · GPS + Cellular (LTE)       | 490
+            Apple   | Apple Watch | Watch | Apple Watch SE 3        | 40mm · GPS                        | USD | 340
+            Apple   | Apple Watch | Watch | Apple Watch SE 3 +LTE   | 40mm · GPS + Cellular (LTE)       | USD | 460
+            Apple   | Apple Watch | Watch | Apple Watch SE 3        | 44mm · GPS                        | USD | 370
+            Apple   | Apple Watch | Watch | Apple Watch SE 3 +LTE   | 44mm · GPS + Cellular (LTE)       | USD | 490
 
             // ==================== APPLE WATCH · SERIE 11 ====================
-            Apple   | Apple Watch | Watch | Apple Watch S11         | 42mm · GPS                        | 490
-            Apple   | Apple Watch | Watch | Apple Watch S11 +LTE    | 46mm · GPS + Cellular (LTE)       | 620
+            Apple   | Apple Watch | Watch | Apple Watch S11         | 42mm · GPS                        | USD | 490
+            Apple   | Apple Watch | Watch | Apple Watch S11 +LTE    | 46mm · GPS + Cellular (LTE)       | USD | 620
 
             // ==================== APPLE WATCH · SERIE 12 ====================
-            Apple   | Apple Watch | Watch | Apple Watch S12         | 42mm · GPS                        | 500
-            Apple   | Apple Watch | Watch | Apple Watch S12         | 46mm · GPS                        | 550
-            Apple   | Apple Watch | Watch | Apple Watch S12 Milanese| 46mm · Malla Milanese Loop        | 670
-            Apple   | Apple Watch | Watch | Apple Watch S12 +LTE    | 46mm · GPS + Cellular (LTE)       | 740
+            Apple   | Apple Watch | Watch | Apple Watch S12         | 42mm · GPS                        | USD | 500
+            Apple   | Apple Watch | Watch | Apple Watch S12         | 46mm · GPS                        | USD | 550
+            Apple   | Apple Watch | Watch | Apple Watch S12 Milanese| 46mm · Malla Milanese Loop        | USD | 670
+            Apple   | Apple Watch | Watch | Apple Watch S12 +LTE    | 46mm · GPS + Cellular (LTE)       | USD | 740
 
             // ==================== APPLE WATCH · LÍNEA ULTRA ====================
-            Apple   | Apple Watch | Watch | Apple Watch Ultra 2 Milanese | 49mm · Titanio · Malla Milanese | 770
-            Apple   | Apple Watch | Watch | Apple Watch Ultra 3     | 49mm · Titanio                    | 790
-            Apple   | Apple Watch | Watch | Apple Watch Ultra 3 Milanese | 49mm · Titanio · Malla Milanese | 920
-            Apple   | Apple Watch | Watch | Apple Watch Ultra 4     | 49mm · Titanio                    | 930
-            Apple   | Apple Watch | Watch | Apple Watch Ultra 4 Milanese | 49mm · Titanio · Malla Milanese | 1120
+            Apple   | Apple Watch | Watch | Apple Watch Ultra 2 Milanese | 49mm · Titanio · Malla Milanese | USD | 770
+            Apple   | Apple Watch | Watch | Apple Watch Ultra 3     | 49mm · Titanio                    | USD | 790
+            Apple   | Apple Watch | Watch | Apple Watch Ultra 3 Milanese | 49mm · Titanio · Malla Milanese | USD | 920
+            Apple   | Apple Watch | Watch | Apple Watch Ultra 4     | 49mm · Titanio                    | USD | 930
+            Apple   | Apple Watch | Watch | Apple Watch Ultra 4 Milanese | 49mm · Titanio · Malla Milanese | USD | 1120
         `;
 
         /* =========================================================================
@@ -983,9 +1094,10 @@
             .map(linea => linea.trim())
             .filter(linea => linea && !linea.startsWith("//") && linea.includes("|"))
             .map(linea => {
-                const [ecoRaw, lineaRaw, condRaw, modeloRaw, specsRaw, precioRaw] = linea.split("|").map(col => col.trim());
+                const [ecoRaw, lineaRaw, condRaw, modeloRaw, specsRaw, monedaRaw, precioRaw] = linea.split("|").map(col => col.trim());
                 const numeroPrecio = parseFloat((precioRaw || "").replace(/[^0-9.]/g, ""));
-                const costoUSD = !isNaN(numeroPrecio) && numeroPrecio > 0 ? numeroPrecio : null;
+                const valor = !isNaN(numeroPrecio) && numeroPrecio > 0 ? numeroPrecio : null;
+                const moneda = (monedaRaw || "USD").toUpperCase();
                 const esWatch = /watch/i.test(lineaRaw) || /watch/i.test(condRaw);
                 const esUsado = /usado/i.test(condRaw);
 
@@ -1009,9 +1121,10 @@
                     modelo: modeloRaw,
                     specs: specsRaw,
                     garantia: esUsado
-                        ? "✓ Testeado · Garantía escrita"
+                        ? "✓ Reacondicionado · Con garantía"
                         : "✓ Nuevo · Caja original sellada",
-                    costoUSD,
+                    moneda,
+                    valor,
                     foto: generarNombreArchivoFoto(modeloRaw, specsRaw)
                 };
             });
@@ -1025,7 +1138,7 @@
             },
             {
                 key: "android-usados",
-                titulo: "Android · Usados Seleccionados",
+                titulo: "Android · Reacondicionados y Usados",
                 tag: "♻️ Con Garantía",
                 claseTag: "usado"
             },
@@ -1156,7 +1269,7 @@
                     <rect x="92" y="14" width="96" height="182" rx="18" fill="#18181b" stroke="#52525b" stroke-width="2.2"/>
                     <rect x="98" y="20" width="84" height="170" rx="13" fill="url(#phoneScr)"/>
                     ${isla}
-                    <text x="140" y="96" fill="#f3f5f4" font-family="Arial, sans-serif" font-size="10.5" font-weight="bold" text-anchor="middle">${escapeHTML(prod.modelo)}</text>
+                    <text x="140" y="96" fill="#f3f5f4" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle">${escapeHTML(prod.modelo.replace(/^Samsung Galaxy\s+/i, ""))}</text>
                     <text x="140" y="113" fill="${acento}" font-family="Arial, sans-serif" font-size="8.5" font-weight="bold" text-anchor="middle">${escapeHTML(prod.specs.split("·")[0].trim())}</text>
                     <rect x="122" y="182" width="36" height="3" rx="1.5" fill="#71717a"/>
                 </svg>
@@ -1164,12 +1277,16 @@
             return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svgPhone);
         }
 
-        function calcularPrecioARS(costoUSD) {
-            if (costoUSD === null || costoUSD === undefined || isNaN(costoUSD)) {
+        function calcularPrecioARS(prod) {
+            if (prod.valor === null || prod.valor === undefined || isNaN(prod.valor)) {
                 return null;
             }
-            const bruto = costoUSD * MARGEN_GANANCIA * cotizacionActual;
-            return Math.ceil(bruto / 1000) * 1000;
+            if (prod.moneda === "ARS") {
+                const brutoARS = prod.valor * MARGEN_USADOS_ARS;
+                return Math.ceil(brutoARS / 1000) * 1000;
+            }
+            const brutoUSD = prod.valor * MARGEN_GANANCIA * cotizacionActual;
+            return Math.ceil(brutoUSD / 1000) * 1000;
         }
 
         function formatearPesos(valor) {
@@ -1179,7 +1296,7 @@
         function abrirVisor(idx) {
             const prod = productos[idx];
             if (!prod) return;
-            const precioARS = calcularPrecioARS(prod.costoUSD);
+            const precioARS = calcularPrecioARS(prod);
             const textoPrecio = precioARS ? formatearPesos(precioARS) : "Consultar";
             const fallbackSVG = generarImagenReferenciaSVG(prod);
 
@@ -1239,7 +1356,7 @@
                 if (items.length === 0) return "";
 
                 const cardsHTML = items.map(prod => {
-                    const precioARS = calcularPrecioARS(prod.costoUSD);
+                    const precioARS = calcularPrecioARS(prod);
                     const textoPrecio = precioARS ? formatearPesos(precioARS) : "Consultar";
                     const esWatch = prod.esWatch;
                     const esUsado = prod.estadoFiltro === "Usado";

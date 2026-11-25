@@ -152,13 +152,14 @@
         }
 
         /* =========================
-           TABS DE ECOSISTEMA (TODOS / ANDROID / APPLE)
+           TABS DE ECOSISTEMA Y CONDICIÓN
         ========================= */
-        .tabs-ecosistema {
+        .tabs-ecosistema,
+        .tabs-condicion {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 8px;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .tab-eco {
@@ -184,6 +185,36 @@
             background: rgba(57, 211, 83, 0.14);
             color: var(--accent);
             box-shadow: 0 4px 14px rgba(57, 211, 83, 0.14);
+        }
+
+        .tab-cond {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 8px;
+            border-radius: 11px;
+            border: 1px solid var(--border-card);
+            background: #0d110f;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-cond:hover,
+        .tab-cond.activo {
+            border-color: rgba(57, 211, 83, 0.65);
+            background: rgba(57, 211, 83, 0.12);
+            color: var(--text-main);
+        }
+
+        .tab-cond[data-cond="Usado"].activo {
+            border-color: var(--amber);
+            background: rgba(245, 158, 11, 0.14);
+            color: var(--amber-light);
         }
 
         /* =========================
@@ -728,6 +759,10 @@
                 font-size: 12.5px;
                 padding: 10px 6px;
             }
+            .tab-cond {
+                font-size: 11.5px;
+                padding: 8px 4px;
+            }
         }
     </style>
 </head>
@@ -760,6 +795,13 @@
             <button class="tab-eco" type="button" data-eco="Apple"> Apple</button>
         </div>
 
+        <!-- FILTRO 2: CONDICIÓN (TODOS / NUEVOS / USADOS) -->
+        <div class="tabs-condicion" id="tabs-condicion" role="tablist" aria-label="Filtrar por condición">
+            <button class="tab-cond activo" type="button" data-cond="Todos">Todos los estados</button>
+            <button class="tab-cond" type="button" data-cond="Nuevo">✨ Nuevos</button>
+            <button class="tab-cond" type="button" data-cond="Usado">♻️ Usados</button>
+        </div>
+
         <div class="buscador-caja">
             <span class="buscador-icono" aria-hidden="true">🔍</span>
             <input
@@ -771,9 +813,9 @@
             >
         </div>
 
-        <!-- FILTRO 2: MARCAS / LÍNEAS -->
+        <!-- FILTRO 3: MARCAS / LÍNEAS -->
         <nav class="filtros" id="filtros" aria-label="Filtrar por marca o línea">
-            <button class="filtro activo" type="button" data-linea="Todos">Todos</button>
+            <button class="filtro activo" type="button" data-linea="Todos">Todas las marcas</button>
             <button class="filtro" type="button" data-linea="Samsung" data-logo="Samsung">Samsung</button>
             <button class="filtro" type="button" data-linea="Xiaomi" data-logo="Xiaomi">Xiaomi</button>
             <button class="filtro" type="button" data-linea="POCO" data-logo="POCO">POCO</button>
@@ -845,7 +887,6 @@
 
         // TABLA DE PRODUCTOS: Un producto por renglón con el formato:
         // Ecosistema (Android / Apple) | Línea/Marca | Condición (Nuevo / Usado / Watch) | Modelo | Especificaciones | Costo USD
-        // (Nota: Podés editar, agregar o quitar tus celulares Android y iPhone acá mismo respetando las columnas separadas por |)
         const TABLA_PRODUCTOS = `
             // ==================== ANDROID · NUEVOS EN CAJA SELLADA ====================
             Android | Samsung  | Nuevo | Samsung Galaxy A16         | 128GB · 4GB RAM                   | 175
@@ -958,7 +999,8 @@
                 return {
                     ecosistema: ecoRaw,
                     linea: lineaRaw,
-                    condicion: esWatch ? "Watch" : (esUsado ? "Usado" : "Nuevo"),
+                    esWatch,
+                    estadoFiltro: esUsado ? "Usado" : "Nuevo",
                     grupoKey,
                     modelo: modeloRaw,
                     specs: specsRaw,
@@ -1005,6 +1047,7 @@
 
         let cotizacionActual = COTIZACION_RESPALDO;
         let ecoSeleccionado = "Todos";
+        let condSeleccionada = "Todos";
         let lineaSeleccionada = "Todos";
         let filtroTexto = "";
 
@@ -1026,7 +1069,7 @@
         }
 
         function generarImagenReferenciaSVG(prod) {
-            const esWatch = prod.linea === "Apple Watch";
+            const esWatch = prod.esWatch;
             const colores = {
                 "Samsung": "#38bdf8",
                 "Xiaomi": "#fb923c",
@@ -1053,17 +1096,12 @@
                                 <stop offset="100%" stop-color="#39d353" stop-opacity="0.24"/>
                             </linearGradient>
                         </defs>
-                        <!-- Correa superior e inferior -->
                         <path d="M114 16 H166 L172 48 H108 Z" fill="${colorMalla}" stroke="#52525b" stroke-width="1.4"/>
                         <path d="M108 154 H172 L166 186 H114 Z" fill="${colorMalla}" stroke="#52525b" stroke-width="1.4"/>
-                        <!-- Corona digital y botón lateral -->
                         <rect x="183" y="72" width="6" height="18" rx="2.5" fill="${colorCaja}" stroke="#71717a" stroke-width="1.2"/>
                         <rect x="183" y="102" width="4" height="24" rx="2" fill="${colorCaja}" stroke="#71717a" stroke-width="1.2"/>
-                        <!-- Caja del reloj -->
                         <rect x="97" y="46" width="86" height="110" rx="22" fill="${colorCaja}" stroke="#71717a" stroke-width="2.2"/>
-                        <!-- Pantalla -->
                         <rect x="104" y="53" width="72" height="96" rx="16" fill="url(#watchScr)"/>
-                        <!-- Anillos de actividad decorativos -->
                         <circle cx="140" cy="84" r="14" fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="68 20" stroke-linecap="round"/>
                         <circle cx="140" cy="84" r="10" fill="none" stroke="#39d353" stroke-width="3" stroke-dasharray="48 15" stroke-linecap="round"/>
                         <circle cx="140" cy="84" r="6" fill="none" stroke="#38bdf8" stroke-width="3" stroke-dasharray="28 10" stroke-linecap="round"/>
@@ -1151,20 +1189,21 @@
                 .map((prod, index) => ({ ...prod, index }))
                 .filter(prod => {
                     const coincideEco = ecoSeleccionado === "Todos" || prod.ecosistema === ecoSeleccionado;
+                    const coincideCond = condSeleccionada === "Todos" || prod.estadoFiltro === condSeleccionada;
                     const coincideLinea = lineaSeleccionada === "Todos" || prod.linea === lineaSeleccionada;
                     const coincideTexto = !termino ||
                         prod.modelo.toLowerCase().includes(termino) ||
                         prod.specs.toLowerCase().includes(termino) ||
                         prod.linea.toLowerCase().includes(termino) ||
                         prod.ecosistema.toLowerCase().includes(termino) ||
-                        prod.condicion.toLowerCase().includes(termino);
-                    return coincideEco && coincideLinea && coincideTexto;
+                        prod.estadoFiltro.toLowerCase().includes(termino);
+                    return coincideEco && coincideCond && coincideLinea && coincideTexto;
                 });
 
             contadorProductos.textContent = `${filtrados.length} ${filtrados.length === 1 ? "producto" : "productos"}`;
 
             if (filtrados.length === 0) {
-                contenedorLista.innerHTML = `<div class="sin-resultados">No encontramos productos con ese filtro.<br>Probá tocando "Todos" o consultanos por WhatsApp si buscás otro modelo.</div>`;
+                contenedorLista.innerHTML = `<div class="sin-resultados">No encontramos productos con esa combinación de filtros.<br>Probá tocando "Todos" o consultanos por WhatsApp si buscás otro modelo.</div>`;
                 return;
             }
 
@@ -1175,8 +1214,8 @@
                 const cardsHTML = items.map(prod => {
                     const precioARS = calcularPrecioARS(prod.costoUSD);
                     const textoPrecio = precioARS ? formatearPesos(precioARS) : "Consultar";
-                    const esWatch = prod.linea === "Apple Watch";
-                    const esUsado = prod.condicion === "Usado";
+                    const esWatch = prod.esWatch;
+                    const esUsado = prod.estadoFiltro === "Usado";
                     const esLTE = /\+lte/i.test(prod.modelo) || /lte/i.test(prod.specs);
 
                     const badgeClase = esWatch ? "watch" : (esUsado ? "usado" : "nuevo");
@@ -1273,12 +1312,28 @@
                 btn.classList.add("activo");
                 ecoSeleccionado = btn.dataset.eco;
 
-                // Si cambia de ecosistema y había una marca incompatible seleccionada, resetea el filtro de marca
                 if (ecoSeleccionado === "Android" && (lineaSeleccionada === "iPhone" || lineaSeleccionada === "Apple Watch")) {
                     lineaSeleccionada = "Todos";
                     document.querySelector(".filtro.activo")?.classList.remove("activo");
                     document.querySelector('.filtro[data-linea="Todos"]')?.classList.add("activo");
                 } else if (ecoSeleccionado === "Apple" && ["Samsung", "Xiaomi", "POCO", "Motorola"].includes(lineaSeleccionada)) {
+                    lineaSeleccionada = "Todos";
+                    document.querySelector(".filtro.activo")?.classList.remove("activo");
+                    document.querySelector('.filtro[data-linea="Todos"]')?.classList.add("activo");
+                }
+
+                renderizar();
+            });
+        });
+
+        document.querySelectorAll(".tab-cond").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelector(".tab-cond.activo")?.classList.remove("activo");
+                btn.classList.add("activo");
+                condSeleccionada = btn.dataset.cond;
+
+                // Si elige Usados y tenía seleccionado Apple Watch (que son todos nuevos), resetea la línea a Todos
+                if (condSeleccionada === "Usado" && lineaSeleccionada === "Apple Watch") {
                     lineaSeleccionada = "Todos";
                     document.querySelector(".filtro.activo")?.classList.remove("activo");
                     document.querySelector('.filtro[data-linea="Todos"]')?.classList.add("activo");
